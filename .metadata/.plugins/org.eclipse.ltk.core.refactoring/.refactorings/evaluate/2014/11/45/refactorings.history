@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;LevenshteinDistance.java&apos; to &apos;testing/src/(default package)&apos;&#x0A;- Original project: &apos;evaluate&apos;&#x0A;- Destination element: &apos;testing/src/(default package)&apos;&#x0A;- Original element: &apos;evaluate.LevenshteinDistance.java&apos;" description="Copy compilation unit" destination="=testing/src&lt;" element1="/src&lt;evaluate{LevenshteinDistance.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1415466225104" units="1" version="1.0"/>
+</session>

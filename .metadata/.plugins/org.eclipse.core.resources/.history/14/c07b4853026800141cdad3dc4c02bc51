@@ -1,0 +1,8 @@
+public class justforfun {
+	public static void main(String[] args) {
+		System.out.println("Helo world...");
+		str1 = "they";
+		str2 = "the";
+		LevenshteinDistance.computeLevenshteinDistance(str1, str2);
+	}
+}

@@ -1,0 +1,52 @@
+package project.speech.evaluationsystem;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import edu.cmu.sphinx.api.Configuration;
+import project.speech.asrengines.*;
+
+public class EvaluationSystem {
+
+	File resource = new File("res");
+	ArrayList<File> database = new ArrayList<File>();
+	ArrayList<File> speechFiles = new ArrayList<File>();
+	ArrayList<File> promptFiles = new ArrayList<File>();
+
+	public static void main(String[] args) throws IOException {
+
+		CmuSphinxEngine cmu = new CmuSphinxEngine();
+		Configuration conf = cmu.configure();
+		cmu.recognizeSpeech(conf);
+
+		System.out.println(resource.listFiles());
+		database = changeDirectory(resource);
+
+		for (int i = 0; i < database.size(); i++) {
+			if (database.get(i).isDirectory() == true) {
+				for (File each : database.get(i).listFiles()) {
+					if (each.getName().compareTo("wav") == 0) {
+						speechFiles = changeDirectory(each);
+					}
+					if (each.getName().compareTo("etc") == 0) {
+						promptFiles = changeDirectory(each);
+						for (File files : promptFiles) {
+							if (files.getName().compareTo("prompts-original") == 0) {
+								File prompt = files;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public static ArrayList<File> changeDirectory(File currentPath) {
+		ArrayList<File> folders = new ArrayList<File>();
+		for (File eachPath : currentPath.listFiles()) {
+			folders.add(eachPath);
+		}
+		return folders;
+	}
+}

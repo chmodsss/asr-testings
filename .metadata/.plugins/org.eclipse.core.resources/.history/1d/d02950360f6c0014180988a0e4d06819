@@ -1,0 +1,70 @@
+package project.speech.asrengines;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import org.apache.commons.io.FilenameUtils;
+
+import edu.cmu.sphinx.api.Configuration;
+import edu.cmu.sphinx.api.SpeechResult;
+import edu.cmu.sphinx.api.StreamSpeechRecognizer;
+
+public class CmuSphinxEngine {
+	
+	private String languageModel;
+	private String dictionaryModel;
+	private String acousticModel;
+
+	public CmuSphinxEngine(String language, String dictionary, String acoustic) {
+		System.out.println("Object instantiated...");
+		languageModel = language;
+		dictionaryModel = dictionary;
+		acousticModel = acoustic;
+		Configuration configuration = new Configuration();
+	}
+
+
+	public void configure() {
+		System.out.println("Configuring cmusphinx models...");
+		configuration.setAcousticModelPath(acousticModel);
+		configuration.setDictionaryPath(dictionaryModel);
+		configuration.setLanguageModelPath(languageModel);
+	}
+	public void recognizeSpeech() {
+		PrintWriter outFile = new PrintWriter("resultOutputNew.txt", "UTF-8");
+		StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(configuration);
+		try {
+			File dir = new File("resource/Firefox005-20100820-qku/wav");
+			System.out.println("File loading completed...\n");
+			System.out.println("Start of recognition...\n");
+			ArrayList<String> filePath = new ArrayList<String>();
+			ArrayList<String> fileNameExtension = new ArrayList<String>();
+			for (File each : dir.listFiles()) {
+				filePath.add(each.getAbsolutePath());
+				fileNameExtension.add(each.getName());
+			}
+			Collections.sort(filePath);
+			Collections.sort(fileNameExtension);
+			for (int idx = 0; idx < filePath.size(); idx++) {
+				recognizer.startRecognition(new FileInputStream(filePath
+						.get(idx)));
+				SpeechResult result = recognizer.getResult();
+				recognizer.stopRecognition();
+				String sentenceDetected = result.getHypothesis();
+				String fileName = FilenameUtils
+						.removeExtension(fileNameExtension.get(idx));
+				outFile.print(fileName + " ");
+				outFile.println(sentenceDetected);
+			}
+			outFile.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not available in the given path...");
+		}
+		System.out.println("End of recognition...\n");
+		System.out.println("Exit...");
+	}
+}

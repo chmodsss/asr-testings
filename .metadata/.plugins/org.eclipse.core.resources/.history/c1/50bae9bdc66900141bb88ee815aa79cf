@@ -1,0 +1,88 @@
+import java.io.*;
+import java.util.*;
+import java.lang.Integer;
+
+class testing_main {
+	@SuppressWarnings("null")
+	public static List<String> shift(List<String> original, int leftPose,
+			int rightPose) {
+		int gap = Math.abs(leftPose - rightPose);
+		for (int i = 0; i < gap; i++) {
+			original.add(original.get(original.size() - 1));
+		}
+		if (leftPose < rightPose) {
+			for (int i = 0; i < gap; i++) {
+				for (int k = original.size() - 1; k > leftPose; k--) {
+					original.set(k, original.get(k - 1));
+				}
+				original.set(leftPose, "=====");
+			}
+		} else if (leftPose > rightPose) {
+			for (int i = 0; i < gap; i++) {
+				for (int k = original.size() - 1; k > rightPose; k--) {
+					original.set(k, original.get(k - 1));
+				}
+				original.set(rightPose, "=====");
+			}
+		}
+		return original;
+	}
+
+	public static void main(String[] Args) {
+		System.out.println("Hello world...");
+		String str1 = "It was this on out own proposition that started the big idea in Daughtry's mind";
+		List<String> ref = new ArrayList<String>(Arrays.asList(str1.split(" ")));
+		String str2 = "it was the proposition but what that started the be idea and daughter reese mind";
+		List<String> hyp = new ArrayList<String>(Arrays.asList(str2.split(" ")));
+		for (int idx = 0; idx < ref.size(); idx++) {
+			String SaveOut = null;
+			int store = Integer.MAX_VALUE;
+			int index = 0;
+			int hit = 20;
+			Boolean same = false;
+			for (int idxx = 0; idxx < hyp.size(); idxx++) {
+				if ( (ref.get(idx) != "=====") || (hyp.get(idxx) != "=====")) {
+					hit = ref.get(idx).compareToIgnoreCase(hyp.get(idxx));
+					// System.out.println("reference : "+ref.get(idx));
+					// System.out.println("hypothesis : "+hyp.get(idxx));
+					if (hit == 0) {
+						SaveOut = hyp.get(idxx);
+						same = true;
+						System.out.println(ref.get(idx) + ":::::"
+								+ hyp.get(idxx));
+						if (Math.abs(idx - idxx) < store) {
+							store = Math.abs(idx - idxx);
+							index = idxx;
+						}
+					}
+				}
+			}
+			if ((same == true) && (idx != index)) {
+				System.out.println("idx : " + idx + "idxx" + index);
+				if (index > idx) {
+					ref = shift(ref, idx, index);
+				} else if (idx > index) {
+					hyp = shift(hyp, idx, index);
+					System.out.println("check");
+				}
+			}
+			/*
+			 * if (flag == false){ hyp = shift(hyp,idx); }
+			 */
+		}
+		for (int k = 0; k < ref.size(); k++) {
+			System.out.println(ref.get(k) + "   " + hyp.get(k));
+		}
+
+	}
+}
+
+/*
+ * for (int k = 0; k < ref.size(); k++) { int dist = 0; int inc = 0; int mindist
+ * = Integer.MAX_VALUE; if (hyp.get(k) == "=====") { String nxtWord = null; for
+ * (int kk = k; kk < hyp.size(); kk++) { if (hyp.get(kk) != "=====") { while
+ * (ref.get(k) == "=====") { nxtWord = hyp.get(kk + inc); dist =
+ * LevenshteinDistance .computeLevenshteinDistance(ref.get(k), nxtWord); if
+ * (dist < mindist) { mindist = dist; } inc++; } break; } }
+ * System.out.println(ref.get(k) + "   " + hyp.get(k) + mindist); } }
+ */

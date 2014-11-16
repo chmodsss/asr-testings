@@ -1,0 +1,53 @@
+package project.speech.evaluationsystem;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import edu.cmu.sphinx.api.Configuration;
+import project.speech.asrengines.*;
+
+public class EvaluationSystem {
+
+	private static File resource = new File("resource/speechCorpora");
+	private static ArrayList<File> speechDatabase = new ArrayList<File>();
+	private static ArrayList<File> speechFiles = new ArrayList<File>();
+	private static ArrayList<File> referenceFiles = new ArrayList<File>();
+
+	public static ArrayList<File> readDirectory(File currentPath) {
+		ArrayList<File> folders = new ArrayList<File>();
+		for (File eachPath : currentPath.listFiles()) {
+			folders.add(eachPath);
+		}
+		return folders;
+	}
+	
+	public static void main(String[] args) throws IOException {
+
+		CmuSphinxEngine cmu = new CmuSphinxEngine();
+		Configuration conf = cmu.configure();
+
+		speechDatabase = readDirectory(resource);
+
+		for (int i = 0; i < speechDatabase.size(); i++) {
+			File currentDatabase = speechDatabase.get(i);
+			File promptOriginal = null;
+			if (currentDatabase.isDirectory() == true) {
+				for (File each : currentDatabase.listFiles()) {
+					if (each.getName().compareTo("wav") == 0) {
+						speechFiles = readDirectory(each);
+					}
+					if (each.getName().compareTo("etc") == 0) {
+						referenceFiles = readDirectory(each);
+						for (File files : referenceFiles) {
+							if (files.getName().compareTo("prompts-original") == 0) {
+								promptOriginal = files;
+							}
+						}
+					}
+				}
+			}
+			cmu.recognizeSpeech(conf, currentDatabase, speechFiles , promptOriginal);
+		}
+	}
+}

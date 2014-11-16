@@ -1,0 +1,2 @@
+Main-Class: edu.cmu.sphinx.demo.aligner.AlignerDemo
+Class-Path: ../lib/sphinx4.jar

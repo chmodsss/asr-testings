@@ -1,0 +1,17 @@
+package evaluate_pkg;
+
+import java.util.*;
+import java.io.*;
+
+public class FileCollector {
+private File refFileLine;
+private File hypFileLine;
+
+public String getRefFileLine(){
+	refFileLine = ;
+}
+public String getHypFileLine(){
+	
+}
+
+}

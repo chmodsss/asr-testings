@@ -1,0 +1,5 @@
+package project.speech.evaluator;
+
+public class EvaluatorResult {
+
+}

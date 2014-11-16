@@ -1,0 +1,9 @@
+package project.speech.evaluationsystem;
+
+public class EvaluationSystem {
+	public static void main(String[] args) {
+		CmuSphinxEngine obj = new CmuSphinxEngine();
+
+	}
+
+}

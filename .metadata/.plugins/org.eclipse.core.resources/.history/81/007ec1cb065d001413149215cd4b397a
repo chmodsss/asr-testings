@@ -1,0 +1,9 @@
+package trial;
+
+public class Subclass {
+	public static void main(){
+	public func(){
+	System.out.println("Hello world..");
+	}
+	}
+}

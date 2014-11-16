@@ -1,0 +1,14 @@
+package project.speech.evaluationsystem;
+
+import project.speech.asrengines.*;
+
+public class EvaluationSystem {
+	private String languageModel;
+	private String DictionaryModel;
+	private String AcousticModel;
+	public static void main(String[] args) {
+		CmuSphinxEngine obj = new CmuSphinxEngine();
+
+	}
+
+}

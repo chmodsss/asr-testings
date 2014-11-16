@@ -1,0 +1,5 @@
+package trial;
+
+public class Subclass {
+	System.out.println("Hello world..");
+}

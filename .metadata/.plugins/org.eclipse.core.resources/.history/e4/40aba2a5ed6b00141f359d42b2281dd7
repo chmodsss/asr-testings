@@ -1,0 +1,18 @@
+package project.speech.evaluationsystem;
+
+import project.speech.asrengines.*;
+
+public class EvaluationSystem {
+	private static String languageModel;
+	private static String dictionaryModel;
+	private static String acousticModel;
+	public static void main(String[] args) {
+		languageModel = "resource/models/language/en-us.lm.dmp";
+		dictionaryModel = "";
+		acousticModel = "";
+		
+		CmuSphinxEngine obj = new CmuSphinxEngine();
+
+	}
+
+}

@@ -1,0 +1,15 @@
+package evaluate_pkg;
+
+import java.util.*;
+import java.io.*;
+
+public class Files {
+private File refFile;
+private File hypFile;
+
+public File getFile(){
+	refFile = new File("/resource/prompts-original");
+	return refFile;
+}
+
+}

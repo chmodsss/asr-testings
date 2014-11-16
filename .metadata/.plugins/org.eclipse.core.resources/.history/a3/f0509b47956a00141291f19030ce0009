@@ -1,0 +1,9 @@
+package evaluate_pkg;
+
+import java.util.*;
+import java.io.*;
+
+public class FileCollector {
+private File refFile;
+private File hypFile;
+}

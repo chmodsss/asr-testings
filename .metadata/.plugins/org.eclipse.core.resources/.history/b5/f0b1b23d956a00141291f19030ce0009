@@ -1,0 +1,5 @@
+package evaluate_pkg;
+
+public class FileCollector {
+
+}

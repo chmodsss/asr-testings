@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class justforfun {
+	public static void main(String[] args) {
+		System.out.println("Helo world...");
+		String str1 = "hi my name is surya";
+		String str2 = "they";
+		int res = LevenshteinDistance.computeLevenshteinDistance(str1, str2);
+		System.out.println((double) res / str1.length());
+		List<String> testString = new ArrayList<String>();
+		testString = Arrays.asList(str1.split(" "));
+		System.out.println(testString);
+		System.out.println(testString.size());
+		testString.add("and sua")
+		System.out.println(testString);
+	}
+}

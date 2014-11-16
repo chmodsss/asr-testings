@@ -1,0 +1,12 @@
+import java.util.*;
+public class justforfun {
+	public static void main(String[] args) {
+		System.out.println("Helo world...");
+		String str1 = "the";
+		String str2 = "they";
+		int res = LevenshteinDistance.computeLevenshteinDistance(str1, str2);
+		System.out.println((double) res / str1.length());
+		List<String> testString = ArrayList<String>();
+		
+	}
+}

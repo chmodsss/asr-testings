@@ -1,0 +1,18 @@
+package project.speech.evaluationsystem;
+
+import java.io.IOException;
+
+import edu.cmu.sphinx.api.Configuration;
+import project.speech.asrengines.*;
+
+public class EvaluationSystem {
+	private static String languageModel;
+	private static String dictionaryModel;
+	private static String acousticModel;
+	public static void main(String[] args) throws IOException {
+		CmuSphinxEngine cmu = new CmuSphinxEngine();
+		Configuration conf = cmu.configure();
+		cmu.recognizeSpeech(conf);
+	}
+
+}
