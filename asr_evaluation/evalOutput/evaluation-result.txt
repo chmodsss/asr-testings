@@ -1,0 +1,3 @@
+anonymous-20140425-qbj
+iSpeech-output	 	Hits : 47	Insertions : 5	Deletions : 3	Substitutions : 39
+CmuSphinx-output	 	Hits : 47	Insertions : 5	Deletions : 3	Substitutions : 39

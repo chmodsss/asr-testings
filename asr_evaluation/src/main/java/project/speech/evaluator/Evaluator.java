@@ -41,6 +41,7 @@ public class Evaluator {
 	public EvaluatorResult evaluate() throws IOException {
 		System.out.println("Hello world...");
 		BufferedReader readRef = new BufferedReader(new FileReader(ref));
+		@SuppressWarnings("resource")
 		BufferedReader readHyp = new BufferedReader(new FileReader(hyp));
 		String refLine;
 		while ((refLine = readRef.readLine()) != null) {

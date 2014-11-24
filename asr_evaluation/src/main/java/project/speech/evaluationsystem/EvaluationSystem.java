@@ -1,19 +1,23 @@
 package project.speech.evaluationsystem;
 
+
 import java.io.File;
-import java.io.IOException;
+import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+
 import edu.cmu.sphinx.api.Configuration;
 import project.speech.asrengines.*;
-import project.speech.evaluator.Evaluator;
-import project.speech.evaluator.EvaluatorResult;
+import project.speech.evaluator.*;
 
 public class EvaluationSystem {
 
 	private static File speechCorpora = new File("resource/speechCorpora");
 	private static File asrOutput = new File("asrOutput");
+	private static File evalOutput = new File("evalOutput");
 	private static ArrayList<File> speechDatabase = new ArrayList<File>();
 	private static ArrayList<File> outputDatabase = new ArrayList<File>();
 	// private static ArrayList<File> speechFiles = new ArrayList<File>();
@@ -21,6 +25,8 @@ public class EvaluationSystem {
 	private static File speechFile;
 	private static File refEvaluationFile;
 	private static File hypEvaluationFile;
+	private static String asrName;
+	private static boolean occured = false;
 
 	public static ArrayList<File> readDirectory(File currentPath) {
 		ArrayList<File> folders = new ArrayList<File>();
@@ -30,9 +36,14 @@ public class EvaluationSystem {
 		return folders;
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 
+		if (asrOutput.exists()){
+			FileUtils.deleteDirectory(asrOutput);
+		}
+		
 		CmuSphinxEngine cmu = new CmuSphinxEngine();
+		IspeechEngine ise = new IspeechEngine();
 		Configuration conf = cmu.configure();
 
 		speechDatabase = readDirectory(speechCorpora);
@@ -56,30 +67,47 @@ public class EvaluationSystem {
 					}
 				}
 			}
-	//		cmu.recognizeSpeech(conf, currentDatabase, speechFile,promptOriginal);
+		//	cmu.recognizeSpeech(conf, currentDatabase, speechFile,promptOriginal);
+			ise.runFile(currentDatabase, speechFile, promptOriginal);
 		}
 		outputDatabase = readDirectory(asrOutput);
 		for (int i = 0; i < outputDatabase.size(); i++) {
-			File currentFolder = outputDatabase.get(i);
-			if (currentFolder.isDirectory() == true) {
-				for (File each : currentFolder.listFiles()) {
-					if (each.getName().compareTo("prompt-original.txt") == 0){
-					hypEvaluationFile = each;
-					}
-					else if (each.getName().compareTo("speech-output.txt") == 0){
-					refEvaluationFile = each;
-					}
+			for (int j=0; j<2; j++){
+				if (j==1){
+					asrName = "CmuSphinx-output.txt";
 				}
-				Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile); 
-				EvaluatorResult result = e.evaluate();
-				File evaluationResult = new File(currentFolder, "evaluation-result.txt");
-				PrintWriter outFile = new PrintWriter(evaluationResult, "UTF-8");
-				outFile.println("Hits : " + result.getHits());
-				outFile.println("Insertions : " + result.getInsertions());
-				outFile.println("Deletions : " + result.getDeletions());
-				outFile.println("Substitutions : " + result.getSubstitutions());
-				outFile.close();
+				else if (j==0){
+					asrName = "iSpeech-output.txt";
+				}
+				File currentFolder = outputDatabase.get(i);
+				if (currentFolder.isDirectory() == true) {
+					for (File each : currentFolder.listFiles()) {
+						if (each.getName().compareTo("prompt-original.txt") == 0){
+						hypEvaluationFile = each;
+						}
+						else if (each.getName().compareTo(asrName) == 0){
+						refEvaluationFile = each;
+						}
+					}
+					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile); 
+					EvaluatorResult result = e.evaluate();
+					if (!evalOutput.exists()){
+						evalOutput.mkdirs();
+					}
+						File evaluationResult = new File(evalOutput, "evaluation-result.txt");
+					PrintWriter evalOutFile = new PrintWriter(new FileWriter((evaluationResult),true));
+					if (!occured){
+						evalOutFile.print(currentFolder.getName());
+						occured = true;
+					}
+					evalOutFile.print("\n"+FilenameUtils.removeExtension(asrName));
+					evalOutFile.print("\t \t"+"Hits : " + result.getHits());
+					evalOutFile.print("\t"+"Insertions : " + result.getInsertions());
+					evalOutFile.print("\t"+"Deletions : " + result.getDeletions());
+					evalOutFile.print("\t"+"Substitutions : " + result.getSubstitutions());
+					evalOutFile.close();
+				}
+			}
 		}
 	}
-}
 }

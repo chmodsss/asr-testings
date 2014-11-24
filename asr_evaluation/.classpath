@@ -23,5 +23,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/home/sivasurya/rnd/sphinx4-5prealpha/lib/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
+	<classpathentry kind="lib" path="/home/sivasurya/rnd/ispeech/iSpeechSDK_9.26.12.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

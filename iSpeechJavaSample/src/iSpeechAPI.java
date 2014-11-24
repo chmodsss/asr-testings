@@ -9,7 +9,7 @@ public class iSpeechAPI
 	{
 		long time = System.currentTimeMillis();
 		
-		iSpeechTTS iSpeechTTS = new iSpeechTTS(api, production);
+		mainimain iSpeechTTS = new mainimain(api, production);
 		//downloads text to file tts.wav
 		
 		iSpeechASR iSpeechASR = new iSpeechASR();
