@@ -5,12 +5,14 @@ public class EvaluatorResult {
 	private int substitutions;
 	private int deletions;
 	private int insertions;
+	private String timeSpan;
 
-	public EvaluatorResult(int h, int s, int d, int i) {
+	public EvaluatorResult(int h, int s, int d, int i, String t) {
 		hits = h;
 		substitutions = s;
 		deletions = d;
 		insertions = i;
+		timeSpan = t;
 	}
 	
 	public int getHits() {
@@ -27,6 +29,10 @@ public class EvaluatorResult {
 
 	public int getInsertions() {
 		return insertions;
+	}
+	
+	public String getTime(){
+		return timeSpan;
 	}
 
 }

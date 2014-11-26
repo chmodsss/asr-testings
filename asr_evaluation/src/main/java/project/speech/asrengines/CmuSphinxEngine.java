@@ -18,7 +18,11 @@ public class CmuSphinxEngine {
 	private String dictionaryModel;
 	private String acousticModel;
 	private String asrName;
-
+	private ArrayList<String> outputSentencesCmu = new ArrayList<String>();
+	private ArrayList<String> outputFileNamesCmu = new ArrayList<String>();
+	private double startTimeMsCmu;
+	private double stopTimeMsCmu;
+	private double timeDiffCmu;
 
 	public CmuSphinxEngine() {
 		System.out.println("cmu object instantiated...");
@@ -43,21 +47,27 @@ public class CmuSphinxEngine {
 		StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(config);
 		System.out.println("Start of recognition...\n");
 		
-		ArrayList<String> speechFilesArrayCmu = new ArrayList<String>();
-		FileDetails fdCmu = FileReader.reader(speeches);
+		FileReader frCmu = new FileReader();
+		FileDetails fdCmu = frCmu.reader(speeches);
 
+		startTimeMsCmu = System.currentTimeMillis();
+		outputSentencesCmu.clear();
+		outputFileNamesCmu.clear();
 		for (int idx = 0; idx < fdCmu.getFilePath().size(); idx++) {
 			String cmuCurrentPath = fdCmu.getFilePath().get(idx);
-			if (! speechFilesArrayCmu.contains(cmuCurrentPath)){
-				recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
-				System.out.println("Cmu File path size..."+ fdCmu.getFilePath().size());
-				SpeechResult result = recognizer.getResult();
-				recognizer.stopRecognition();
-				String sentenceDetected = result.getHypothesis();
-				String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
-				FileScripter.writer(asrName, databaseName, referenceFile, fileName, sentenceDetected);
-			}
+			System.out.println("cmu audio files... "+ cmuCurrentPath);
+			recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
+			System.out.println("Cmu File path size..."+ fdCmu.getFilePath().size());
+			SpeechResult result = recognizer.getResult();
+			recognizer.stopRecognition();
+			String sentenceDetected = result.getHypothesis();
+			String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
+			outputSentencesCmu.add(sentenceDetected);
+			outputFileNamesCmu.add(fileName);
 		}
+		stopTimeMsCmu = System.currentTimeMillis();
+		timeDiffCmu = (stopTimeMsCmu - startTimeMsCmu)/1000;
+		FileScripter.writer(asrName, databaseName, referenceFile, outputFileNamesCmu, outputSentencesCmu , timeDiffCmu);
 		System.out.println("End of recognition...\n");
 		System.out.println("Exit...");
 	}

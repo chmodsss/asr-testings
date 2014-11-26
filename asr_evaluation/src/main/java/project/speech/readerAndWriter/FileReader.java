@@ -9,7 +9,9 @@ public class FileReader {
 	private static ArrayList<String> filePath = new ArrayList<String>();
 	private static ArrayList<String> fileNameExtension = new ArrayList<String>();
 	
-	public static FileDetails reader(File speeches) throws IOException{
+	public FileDetails reader(File speeches) throws IOException{
+		filePath.clear();
+		fileNameExtension.clear();
 		for (File eachSpeech : speeches.listFiles()) {
 			filePath.add(eachSpeech.getAbsolutePath());
 			fileNameExtension.add(eachSpeech.getName());

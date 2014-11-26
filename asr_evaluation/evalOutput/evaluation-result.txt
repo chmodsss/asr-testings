@@ -1,4 +1,9 @@
-anonymous-20140425-qbj
-iSpeech-output	 	Hits : 16	Insertions : 0	Deletions : 2	Substitutions : 6
-CmuSphinx-output	 	Hits : 11	Insertions : 2	Deletions : 0	Substitutions : 9
-iSpeech-output	 	Hits : 19	Insertions : 0	Deletions : 1	Substitutions : 4
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::  anonymous-20140425-qbj  :::::::::::::::::::::::::::::::::::::::::::::::
+iSpeech-output	 	Hits : 17	Insertions : 0	Deletions : 2	Substitutions : 5	Timetaken : 14.6
+CmuSphinx-output	 	Hits : 11	Insertions : 2	Deletions : 0	Substitutions : 9	Timetaken : 58.196
+
+:::::::::::::::::::::::::::::::::::::::::::::::  AslakKnutsen-20140314-ogu  :::::::::::::::::::::::::::::::::::::::::::::::
+iSpeech-output	 	Hits : 19	Insertions : 0	Deletions : 1	Substitutions : 4	Timetaken : 14.366
+CmuSphinx-output	 	Hits : 8	Insertions : 1	Deletions : 3	Substitutions : 14	Timetaken : 60.677

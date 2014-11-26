@@ -25,7 +25,9 @@ public class EvaluationSystem {
 	private static File speechFile;
 	private static File refEvaluationFile;
 	private static File hypEvaluationFile;
+	private static File timeEvaluationFile;
 	private static String asrName;
+	private static String timeSpan;
 	private static boolean fileOccured = false;
 	private static boolean directoryOccured = false;
 
@@ -46,10 +48,10 @@ public class EvaluationSystem {
 		CmuSphinxEngine cmu = new CmuSphinxEngine();
 		IspeechEngine ise = new IspeechEngine();
 		Configuration conf = cmu.configure();
-
 		speechDatabase = readDirectory(speechCorpora);
 
 		for (int i = 0; i < speechDatabase.size(); i++) {
+			System.out.println("speech database size... "+speechDatabase.size());
 			File currentDatabase = speechDatabase.get(i);
 			File promptOriginal = null;
 			if (currentDatabase.isDirectory() == true) {
@@ -57,6 +59,7 @@ public class EvaluationSystem {
 					if (each.getName().compareTo("wav") == 0) {
 						// speechFiles = readDirectory(each);
 						speechFile = each;
+						System.out.println("speech file paths... "+speechFile.getAbsolutePath());
 					}
 					if (each.getName().compareTo("etc") == 0) {
 						referenceFiles = readDirectory(each);
@@ -68,19 +71,21 @@ public class EvaluationSystem {
 					}
 				}
 			}
-			
+
 			cmu.recognizeSpeech(conf, currentDatabase, speechFile, promptOriginal);
 			ise.runFile(currentDatabase, speechFile, promptOriginal);
-
+			
 		}
 		outputDatabase = readDirectory(asrOutput);
 		for (int i = 0; i < outputDatabase.size(); i++) {
 			for (int j=0; j<2; j++){
 				if (j==1){
 					asrName = "CmuSphinx-output.txt";
+					timeSpan = "CmuSphinx-time.txt";
 				}
 				else if (j==0){
 					asrName = "iSpeech-output.txt";
+					timeSpan = "iSpeech-time.txt";
 				}
 				File currentFolder = outputDatabase.get(i);
 				if (currentFolder.isDirectory() == true) {
@@ -91,8 +96,11 @@ public class EvaluationSystem {
 						else if (each.getName().compareTo(asrName) == 0){
 						refEvaluationFile = each;
 						}
+						else if (each.getName().compareTo(timeSpan) == 0){
+						timeEvaluationFile = each;
+						}
 					}
-					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile); 
+					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile , timeEvaluationFile); 
 					EvaluatorResult result = e.evaluate();
 				
 					if (!directoryOccured ){
@@ -103,7 +111,7 @@ public class EvaluationSystem {
 					File evaluationResult = new File(evalOutput, "evaluation-result.txt");
 					PrintWriter evalOutFile = new PrintWriter(new FileWriter((evaluationResult),true));
 					if (!fileOccured){
-						evalOutFile.print(currentFolder.getName());
+						evalOutFile.print("\n\n:::::::::::::::::::::::::::::::::::::::::::::::  " + currentFolder.getName() + "  :::::::::::::::::::::::::::::::::::::::::::::::");
 						fileOccured = true;
 					}
 					evalOutFile.print("\n"+FilenameUtils.removeExtension(asrName));
@@ -111,9 +119,11 @@ public class EvaluationSystem {
 					evalOutFile.print("\t"+"Insertions : " + result.getInsertions());
 					evalOutFile.print("\t"+"Deletions : " + result.getDeletions());
 					evalOutFile.print("\t"+"Substitutions : " + result.getSubstitutions());
+					evalOutFile.print("\t"+"Timetaken : " + result.getTime()+"s");
 					evalOutFile.close();
 				}
 			}
+			fileOccured = false;
 		}
 	}
 }
