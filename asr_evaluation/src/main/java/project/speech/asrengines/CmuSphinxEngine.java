@@ -3,8 +3,10 @@ package project.speech.asrengines;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.commons.io.FilenameUtils;
+
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
@@ -16,6 +18,7 @@ public class CmuSphinxEngine {
 	private String dictionaryModel;
 	private String acousticModel;
 	private String asrName;
+
 
 	public CmuSphinxEngine() {
 		System.out.println("cmu object instantiated...");
@@ -40,15 +43,20 @@ public class CmuSphinxEngine {
 		StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(config);
 		System.out.println("Start of recognition...\n");
 		
-		FileDetails fd = FileReader.reader(speeches);
+		ArrayList<String> speechFilesArrayCmu = new ArrayList<String>();
+		FileDetails fdCmu = FileReader.reader(speeches);
 
-		for (int idx = 0; idx < fd.getFilePath().size(); idx++) {
-			recognizer.startRecognition(new FileInputStream(fd.getFilePath().get(idx)));
-			SpeechResult result = recognizer.getResult();
-			recognizer.stopRecognition();
-			String sentenceDetected = result.getHypothesis();
-			String fileName = FilenameUtils.removeExtension(fd.getFileNameExtension().get(idx));
-			FileScripter.writer(asrName, databaseName, referenceFile, fileName, sentenceDetected);
+		for (int idx = 0; idx < fdCmu.getFilePath().size(); idx++) {
+			String cmuCurrentPath = fdCmu.getFilePath().get(idx);
+			if (! speechFilesArrayCmu.contains(cmuCurrentPath)){
+				recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
+				System.out.println("Cmu File path size..."+ fdCmu.getFilePath().size());
+				SpeechResult result = recognizer.getResult();
+				recognizer.stopRecognition();
+				String sentenceDetected = result.getHypothesis();
+				String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
+				FileScripter.writer(asrName, databaseName, referenceFile, fileName, sentenceDetected);
+			}
 		}
 		System.out.println("End of recognition...\n");
 		System.out.println("Exit...");

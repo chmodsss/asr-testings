@@ -11,7 +11,7 @@ public class FileReader {
 	
 	public static FileDetails reader(File speeches) throws IOException{
 		for (File eachSpeech : speeches.listFiles()) {
-			filePath.add(eachSpeech.getPath());
+			filePath.add(eachSpeech.getAbsolutePath());
 			fileNameExtension.add(eachSpeech.getName());
 		}
 		Collections.sort(filePath);

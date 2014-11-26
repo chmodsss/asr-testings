@@ -26,7 +26,8 @@ public class EvaluationSystem {
 	private static File refEvaluationFile;
 	private static File hypEvaluationFile;
 	private static String asrName;
-	private static boolean occured = false;
+	private static boolean fileOccured = false;
+	private static boolean directoryOccured = false;
 
 	public static ArrayList<File> readDirectory(File currentPath) {
 		ArrayList<File> folders = new ArrayList<File>();
@@ -67,8 +68,10 @@ public class EvaluationSystem {
 					}
 				}
 			}
-		//	cmu.recognizeSpeech(conf, currentDatabase, speechFile,promptOriginal);
+			
+			cmu.recognizeSpeech(conf, currentDatabase, speechFile, promptOriginal);
 			ise.runFile(currentDatabase, speechFile, promptOriginal);
+
 		}
 		outputDatabase = readDirectory(asrOutput);
 		for (int i = 0; i < outputDatabase.size(); i++) {
@@ -91,14 +94,17 @@ public class EvaluationSystem {
 					}
 					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile); 
 					EvaluatorResult result = e.evaluate();
-					if (!evalOutput.exists()){
+				
+					if (!directoryOccured ){
+						FileUtils.deleteDirectory(evalOutput);
 						evalOutput.mkdirs();
+						directoryOccured = true;
 					}
-						File evaluationResult = new File(evalOutput, "evaluation-result.txt");
+					File evaluationResult = new File(evalOutput, "evaluation-result.txt");
 					PrintWriter evalOutFile = new PrintWriter(new FileWriter((evaluationResult),true));
-					if (!occured){
+					if (!fileOccured){
 						evalOutFile.print(currentFolder.getName());
-						occured = true;
+						fileOccured = true;
 					}
 					evalOutFile.print("\n"+FilenameUtils.removeExtension(asrName));
 					evalOutFile.print("\t \t"+"Hits : " + result.getHits());
