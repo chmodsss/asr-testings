@@ -28,6 +28,9 @@ public class EvaluationSystem {
 	private static File timeEvaluationFile;
 	private static String asrName;
 	private static String timeSpan;
+	private static double wer;
+	private static double mar;
+	private static double recall;
 	private static boolean fileOccured = false;
 	private static boolean directoryOccured = false;
 
@@ -57,9 +60,9 @@ public class EvaluationSystem {
 			if (currentDatabase.isDirectory() == true) {
 				for (File each : currentDatabase.listFiles()) {
 					if (each.getName().compareTo("wav") == 0) {
-						// speechFiles = readDirectory(each);
+//						 speechFiles = readDirectory(each);
 						speechFile = each;
-						System.out.println("speech file paths... "+speechFile.getAbsolutePath());
+//						System.out.println("speech file paths... "+speechFile.getAbsolutePath());
 					}
 					if (each.getName().compareTo("etc") == 0) {
 						referenceFiles = readDirectory(each);
@@ -72,8 +75,8 @@ public class EvaluationSystem {
 				}
 			}
 
-			cmu.recognizeSpeech(conf, currentDatabase, speechFile, promptOriginal);
 			ise.runFile(currentDatabase, speechFile, promptOriginal);
+			cmu.recognizeSpeech(conf, currentDatabase, speechFile, promptOriginal);
 			
 		}
 		outputDatabase = readDirectory(asrOutput);
@@ -114,11 +117,19 @@ public class EvaluationSystem {
 						evalOutFile.print("\n\n:::::::::::::::::::::::::::::::::::::::::::::::  " + currentFolder.getName() + "  :::::::::::::::::::::::::::::::::::::::::::::::");
 						fileOccured = true;
 					}
+					wer = (result.getSubstitutions()+result.getDeletions()+result.getInsertions())/result.getNumberOfWords();
+					mar = (result.getHits()+result.getDeletions()+result.getInsertions()+result.getSubstitutions())/result.getHits();
+					recall = result.getHits()/result.getNumberOfWords();
 					evalOutFile.print("\n"+FilenameUtils.removeExtension(asrName));
 					evalOutFile.print("\t \t"+"Hits : " + result.getHits());
 					evalOutFile.print("\t"+"Insertions : " + result.getInsertions());
 					evalOutFile.print("\t"+"Deletions : " + result.getDeletions());
 					evalOutFile.print("\t"+"Substitutions : " + result.getSubstitutions());
+					evalOutFile.print("\t"+"Word accuracy rate : " + (1-wer));
+					evalOutFile.print("\t"+"Word error rate : " + wer);
+					evalOutFile.print("\t"+"Match accuracy rate : " + mar);
+					evalOutFile.print("\t"+"Match error rate : " +(1- mar));
+					evalOutFile.print("\t"+"Recall : " + recall);
 					evalOutFile.print("\t"+"Timetaken : " + result.getTime()+"s");
 					evalOutFile.close();
 				}

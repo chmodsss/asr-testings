@@ -28,7 +28,7 @@ public class CmuSphinxEngine {
 		System.out.println("cmu object instantiated...");
 		languageModel = "resource/models/language/en-us.lm.dmp";
 		dictionaryModel = "resource/models/dictionary/cmudict.0.6d";
-		acousticModel = "resource:/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz";
+		acousticModel = "resource:/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz";
 		asrName = "CmuSphinx";
 	}
 

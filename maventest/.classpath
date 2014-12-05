@@ -22,5 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/sivasurya/rnd/freetts/freetts-1.2/lib/freetts-jsapi10.jar"/>
+	<classpathentry kind="lib" path="/home/sivasurya/rnd/jsapi-1.12_r8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

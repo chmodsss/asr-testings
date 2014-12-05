@@ -14,7 +14,6 @@ import com.iSpeech.iSpeechRecognizer;
 import com.iSpeech.iSpeechRecognizer.SpeechRecognizerEvent;
 
 public class IspeechEngine implements SpeechRecognizerEvent {
-	// Ispeech
 	private static String api;
 	private static boolean production;
 	private String asrName;

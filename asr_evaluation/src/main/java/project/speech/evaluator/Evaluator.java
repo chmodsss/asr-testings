@@ -13,7 +13,8 @@ public class Evaluator {
 	private int substitutions = 0;
 	private int deletions = 0;
 	private int insertions = 0;
-	private static String empty = "=====";
+	private int numberOfWords = 0;
+	private static String empty = "*****";
 	private String timeSpan;
 	File ref = null;
 	File hyp = null;
@@ -40,22 +41,23 @@ public class Evaluator {
 		return original;
 	}
 
+	@SuppressWarnings("resource")
 	public EvaluatorResult evaluate() throws IOException {
 		System.out.println("Hello world...");
 		BufferedReader readTime = new BufferedReader(new FileReader(time));
 		timeSpan = readTime.readLine();
 		BufferedReader readRef = new BufferedReader(new FileReader(ref));
-		@SuppressWarnings("resource")
 		BufferedReader readHyp = new BufferedReader(new FileReader(hyp));
 		String refLine;
 		while ((refLine = readRef.readLine()) != null) {
 			String hypLine = readHyp.readLine();
-			System.out.println("REF : " + refLine);
-			System.out.println("HYP : " + hypLine);
+//			System.out.println("REF : " + refLine);
+//			System.out.println("HYP : " + hypLine);
 			refLine = refLine.replace(".", " ");
 			List<String> refWords = new ArrayList<String>(Arrays.asList(refLine.split(" ")));
 			List<String> hypWords = new ArrayList<String>(Arrays.asList(hypLine.split(" ")));
-
+			
+			numberOfWords = refWords.size();
 			for (int r_idx = 0; r_idx < refWords.size(); r_idx++) {
 				int store = Integer.MAX_VALUE;
 				int index = 0;
@@ -85,15 +87,10 @@ public class Evaluator {
 			int difference = hypWords.size() - refWords.size();
 			if (difference != 0) {
 				for (int i = 0; i < difference; i++) {
-					refWords.add("=====");
+					refWords.add("*****");
 				}
 			}
 			for (int k = 0; k < hypWords.size(); k++) {
-				/*
-				 * System.out.println("k :   "+k);
-				 * System.out.println("size r...:   "+refWords.size());
-				 * System.out.println("size h...:   "+hypWords.size());
-				 */
 				System.out.println(refWords.get(k) + "   " + hypWords.get(k));
 			}
 
@@ -114,7 +111,7 @@ public class Evaluator {
 			}
 		}
 		readRef.close();
-		EvaluatorResult eval = new EvaluatorResult(hits - 1, substitutions, deletions, insertions , timeSpan);
+		EvaluatorResult eval = new EvaluatorResult(hits - 1, substitutions, deletions, insertions , numberOfWords, timeSpan);
 		return eval;
 	}
 }

@@ -5,13 +5,15 @@ public class EvaluatorResult {
 	private int substitutions;
 	private int deletions;
 	private int insertions;
+	private int numberOfWords;
 	private String timeSpan;
 
-	public EvaluatorResult(int h, int s, int d, int i, String t) {
+	public EvaluatorResult(int h, int s, int d, int i, int n, String t) {
 		hits = h;
 		substitutions = s;
 		deletions = d;
 		insertions = i;
+		numberOfWords = n;
 		timeSpan = t;
 	}
 	
@@ -29,6 +31,10 @@ public class EvaluatorResult {
 
 	public int getInsertions() {
 		return insertions;
+	}
+	
+	public int getNumberOfWords(){
+		return numberOfWords;
 	}
 	
 	public String getTime(){
