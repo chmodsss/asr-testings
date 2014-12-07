@@ -22,8 +22,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/sivasurya/rnd/sphinx4-5prealpha/lib/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
-	<classpathentry kind="lib" path="/home/sivasurya/rnd/ispeech/iSpeechSDK_9.26.12.jar"/>
+	<classpathentry kind="lib" path="/home/sivasurya/java_ws/asr_evaluation/resource/models/acoustic/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz.jar"/>
+	<classpathentry kind="lib" path="/home/sivasurya/java_ws/asr_evaluation/resource/models/acoustic/iSpeechSDK_9.26.12.jar"/>
 	<classpathentry kind="lib" path="/home/sivasurya/java_ws/asr_evaluation/resource/models/acoustic/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

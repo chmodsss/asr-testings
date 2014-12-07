@@ -24,11 +24,11 @@ public class CmuSphinxEngine {
 	private double stopTimeMsCmu;
 	private double timeDiffCmu;
 
-	public CmuSphinxEngine() {
+	public CmuSphinxEngine(File dict, String acous, File lang) {
 		System.out.println("cmu object instantiated...");
-		languageModel = "resource/models/language/en-us.lm.dmp";
-		dictionaryModel = "resource/models/dictionary/cmudict.0.6d";
-		acousticModel = "resource:/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz";
+		dictionaryModel = dict.getPath();
+		acousticModel = acous;
+		languageModel = lang.getPath();
 		asrName = "CmuSphinx";
 	}
 

@@ -81,8 +81,11 @@ public class UiMain {
 
 		// Evaluation button
 		JButton btnEvaluate = new JButton("Evaluate");
-//		btnEvaluate.setEnabled(false);
-		btnEvaluate.setBackground(Color.BLUE);
+		btnEvaluate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnEvaluate.setBackground(Color.green);
 		btnEvaluate.setBounds(215, 282, 161, 61);
 		frame.getContentPane().add(btnEvaluate);
 
