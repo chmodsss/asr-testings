@@ -17,6 +17,14 @@ public class EvaluatorResult {
 		timeSpan = t;
 	}
 	
+	public EvaluatorResult(int h, int s, int d, int i, int n) {
+		hits = h;
+		substitutions = s;
+		deletions = d;
+		insertions = i;
+		numberOfWords = n;
+	}
+
 	public int getHits() {
 		return hits;
 	}

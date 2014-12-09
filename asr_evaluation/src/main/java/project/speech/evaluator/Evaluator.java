@@ -26,6 +26,11 @@ public class Evaluator {
 		time = timeFile;
 	}
 
+	public Evaluator(File referenceFile, File hypothesisFile) {
+		ref = referenceFile;
+		hyp = hypothesisFile;
+	}
+
 	public static List<String> shift(List<String> original, int leftPose, int rightPose) {
 		int gap = Math.abs(leftPose - rightPose);
 		for (int i = 0; i < gap; i++) {
@@ -40,19 +45,13 @@ public class Evaluator {
 		}
 		return original;
 	}
-
-	@SuppressWarnings("resource")
-	public EvaluatorResult evaluate() throws IOException {
-		System.out.println("Hello world...");
-		BufferedReader readTime = new BufferedReader(new FileReader(time));
-		timeSpan = readTime.readLine();
+	
+	public void evaluate() throws IOException{
 		BufferedReader readRef = new BufferedReader(new FileReader(ref));
 		BufferedReader readHyp = new BufferedReader(new FileReader(hyp));
 		String refLine;
 		while ((refLine = readRef.readLine()) != null) {
 			String hypLine = readHyp.readLine();
-//			System.out.println("REF : " + refLine);
-//			System.out.println("HYP : " + hypLine);
 			refLine = refLine.replace(".", " ");
 			List<String> refWords = new ArrayList<String>(Arrays.asList(refLine.split(" ")));
 			List<String> hypWords = new ArrayList<String>(Arrays.asList(hypLine.split(" ")));
@@ -111,7 +110,20 @@ public class Evaluator {
 			}
 		}
 		readRef.close();
-		EvaluatorResult eval = new EvaluatorResult(hits - 1, substitutions, deletions, insertions , numberOfWords, timeSpan);
+	}
+	
+	public EvaluatorResult evaluateNoTime() throws IOException {
+		evaluate();
+		EvaluatorResult eval = new EvaluatorResult(hits - 1, substitutions, deletions, insertions , numberOfWords -1);
+		return eval;
+	}
+
+	@SuppressWarnings("resource")
+	public EvaluatorResult evaluateWithTime() throws IOException {
+		BufferedReader readTime = new BufferedReader(new FileReader(time));
+		timeSpan = readTime.readLine();
+		evaluate();
+		EvaluatorResult eval = new EvaluatorResult(hits - 1, substitutions, deletions, insertions , numberOfWords -1, timeSpan);
 		return eval;
 	}
 }
