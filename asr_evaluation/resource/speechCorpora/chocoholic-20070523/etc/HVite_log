@@ -1,0 +1,59 @@
+HVite -A -D -T 1 -l * -o SWT -b silence -C /data/svn-mirror/Main/Trunk/Scripts/AcousticModel_scripts/HTK/AMCreate_scripts/input_files/config -H ./interim_files/hmm7/macros -H ./interim_files/hmm7/hmmdefs -i ./interim_files/aligned.mlf -m -t 250.0 150.0 1000.0 -y lab -a -I ./interim_files/words.mlf -S ./interim_files/train.scp ./interim_files/dict1 ./interim_files/monophones1 
+
+HTK Configuration Parameters[10]
+  Module/Tool     Parameter                  Value
+#                 NUMCEPS                       12
+#                 CEPLIFTER                     22
+#                 NUMCHANS                      26
+#                 PREEMCOEF               0.970000
+#                 USEHAMMING                  TRUE
+#                 WINDOWSIZE         250000.000000
+#                 SAVEWITHCRC                 TRUE
+#                 SAVECOMPRESSED              TRUE
+#                 TARGETRATE         100000.000000
+#                 TARGETKIND          MFCC_0_D_N_Z
+
+Read 41 physical / 41 logical HMMs
+Label file will be used to align each file
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0001.mfc
+Created lattice with 11 nodes / 10 arcs from label file
+silence ROMEO AND JULIET ACT FOUR SCENE FIVE FIRST MUSICIAN silence  ==  [453 frames] -59.1033 [Ac=-26773.8 LM=0.0] (Act=9.9)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0002.mfc
+Created lattice with 7 nodes / 6 arcs from label file
+silence READ BY LAURIE ANNE WALDEN silence  ==  [348 frames] -46.1290 [Ac=-16052.9 LM=0.0] (Act=11.9)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0003.mfc
+Created lattice with 12 nodes / 11 arcs from label file
+silence FAITH WE MAY PUT UP OUR PIPES AND BE GONE silence  ==  [400 frames] -51.4047 [Ac=-20561.9 LM=0.0] (Act=12.1)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0004.mfc
+Created lattice with 11 nodes / 10 arcs from label file
+silence AY BY MY TROTH THE CASE MAY BE AMENDED silence  ==  [409 frames] -53.2845 [Ac=-21793.3 LM=0.0] (Act=12.2)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0005.mfc
+Created lattice with 15 nodes / 14 arcs from label file
+silence WHY HEART'S EASE NOT A DUMP WE TIS NO TIME TO PLAY NOW silence  ==  [695 frames] -52.4161 [Ac=-36429.2 LM=0.0] (Act=10.8)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0006.mfc
+Created lattice with 16 nodes / 15 arcs from label file
+silence NO WHAT WILL YOU GIVE US THEN WILL I GIVE YOU THE SERVING CREATURE silence  ==  [804 frames] -48.1605 [Ac=-38721.0 LM=0.0] (Act=9.4)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0007.mfc
+Created lattice with 12 nodes / 11 arcs from label file
+No tokens survived to final node of network at beam 250.0
+silence AN YOU RE US AND FA US YOU NOTE US silence  ==  [409 frames] -53.4023 [Ac=-21841.6 LM=0.0] (Act=13.4)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0008.mfc
+Created lattice with 10 nodes / 9 arcs from label file
+silence MARRY SIR BECAUSE SILVER HATH A SWEET SOUND silence  ==  [469 frames] -54.3469 [Ac=-25488.7 LM=0.0] (Act=7.9)
+Aligning File: /data/UserSubmissions/Quarantine/librivox-20070523/mfc/rom0009.mfc
+Created lattice with 9 nodes / 8 arcs from label file
+silence WHAT A PESTILENT KNAVE IS THIS SAME silence  ==  [543 frames] -47.8909 [Ac=-26004.7 LM=0.0] (Act=9.7)
+
+HTK Configuration Parameters[10]
+  Module/Tool     Parameter                  Value
+                  NUMCEPS                       12
+                  CEPLIFTER                     22
+                  NUMCHANS                      26
+                  PREEMCOEF               0.970000
+                  USEHAMMING                  TRUE
+                  WINDOWSIZE         250000.000000
+                  SAVEWITHCRC                 TRUE
+                  SAVECOMPRESSED              TRUE
+                  TARGETRATE         100000.000000
+                  TARGETKIND          MFCC_0_D_N_Z
+

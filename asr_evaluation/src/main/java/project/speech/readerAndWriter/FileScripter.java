@@ -13,7 +13,7 @@ public class FileScripter {
 		File createFolder = new File("asrOutput",databaseName.getName());
 		createFolder.mkdirs();
 		
-		File promptOriginal = new File(createFolder, "prompt-original.txt");
+		File promptOriginal = new File(createFolder, "prompts-original.txt");
 		FileUtils.copyFile(referenceFile, promptOriginal);
 		
 		File createAsrFile = new File(createFolder, asrName+"-output.txt");

@@ -37,6 +37,7 @@ public class EvaluationSystem {
 	private static String timeOutString;
 	private static double wer;
 	private static double mar;
+	@SuppressWarnings("unused")
 	private static double recall;
 	private static boolean fileOccured = false;
 	private static boolean isEvalutionDirectoryOccured = false;
@@ -76,13 +77,13 @@ public class EvaluationSystem {
 	public static void writeResultFile (File f , ArrayList<String> performanceList , EvaluatorResult result , String asrName) throws IOException{
 		PrintWriter printResultFile = new PrintWriter(new FileWriter((f),true));
 		if (!fileOccured){
-			printResultFile.print("\n\n:::::::::::::::::::::::::::::::::::::::::::::::  Evaluation Result  :::::::::::::::::::::::::::::::::::::::::::::::");
+			printResultFile.print("\n\n  : : : : : : :  Evaluation Result  : : : : : : :  ");
 			fileOccured = true;
 		}
 		wer = (result.getSubstitutions()+result.getDeletions()+result.getInsertions())/result.getNumberOfWords();
 		mar = (result.getHits()+result.getDeletions()+result.getInsertions()+result.getSubstitutions())/result.getHits();
 		recall = result.getHits()/result.getNumberOfWords();
-		printResultFile.print("\n\n<<<<<<<<<<<<<<<<<<<< "+FilenameUtils.removeExtension(asrOutString)+" >>>>>>>>>>>>>>>>>>>>");
+		printResultFile.print("\n\n < < - - - - - -| "+FilenameUtils.removeExtension(asrOutString)+" | - - - - - - > > \n ");
 
 		if (performanceList.contains("WER"))
 			printResultFile.print("\t"+"WER : " + wer);
@@ -171,6 +172,7 @@ public class EvaluationSystem {
 				if (currentFolder.isDirectory() == true) {
 					for (File each : currentFolder.listFiles()) {
 						if (each.getName().compareTo("prompts-original.txt") == 0){
+							System.out.println("found hypothesis file...");
 						hypEvaluationFile = each;
 						}
 						else if (each.getName().compareTo(asrOutString) == 0){
@@ -183,7 +185,10 @@ public class EvaluationSystem {
 					
 					if (algorithmSelected.equals(algorithm1)){
 						
-					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile , timeEvaluationFile); 
+					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile , timeEvaluationFile);
+					System.out.println("ref file :"+ refEvaluationFile.getAbsolutePath());
+					System.out.println("hyp file :"+ hypEvaluationFile.getAbsolutePath());
+					System.out.println("time file :"+ timeEvaluationFile.getAbsolutePath());
 					EvaluatorResult eResult = e.evaluateWithTime();
 				
 					if (!isEvalutionDirectoryOccured ){

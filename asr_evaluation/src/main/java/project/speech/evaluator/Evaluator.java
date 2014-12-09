@@ -21,14 +21,14 @@ public class Evaluator {
 	File time = null;
 
 	public Evaluator(File referenceFile, File hypothesisFile, File timeFile) {
-		ref = referenceFile;
-		hyp = hypothesisFile;
-		time = timeFile;
+		this.ref = referenceFile;
+		this.hyp = hypothesisFile;
+		this.time = timeFile;
 	}
 
 	public Evaluator(File referenceFile, File hypothesisFile) {
-		ref = referenceFile;
-		hyp = hypothesisFile;
+		this.ref = referenceFile;
+		this.hyp = hypothesisFile;
 	}
 
 	public static List<String> shift(List<String> original, int leftPose, int rightPose) {
@@ -46,6 +46,7 @@ public class Evaluator {
 		return original;
 	}
 	
+	@SuppressWarnings("resource")
 	public void evaluate() throws IOException{
 		BufferedReader readRef = new BufferedReader(new FileReader(ref));
 		BufferedReader readHyp = new BufferedReader(new FileReader(hyp));
@@ -122,7 +123,7 @@ public class Evaluator {
 	public EvaluatorResult evaluateWithTime() throws IOException {
 		BufferedReader readTime = new BufferedReader(new FileReader(time));
 		timeSpan = readTime.readLine();
-		evaluate();
+		this.evaluate();
 		EvaluatorResult eval = new EvaluatorResult(hits - 1, substitutions, deletions, insertions , numberOfWords -1, timeSpan);
 		return eval;
 	}

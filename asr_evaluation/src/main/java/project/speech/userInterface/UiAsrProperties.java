@@ -1,4 +1,5 @@
 package project.speech.userInterface;
+
 import java.io.File;
 
 public class UiAsrProperties {

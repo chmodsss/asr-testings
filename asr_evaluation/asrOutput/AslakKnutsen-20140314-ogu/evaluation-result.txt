@@ -1,4 +1,0 @@
-Hits : 56
-Insertions : 6
-Deletions : 5
-Substitutions : 38
