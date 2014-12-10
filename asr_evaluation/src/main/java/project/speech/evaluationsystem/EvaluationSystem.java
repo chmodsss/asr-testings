@@ -83,7 +83,7 @@ public class EvaluationSystem {
 		wer = (result.getSubstitutions()+result.getDeletions()+result.getInsertions())/result.getNumberOfWords();
 		mar = (result.getHits()+result.getDeletions()+result.getInsertions()+result.getSubstitutions())/result.getHits();
 		recall = result.getHits()/result.getNumberOfWords();
-		printResultFile.print("\n\n < < - - - - - -| "+FilenameUtils.removeExtension(asrOutString)+" | - - - - - - > > \n ");
+		printResultFile.print("\n\n << ------ "+FilenameUtils.removeExtension(asrOutString)+"  ------ >> \n ");
 
 		if (performanceList.contains("WER"))
 			printResultFile.print("\t"+"WER : " + wer);

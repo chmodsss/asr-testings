@@ -1,6 +1,7 @@
 package project.speech.userInterface;
 
 import project.speech.evaluationsystem.*;
+
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.*;
@@ -9,7 +10,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import java.io.*;
-
 import java.util.ArrayList;
 
 
@@ -72,7 +72,8 @@ public class UiMethod2Frame {
 		frame2.setBounds(100, 100, 726, 479);
 		frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame2.getContentPane().setLayout(null);
-		frame2.setTitle("Method 2...");
+		frame2.setTitle("Method 2 ...");
+		frame2.setResizable(false);
 		
 		final UiInstructionFrame2 frameInstructions2 = new UiInstructionFrame2();
 		frame2.addWindowListener(new WindowAdapter() {
@@ -114,6 +115,12 @@ public class UiMethod2Frame {
 		panelCriteria.setBounds(31, 92, 200, 262);
 		frame2.getContentPane().add(panelCriteria);
 		
+		// Algorithm select button
+		comboAlgorithm = new JComboBox();
+		panelCriteria.add(comboAlgorithm);
+		comboAlgorithm.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] {"--- Select ---", "Algorithm1"}));
+		
 		// Panel for evaluation
 		panelEvaluate = new JPanel();
 		panelEvaluate.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Evaluate", TitledBorder.CENTER, TitledBorder.TOP, null, null));
@@ -148,13 +155,6 @@ public class UiMethod2Frame {
 		btnRefFile.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		btnRefFile.setBounds(30, 85, 135, 28);
 		panelFileChooser.add(btnRefFile);
-		
-		// Algorithm select button
-		comboAlgorithm = new JComboBox();
-		comboAlgorithm.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] {"--- Select ---", "Algorithm1"}));
-		comboAlgorithm.setBounds(58, 116, 135, 28);
-		frame2.getContentPane().add(comboAlgorithm);
 		
 		// Check button
 		btnCheck = new JButton("Check");
@@ -206,10 +206,36 @@ public class UiMethod2Frame {
 		
 		//=================== Action listener ===================//
 		
+		// Set false to evaluate when something changes
+		comboAlgorithm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEvaluate.setEnabled(false);
+			}
+		});
+		
+		// Check all - to switch off all other check boxes
+		chkALL.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+				btnEvaluate.setEnabled(false);
+				if (e.ACTION_PERFORMED != 0 && (!chkALL.isSelected())) {
+					System.out.println("action" + e.ACTION_PERFORMED);
+					chkWER.setSelected(false);
+					chkSER.setSelected(false);
+					chkMUC.setSelected(false);
+					chkACC.setSelected(false);
+				}
+			}
+		});
+		
+																	
+		
 		// Instruction - to open the instruction frame
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameInstructions2.setVisible(true);
+				frameInstructions2.setTitle("Instructions...");
+				frameInstructions2.setResizable(false);
 			}
 		});
 		
@@ -223,6 +249,7 @@ public class UiMethod2Frame {
 				referenceFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				referenceFileChooser.setAcceptAllFileFilterUsed(false);
 				if (referenceFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
+					btnEvaluate.setEnabled(false);
 					referenceFilePath = referenceFileChooser.getSelectedFile();
 					referenceFileLoaded = true;
 					btnRefFile.setBackground(Color.GREEN);
@@ -239,6 +266,7 @@ public class UiMethod2Frame {
 				hypothesisFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				hypothesisFileChooser.setAcceptAllFileFilterUsed(false);
 				if (hypothesisFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
+					btnEvaluate.setEnabled(false);
 					hypothesisFilePath = hypothesisFileChooser.getSelectedFile();
 					hypothesisFileLoaded = true;
 					btnHypFile.setBackground(Color.GREEN);
@@ -249,16 +277,12 @@ public class UiMethod2Frame {
 		// Check - to check the required conditions
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				btnEvaluate.setEnabled(false);
 				// Store method of algorithm in String
 				algorithmSelected = (String) comboAlgorithm.getSelectedItem();
-				System.out.println("alog one.." + algorithmSelected);
 				if (select.equals(algorithmSelected)) {
 					algorithmSelected = null;
-					if (algorithmSelected == null){
-						System.out.println("It works...");
-					}
-					System.out.println("alog.." + algorithmSelected);
 				}
 				
 				if (!performanceListSelected.isEmpty())
@@ -275,7 +299,6 @@ public class UiMethod2Frame {
 				if (chkALL.isSelected()) {
 					for (int i = 0; i < performanceListChecked.size(); i++) {
 						performanceListSelected.add(performanceListChecked.get(i).getText());
-						System.out.println("Selected ones All..." + performanceListChecked.get(i).getText());
 					}
 				} else {
 					for (int j = 0; j < performanceListChecked.size(); j++) {
@@ -283,13 +306,11 @@ public class UiMethod2Frame {
 						if (each != null) {
 							if (each.isSelected()) {
 								performanceListSelected.add(each.getText());
-								System.out.println("Selected ones..." + each.getText());
 							}
 						}
 					}
 				}
 				if (referenceFileLoaded && hypothesisFileLoaded && (!performanceListSelected.isEmpty() && (algorithmSelected != null))){
-					System.out.println("Conditions satisfied...");
 					btnEvaluate.setEnabled(true);
 				}
 			}
@@ -314,7 +335,6 @@ public class UiMethod2Frame {
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
 					outputFilePath = currentPath + outputFilePath;
-					System.out.println("output file path..." + outputFilePath);
 					ta.read(new FileReader(outputFilePath), null);
 					ta.setEditable(false);
 					JOptionPane.showMessageDialog(btnGetResult2, new JScrollPane(ta));
@@ -323,5 +343,56 @@ public class UiMethod2Frame {
 				}
 			}
 			});
+		
+		
+		//=================== Item listener ===================//
+		
+		chkALL.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				btnEvaluate.setEnabled(false);
+				if (e.getStateChange() == 1) {
+					chkWER.setSelected(true);
+					chkSER.setSelected(true);
+					chkMUC.setSelected(true);
+					chkACC.setSelected(true);
+				}
+			}
+		});
+		
+		chkACC.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				btnEvaluate.setEnabled(false);
+				if (e.getStateChange() == 2) {
+					chkALL.setSelected(false);
+				}
+			}
+		});
+		
+		chkMUC.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+			btnEvaluate.setEnabled(false);
+			if (e.getStateChange() == 2) {
+				chkALL.setSelected(false);
+				}
+			}
+		});
+		
+		chkSER.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+			btnEvaluate.setEnabled(false);
+			if (e.getStateChange() == 2) {
+				chkALL.setSelected(false);
+				}
+			}
+		});
+		
+		chkWER.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+			btnEvaluate.setEnabled(false);
+			if (e.getStateChange() == 2) {
+				chkALL.setSelected(false);
+				}
+			}
+		});		
 	}
 }

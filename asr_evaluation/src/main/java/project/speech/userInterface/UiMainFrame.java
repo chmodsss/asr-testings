@@ -24,6 +24,8 @@ public class UiMainFrame extends JFrame {
 				try {
 					UiMainFrame frameMain = new UiMainFrame();
 					frameMain.setVisible(true);
+					frameMain.setTitle("ASR evaluation toolkit...");
+					frameMain.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,7 +39,6 @@ public class UiMainFrame extends JFrame {
 		frameMain.setBounds(100, 100, 695, 450);
 		frameMain.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameMain.getContentPane().setLayout(null);
-		frameMain.setTitle("Instructions...");
 
 		
 		// Set UI to look more cool
@@ -106,7 +107,9 @@ public class UiMainFrame extends JFrame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UiInstructionMainFrame frameInstructionMain = new UiInstructionMainFrame();
+				frameInstructionMain.setTitle("Instructions...");
 				frameInstructionMain.setVisible(true);
+				frameInstructionMain.setResizable(false);
 			}
 		});
 		

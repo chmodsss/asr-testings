@@ -1,9 +1,6 @@
 package project.speech.userInterface;
 
 import project.speech.evaluationsystem.*;
-
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
@@ -51,6 +48,7 @@ public class UiMethod1Frame {
 	private static String asr2 = "ispeech";
 
 	private static String currentAsrSelected = null;
+	private static File speechCorpusPathResult = null;
 	private static boolean speechCorpusLoaded = false;
 	private static boolean modelsNeeded = false;
 	private static boolean dictLoadedCmu = false;
@@ -59,7 +57,11 @@ public class UiMethod1Frame {
 	private static boolean dictLoadedIspeech = false;
 	private static boolean acousLoadedIspeech = false;
 	private static boolean langLoadedIspeech = false;
-	private static File speechCorpusPathResult = null;
+	private static boolean checkBool = false;
+	private static boolean checkCmu = false;
+	private static boolean checkIspeech = false;
+
+	private static Object asrSelectedObj ;
 
 	private static ArrayList<UiAsrProperties> speechPropertiesList = new ArrayList<UiAsrProperties>();
 	private static ArrayList<JCheckBox> performanceListChecked = new ArrayList<JCheckBox>();
@@ -69,6 +71,7 @@ public class UiMethod1Frame {
 
 	private static String outputFilePath = "/evaluationOutput/evaluation-result.txt";
 	private static JLabel lblModel1;
+	private static JTextArea resultText;
 
 	@SuppressWarnings("rawtypes")
 	private static JComboBox comboAsrSelect;
@@ -87,7 +90,9 @@ public class UiMethod1Frame {
 		frame1.setBounds(100, 100, 695, 450);
 		frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
-		frame1.setTitle("Asr evlauation...");
+		frame1.setTitle("Model 1...");
+		frame1.setResizable(false);
+		
 		final UiInstructionFrame1 frameInstructions1 = new UiInstructionFrame1();
 		frame1.addWindowListener(new WindowAdapter() {
 
@@ -269,6 +274,8 @@ public class UiMethod1Frame {
 		btnInstructions.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frameInstructions1.setVisible(true);
+				frameInstructions1.setTitle("Instructions...");
+				frameInstructions1.setResizable(false);
 			}
 		});
 
@@ -283,6 +290,7 @@ public class UiMethod1Frame {
 				speechCorpusChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				speechCorpusChooser.setAcceptAllFileFilterUsed(false);
 				if (speechCorpusChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+					btnEvaluate.setEnabled(false);
 					speechCorpusPathResult = speechCorpusChooser.getSelectedFile();
 					speechCorpusLoaded = true;
 					btnSpeechCorpus.setBackground(Color.GREEN);
@@ -293,13 +301,14 @@ public class UiMethod1Frame {
 		// Selecting asr systems
 		comboAsrSelect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionAsrSelected) {
+				btnEvaluate.setEnabled(false);
 				JComboBox comboAsrSelected = (JComboBox) actionAsrSelected.getSource();
-				Object asrSelectedObj = comboAsrSelected.getSelectedItem();
+				asrSelectedObj = comboAsrSelected.getSelectedItem();
 				
 				if ("CmuSphinx".equals(asrSelectedObj)) {
 					System.out.println("CmuSphnix is selected...");
 					modelsNeeded = true;
-					setSelectedAsr("cmusphinx");
+					setSelectedAsr(asr1);
 					btnShow.setText("Set the properties of " + currentAsrSelected);
 					btnShow.setVisible(true);
 					btnDictionaryModel.setEnabled(true);
@@ -317,7 +326,7 @@ public class UiMethod1Frame {
 	
 				if ("iSpeech".equals(asrSelectedObj)) {
 					System.out.println("iSpeech is selected...");
-					setSelectedAsr("ispeech");
+					setSelectedAsr(asr2);
 					modelsNeeded = false;
 					btnShow.setText("No models are needed for iSpeech ");
 					btnShow.setVisible(true);
@@ -360,6 +369,7 @@ public class UiMethod1Frame {
 					dictionaryChooser.setAcceptAllFileFilterUsed(false);
 		
 					if (dictionaryChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+						btnEvaluate.setEnabled(false);
 						dictionaryPathResult = getRelativePath(dictionaryChooser.getSelectedFile());
 						System.out.println("dict path" + getRelativePath(dictionaryPathResult));
 						btnDictionaryModel.setBackground(Color.GREEN);
@@ -389,6 +399,7 @@ public class UiMethod1Frame {
 					languageChooser.setAcceptAllFileFilterUsed(false);
 		
 					if (languageChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+						btnEvaluate.setEnabled(false);
 						languagePathResult = getRelativePath(languageChooser.getSelectedFile());
 						langLoadedCmu = true;
 						btnLanguageModel.setBackground(Color.GREEN);
@@ -416,8 +427,8 @@ public class UiMethod1Frame {
 					acousticChooser.setAcceptAllFileFilterUsed(false);
 					
 					if (acousticChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+						btnEvaluate.setEnabled(false);
 						acousticPathResult = getRelativePath(acousticChooser.getSelectedFile());
-						System.out.println("acous path : " + FilenameUtils.removeExtension(acousticPathResult.getName()));
 						btnAcousticModel.setBackground(Color.GREEN);
 						acousLoadedCmu = true;
 					}
@@ -437,6 +448,8 @@ public class UiMethod1Frame {
 		// check button - to check whether all conditions are met
 		btnCheck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				btnEvaluate.setEnabled(false);
 				if (!asrSystemsSelected.isEmpty())
 					asrSystemsSelected.clear();
 				if (!performanceListSelected.isEmpty())
@@ -444,7 +457,6 @@ public class UiMethod1Frame {
 
 				//--- Computing the selected asr systems ---
 				Object resultAsrSelectedObj = comboAsrResult.getSelectedItem();
-				System.out.println("contents of asr systems selected.." + resultAsrSelectedObj);
 				if ("CmuSphinx".equals(resultAsrSelectedObj)) {
 					asrSystemsSelected.add(asr1);
 					System.out.println("CmuSphnix's result is required...");
@@ -489,18 +501,38 @@ public class UiMethod1Frame {
 				}
 				//--- Store method of algorithm in String ---
 				algorithmSelected = (String) comboAlgorithm.getSelectedItem();
-				System.out.println("alog one.." + algorithmSelected);
 				if (select.equals(algorithmSelected)) {
 					algorithmSelected = null;
-					System.out.println("alog.." + algorithmSelected);
 				}
 
-				boolean checkBool = dictLoadedCmu && acousLoadedCmu && langLoadedCmu && speechCorpusLoaded && (algorithmSelected != null) 
-						&& (!performanceListSelected.isEmpty()) && (!asrSystemsSelected.isEmpty());
-
-				if (checkBool) {
-					btnEvaluate.setEnabled(true);
-				}
+				checkBool = speechCorpusLoaded && (asrSelectedObj != null) && (algorithmSelected != null) && (!performanceListSelected.isEmpty()) && (!asrSystemsSelected.isEmpty()) ;
+				if (checkBool){
+					if (asrSystemsSelected.contains(asr1)){
+						if (asr1.equals(currentAsrSelected)){
+							checkCmu = dictLoadedCmu && acousLoadedCmu && langLoadedCmu;
+							}
+						}
+					if (asrSystemsSelected.contains(asr2)){	
+						if ( asr2.equals(currentAsrSelected)){
+							checkIspeech = true;
+						}
+					}
+				 if (asrSystemsSelected.contains(asr1) && asrSystemsSelected.contains(asr2)){
+					 if (checkCmu && checkIspeech){
+						 btnEvaluate.setEnabled(true);
+					 }
+				 }
+				 else if (asrSystemsSelected.contains(asr1)){
+					 if (checkCmu){
+					 btnEvaluate.setEnabled(true);
+					 }
+				 }
+				 else if (asrSystemsSelected.contains(asr2)){
+					 if (checkIspeech){
+					 btnEvaluate.setEnabled(true);
+					 }
+				 }
+			}
 			}
 		});
 		
@@ -508,7 +540,6 @@ public class UiMethod1Frame {
 		btnEvaluate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					System.out.println("Sending values to Evaluation system...");
 					EvaluationSystem.recogniseAndEvaluate(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
 				} catch (Exception e1) {
 					e1.printStackTrace();
@@ -520,15 +551,20 @@ public class UiMethod1Frame {
 		btnResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					JTextArea ta = new JTextArea(50, 40);
+//					JTextArea ta = new JTextArea(50, 40);
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
 					String newPath;
 					newPath = currentPath + outputFilePath;
-					System.out.println("output file path..." + newPath);
-					ta.read(new FileReader(newPath), null);
-					ta.setEditable(false);
-					JOptionPane.showMessageDialog(btnResult, new JScrollPane(ta));
+					FileReader reader = new FileReader(newPath);
+					BufferedReader br = new BufferedReader(reader);
+					resultText.read(br, null);
+					br.close();
+					resultText.requestFocus();
+					resultText.setEditable(false);
+//					ta.read(new FileReader(newPath), null);
+//					ta.setEditable(false);
+//					JOptionPane.showMessageDialog(btnResult, new JScrollPane(ta));
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
 				}
@@ -537,10 +573,26 @@ public class UiMethod1Frame {
 		
 		
 		//***************** Actions under Criteria panel *****************//
+		
+		// enable false to evaluate
+		comboAsrResult.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEvaluate.setEnabled(false);
+			}
+		});
+		
+		// enable false to evaluate
+		comboAlgorithm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEvaluate.setEnabled(false);
+			}
+		});
+		
 		// Check all - to switch off all other check boxes
 		chkALL.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
+				btnEvaluate.setEnabled(false);
 				if (e.ACTION_PERFORMED != 0 && (!chkALL.isSelected())) {
 					System.out.println("action" + e.ACTION_PERFORMED);
 					chkWER.setSelected(false);
@@ -555,6 +607,7 @@ public class UiMethod1Frame {
 		
 		chkALL.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				btnEvaluate.setEnabled(false);
 				if (e.getStateChange() == 1) {
 					chkWER.setSelected(true);
 					chkSER.setSelected(true);
@@ -566,6 +619,7 @@ public class UiMethod1Frame {
 		
 		chkACC.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				btnEvaluate.setEnabled(false);
 				if (e.getStateChange() == 2) {
 					chkALL.setSelected(false);
 				}
@@ -574,24 +628,27 @@ public class UiMethod1Frame {
 		
 		chkMUC.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-		if (e.getStateChange() == 2) {
-			chkALL.setSelected(false);
+			btnEvaluate.setEnabled(false);
+			if (e.getStateChange() == 2) {
+				chkALL.setSelected(false);
 				}
 			}
 		});
 		
 		chkSER.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-		if (e.getStateChange() == 2) {
-		chkALL.setSelected(false);
+			btnEvaluate.setEnabled(false);
+			if (e.getStateChange() == 2) {
+				chkALL.setSelected(false);
 				}
 			}
 		});
 		
 		chkWER.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-		if (e.getStateChange() == 2) {
-		chkALL.setSelected(false);
+			btnEvaluate.setEnabled(false);
+			if (e.getStateChange() == 2) {
+				chkALL.setSelected(false);
 				}
 			}
 		});																	
@@ -602,10 +659,7 @@ public class UiMethod1Frame {
 		String filePath = file.getAbsolutePath();
 		File currentFolder = new java.io.File("");
 		String folderPath = currentFolder.getAbsolutePath();
-		System.out.println(filePath);
-		System.out.println(folderPath);
 		if (filePath.startsWith(folderPath)) {
-			System.out.println(filePath);
 			File returnFile = new java.io.File(filePath.substring(folderPath.length() + 1));
 			return returnFile;
 		} else
