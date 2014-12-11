@@ -330,7 +330,7 @@ public class UiMethod2Frame {
 		// Get result - retrieve the output file
 		btnGetResult2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
+/*				try {
 					JTextArea ta = new JTextArea(50, 100);
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
@@ -340,7 +340,13 @@ public class UiMethod2Frame {
 					JOptionPane.showMessageDialog(btnGetResult2, new JScrollPane(ta));
 				} catch (IOException ioe) {
 					ioe.printStackTrace();
-				}
+				}*/
+				
+				File currentFolder = new java.io.File("");
+				String currentPath = currentFolder.getAbsolutePath();
+				String newPath;
+				newPath = currentPath + outputFilePath;
+				UiResultFrame2.initialise(newPath);
 			}
 			});
 		
