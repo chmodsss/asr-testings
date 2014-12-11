@@ -71,7 +71,6 @@ public class UiMethod1Frame {
 
 	private static String outputFilePath = "/evaluationOutput/evaluation-result.txt";
 	private static JLabel lblModel1;
-	private static JTextArea resultText;
 
 	@SuppressWarnings("rawtypes")
 	private static JComboBox comboAsrSelect;
@@ -550,24 +549,11 @@ public class UiMethod1Frame {
 		// Get result button - to retrieve the result from file
 		btnResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-//					JTextArea ta = new JTextArea(50, 40);
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
 					String newPath;
 					newPath = currentPath + outputFilePath;
-					FileReader reader = new FileReader(newPath);
-					BufferedReader br = new BufferedReader(reader);
-					resultText.read(br, null);
-					br.close();
-					resultText.requestFocus();
-					resultText.setEditable(false);
-//					ta.read(new FileReader(newPath), null);
-//					ta.setEditable(false);
-//					JOptionPane.showMessageDialog(btnResult, new JScrollPane(ta));
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
+					UiResultFrame1.initialise(newPath);
 			}
 		});
 		

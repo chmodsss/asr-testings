@@ -33,6 +33,7 @@ public class UiResultFrame2 {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		frameResult.setContentPane(contentPane);
 		contentPane.setLayout(null);
+		frameResult.setResizable(false);
 		
 		JTextArea txtAreaResult2 = new JTextArea();
 		txtAreaResult2.setEditable(false);
