@@ -86,6 +86,7 @@ public class UiMethod1Frame {
 	static void initialize() {
 
 		frame1 = new JFrame();
+		frame1.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod1Frame.class.getResource("/project/speech/userInterface/logo.jpg")));
 		frame1.setBounds(100, 100, 695, 450);
 		frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
@@ -141,9 +142,9 @@ public class UiMethod1Frame {
 		panelPerformance.setLayout(null);
 		
 		//=================== Labels ===================//
-		lblModel1 = new JLabel("Model - 1");
+		lblModel1 = new JLabel("Recognize & Evaluate");
 		lblModel1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModel1.setFont(new Font("Georgia", Font.ITALIC, 30));
+		lblModel1.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 		lblModel1.setBounds(118, 9, 384, 39);
 		frame1.getContentPane().add(lblModel1);
 		

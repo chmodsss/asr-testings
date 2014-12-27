@@ -58,7 +58,7 @@ public class EvaluationSystem {
 	public static void evaluateFromFiles (File referenceFile, File hypothesisFile , ArrayList<String> performanceList , String algorithmSelected) throws IOException {
 		
 		if (algorithmSelected.equals(algorithm1)){
-		Evaluator e1 = new Evaluator(referenceFile, hypothesisFile);
+		EvaluationAligner e1 = new EvaluationAligner(referenceFile, hypothesisFile);
 		EvaluatorResult eResult = e1.evaluateNoTime();
 		
 		if (!isComparisonDirectoryOccured ){
@@ -80,9 +80,9 @@ public class EvaluationSystem {
 			printResultFile.print("\n\n  : : : : : : :  Evaluation Result  : : : : : : :  ");
 			fileOccured = true;
 		}
-		wer = (result.getSubstitutions()+result.getDeletions()+result.getInsertions())/result.getNumberOfWords();
-		mar = (result.getHits()+result.getDeletions()+result.getInsertions()+result.getSubstitutions())/result.getHits();
-		recall = result.getHits()/result.getNumberOfWords();
+		wer = (result.getSubstitutions()+result.getDeletions()+result.getInsertions())/(float)result.getNumberOfWords();
+		mar = (result.getHits()+result.getDeletions()+result.getInsertions()+result.getSubstitutions())/(float)result.getHits();
+		recall = result.getHits()/(float)result.getNumberOfWords();
 		printResultFile.print("\n\n << ------ "+FilenameUtils.removeExtension(asrOutString)+"  ------ >> \n ");
 
 		if (performanceList.contains("WER"))
@@ -185,7 +185,7 @@ public class EvaluationSystem {
 					
 					if (algorithmSelected.equals(algorithm1)){
 						
-					Evaluator e = new Evaluator(refEvaluationFile , hypEvaluationFile , timeEvaluationFile);
+					EvaluationAligner e = new EvaluationAligner(refEvaluationFile , hypEvaluationFile , timeEvaluationFile);
 					System.out.println("ref file :"+ refEvaluationFile.getAbsolutePath());
 					System.out.println("hyp file :"+ hypEvaluationFile.getAbsolutePath());
 					System.out.println("time file :"+ timeEvaluationFile.getAbsolutePath());
@@ -205,7 +205,7 @@ public class EvaluationSystem {
 					
 				}
 			}
-			fileOccured = false;
+			isEvalutionDirectoryOccured = false;
 		}
 		UiMethod1Frame.btnResult.setEnabled(true);
 	}

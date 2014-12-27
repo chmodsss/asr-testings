@@ -4,6 +4,7 @@ package project.speech.userInterface;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.Font;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class UiInstructionMainFrame extends JFrame {
@@ -15,6 +16,7 @@ public class UiInstructionMainFrame extends JFrame {
 	private JLabel lblModel2;
 
 	public UiInstructionMainFrame() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionMainFrame.class.getResource("/project/speech/userInterface/logo.jpg")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 773, 333);
 		contentPane = new JPanel();

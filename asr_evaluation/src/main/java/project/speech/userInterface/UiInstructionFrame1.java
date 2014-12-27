@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.awt.Toolkit;
 
 
 @SuppressWarnings("serial")
@@ -21,6 +22,7 @@ public class UiInstructionFrame1 extends JFrame {
 	private BufferedImage myPicture = null;
 
 	public UiInstructionFrame1() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionFrame1.class.getResource("/project/speech/userInterface/logo.jpg")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 780, 476);
 		contentPane = new JPanel();

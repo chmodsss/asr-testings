@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
+import java.awt.Toolkit;
 
 public class UiResultFrame2 {
 
@@ -26,6 +27,7 @@ public class UiResultFrame2 {
 		
 		pathName = p;
 		frameResult =  new JFrame();
+		frameResult.setIconImage(Toolkit.getDefaultToolkit().getImage(UiResultFrame2.class.getResource("/project/speech/userInterface/logo.jpg")));
 		frameResult.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frameResult.setBounds(100, 100, 667, 473);
 		frameResult.setTitle("Evaluation result...");

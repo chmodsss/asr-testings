@@ -11,6 +11,7 @@ import javax.swing.border.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.awt.Toolkit;
 
 
 public class UiMethod2Frame {
@@ -69,6 +70,7 @@ public class UiMethod2Frame {
 	static void initialize(){
 				
 		frame2 = new JFrame();
+		frame2.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod2Frame.class.getResource("/project/speech/userInterface/logo.jpg")));
 		frame2.setBounds(100, 100, 726, 479);
 		frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame2.getContentPane().setLayout(null);
@@ -130,9 +132,9 @@ public class UiMethod2Frame {
 
 		//=================== Labels ===================//
 		
-		lblModel2 = new JLabel("Model - 2");
+		lblModel2 = new JLabel("Simple evaluation");
 		lblModel2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblModel2.setFont(new Font("Georgia", Font.ITALIC, 30));
+		lblModel2.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 		lblModel2.setBounds(151, 25, 384, 39);
 		frame2.getContentPane().add(lblModel2);
 		

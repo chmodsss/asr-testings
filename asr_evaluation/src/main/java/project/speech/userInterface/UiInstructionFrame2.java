@@ -3,6 +3,7 @@ package project.speech.userInterface;
 import javax.swing.*;
 import java.awt.Font;
 import javax.swing.border.*;
+import java.awt.Toolkit;
 
 
 @SuppressWarnings("serial")
@@ -16,6 +17,7 @@ public class UiInstructionFrame2 extends JFrame {
 
 
 	public UiInstructionFrame2() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionFrame2.class.getResource("/project/speech/userInterface/logo.jpg")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 774, 300);
 		contentPane = new JPanel();
