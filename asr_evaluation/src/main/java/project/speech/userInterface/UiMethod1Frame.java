@@ -1,6 +1,8 @@
 package project.speech.userInterface;
 
 import project.speech.evaluationsystem.*;
+import project.speech.globalAccess.Globals;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.awt.*;
@@ -42,10 +44,6 @@ public class UiMethod1Frame {
 	private static String dictionaryChoosertitle = "Select the dictionary file...";
 	private static String acousticChoosertitle = "Select the acoustic file...";
 	private static String languageChoosertitle = "Select the language file...";
-
-	private static String select = "--- Select ---";
-	private static String asr1 = "cmusphinx";
-	private static String asr2 = "ispeech";
 
 	private static String currentAsrSelected = null;
 	private static File speechCorpusPathResult = null;
@@ -90,7 +88,7 @@ public class UiMethod1Frame {
 		frame1.setBounds(100, 100, 695, 450);
 		frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
-		frame1.setTitle("Model 1...");
+		frame1.setTitle("Recognise & Evaluate");
 		frame1.setResizable(false);
 		
 		final UiInstructionFrame1 frameInstructions1 = new UiInstructionFrame1();
@@ -142,7 +140,7 @@ public class UiMethod1Frame {
 		panelPerformance.setLayout(null);
 		
 		//=================== Labels ===================//
-		lblModel1 = new JLabel("Recognize & Evaluate");
+		lblModel1 = new JLabel("Recognise & Evaluate");
 		lblModel1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModel1.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 		lblModel1.setBounds(118, 9, 384, 39);
@@ -169,7 +167,7 @@ public class UiMethod1Frame {
 		comboAsrSelect.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		comboAsrSelect.setBounds(30, 87, 135, 28);
 		panelProperties.add(comboAsrSelect);
-		comboAsrSelect.setModel(new DefaultComboBoxModel(new String[] { select, "CmuSphinx", "iSpeech" }));
+		comboAsrSelect.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.asr1SelectionNameUI, Globals.asr2SelectionNameUI }));
 		
 		// Select models
 		btnShow = new JLabel();
@@ -227,43 +225,43 @@ public class UiMethod1Frame {
 		comboAsrResult.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		comboAsrResult.setBounds(30, 51, 135, 28);
 		panelCriteria.add(comboAsrResult);
-		comboAsrResult.setModel(new DefaultComboBoxModel(new String[] { select, "CmuSphinx", "iSpeech", "All" }));
+		comboAsrResult.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.asr1SelectionNameUI, Globals.asr2SelectionNameUI, Globals.allselectionUI }));
 		
 		// Combo box algorithm selection
 		comboAlgorithm = new JComboBox();
 		comboAlgorithm.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		comboAlgorithm.setBounds(30, 100, 135, 28);
 		panelCriteria.add(comboAlgorithm);
-		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] {"--- Select ---", "Algorithm1"}));
+		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.algorithm1}));
 				
 		//***************** Buttons under Criteria panel *****************//		
 		
 		// Word error rate
-		chkWER = new JCheckBox("WER");
+		chkWER = new JCheckBox(Globals.werUI);
 		chkWER.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkWER.setBounds(16, 27, 130, 28);
 		panelPerformance.add(chkWER);
 		
 		// Slot error rate
-		chkSER = new JCheckBox("SER");
+		chkSER = new JCheckBox(Globals.serUI);
 		chkSER.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkSER.setBounds(16, 53, 130, 28);
 		panelPerformance.add(chkSER);
 		
 		// MUC
-		chkMUC = new JCheckBox("MUC");
+		chkMUC = new JCheckBox(Globals.mucUI);
 		chkMUC.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkMUC.setBounds(16, 77, 130, 28);
 		panelPerformance.add(chkMUC);
 		
 		//Accuracy
-		chkACC = new JCheckBox("ACC");
+		chkACC = new JCheckBox(Globals.accUI);
 		chkACC.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkACC.setBounds(16, 103, 130, 28);
 		panelPerformance.add(chkACC);
 		
 		//All the parameters
-		chkALL = new JCheckBox("ALL");
+		chkALL = new JCheckBox(Globals.allUI);
 		chkALL.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkALL.setBounds(16, 127, 130, 28);
 		panelPerformance.add(chkALL);
@@ -305,10 +303,10 @@ public class UiMethod1Frame {
 				JComboBox comboAsrSelected = (JComboBox) actionAsrSelected.getSource();
 				asrSelectedObj = comboAsrSelected.getSelectedItem();
 				
-				if ("CmuSphinx".equals(asrSelectedObj)) {
+				if (Globals.asr1Name.equals(asrSelectedObj)) {
 					System.out.println("CmuSphnix is selected...");
 					modelsNeeded = true;
-					setSelectedAsr(asr1);
+					setSelectedAsr(Globals.asr1Name);
 					btnShow.setText("Set the properties of " + currentAsrSelected);
 					btnShow.setVisible(true);
 					btnDictionaryModel.setEnabled(true);
@@ -324,9 +322,9 @@ public class UiMethod1Frame {
 						btnLanguageModel.setBackground(Color.GREEN);
 				}
 	
-				if ("iSpeech".equals(asrSelectedObj)) {
+				if (Globals.asr2Name.equals(asrSelectedObj)) {
 					System.out.println("iSpeech is selected...");
-					setSelectedAsr(asr2);
+					setSelectedAsr(Globals.asr2Name);
 					modelsNeeded = false;
 					btnShow.setText("No models are needed for iSpeech ");
 					btnShow.setVisible(true);
@@ -344,7 +342,7 @@ public class UiMethod1Frame {
 					btnLanguageModel.setEnabled(false);
 				}
 	
-				if (select.equals(asrSelectedObj)) {
+				if (Globals.select.equals(asrSelectedObj)) {
 					System.out.println("Select is selected...");
 					setSelectedAsr(null);
 					btnShow.setText("Select anyone...");
@@ -375,11 +373,11 @@ public class UiMethod1Frame {
 						btnDictionaryModel.setBackground(Color.GREEN);
 						dictLoadedCmu = true;
 					}
-					if (currentAsrSelected == "cmusphinx") {
+					if (currentAsrSelected == Globals.asr1Name) {
 						cmuProperties.setUiDictionary(dictionaryPathResult);
 					}
 					/*
-					 * if(currentAsrSelected == "ispeech" ){
+					 * if(currentAsrSelected == Globals.asr2Name ){
 					 * iSpeechProperties.setUiDictionary(dictionaryPathResult);
 					 * }
 					 */
@@ -404,11 +402,11 @@ public class UiMethod1Frame {
 						langLoadedCmu = true;
 						btnLanguageModel.setBackground(Color.GREEN);
 					}
-					if (currentAsrSelected == "cmusphinx") {
+					if (currentAsrSelected == Globals.asr1Name) {
 						cmuProperties.setUiLanguage(languagePathResult);
 					}
 					/*
-					 * if(currentAsrSelected == "ispeech"){
+					 * if(currentAsrSelected == Globals.asr2Name){
 					 * iSpeechProperties.setUiLanguage(languagePathResult); }
 					 */
 					}
@@ -432,11 +430,11 @@ public class UiMethod1Frame {
 						btnAcousticModel.setBackground(Color.GREEN);
 						acousLoadedCmu = true;
 					}
-					if (currentAsrSelected == "cmusphinx") {
+					if (currentAsrSelected == Globals.asr1Name) {
 						cmuProperties.setUiAcoustic(acousticPathResult);
 					}
 					/*
-					 * if(currentAsrSelected == "ispeech"){
+					 * if(currentAsrSelected == Globals.asr2Name){
 					 * iSpeechProperties.setUiAcoustic(acousticPathResult); }
 					 */
 					}
@@ -458,19 +456,19 @@ public class UiMethod1Frame {
 				//--- Computing the selected asr systems ---
 				Object resultAsrSelectedObj = comboAsrResult.getSelectedItem();
 				if ("CmuSphinx".equals(resultAsrSelectedObj)) {
-					asrSystemsSelected.add(asr1);
+					asrSystemsSelected.add(Globals.asr1Name);
 					System.out.println("CmuSphnix's result is required...");
 				}
 				if ("iSpeech".equals(resultAsrSelectedObj)) {
-					asrSystemsSelected.add(asr2);
+					asrSystemsSelected.add(Globals.asr2Name);
 					System.out.println("ispeech''s result is required...");
 				}
 				if ("All".equals(resultAsrSelectedObj)) {
-					asrSystemsSelected.add(asr1);
-					asrSystemsSelected.add(asr2);
+					asrSystemsSelected.add(Globals.asr1Name);
+					asrSystemsSelected.add(Globals.asr2Name);
 					System.out.println("All results are required...");
 				}
-				if (select.equals(resultAsrSelectedObj)) {
+				if (Globals.select.equals(resultAsrSelectedObj)) {
 					asrSystemsSelected.clear();
 					System.out.println("Nothing is selected...");
 				}
@@ -501,33 +499,33 @@ public class UiMethod1Frame {
 				}
 				//--- Store method of algorithm in String ---
 				algorithmSelected = (String) comboAlgorithm.getSelectedItem();
-				if (select.equals(algorithmSelected)) {
+				if (Globals.select.equals(algorithmSelected)) {
 					algorithmSelected = null;
 				}
 
 				checkBool = speechCorpusLoaded && (asrSelectedObj != null) && (algorithmSelected != null) && (!performanceListSelected.isEmpty()) && (!asrSystemsSelected.isEmpty()) ;
 				if (checkBool){
-					if (asrSystemsSelected.contains(asr1)){
-						if (asr1.equals(currentAsrSelected)){
+					if (asrSystemsSelected.contains(Globals.asr1Name)){
+						if (Globals.asr1Name.equals(currentAsrSelected)){
 							checkCmu = dictLoadedCmu && acousLoadedCmu && langLoadedCmu;
 							}
 						}
-					if (asrSystemsSelected.contains(asr2)){	
-						if ( asr2.equals(currentAsrSelected)){
+					if (asrSystemsSelected.contains(Globals.asr2Name)){	
+						if ( Globals.asr2Name.equals(currentAsrSelected)){
 							checkIspeech = true;
 						}
 					}
-				 if (asrSystemsSelected.contains(asr1) && asrSystemsSelected.contains(asr2)){
+				 if (asrSystemsSelected.contains(Globals.asr1Name) && asrSystemsSelected.contains(Globals.asr2Name)){
 					 if (checkCmu && checkIspeech){
 						 btnEvaluate.setEnabled(true);
 					 }
 				 }
-				 else if (asrSystemsSelected.contains(asr1)){
+				 else if (asrSystemsSelected.contains(Globals.asr1Name)){
 					 if (checkCmu){
 					 btnEvaluate.setEnabled(true);
 					 }
 				 }
-				 else if (asrSystemsSelected.contains(asr2)){
+				 else if (asrSystemsSelected.contains(Globals.asr2Name)){
 					 if (checkIspeech){
 					 btnEvaluate.setEnabled(true);
 					 }

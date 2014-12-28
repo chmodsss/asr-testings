@@ -25,7 +25,7 @@ public class UiMainFrame extends JFrame {
 				try {
 					UiMainFrame frameMain = new UiMainFrame();
 					frameMain.setVisible(true);
-					frameMain.setTitle("ASR evaluation toolkit...");
+					frameMain.setTitle("ASR evaluation tool");
 					frameMain.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,7 +67,7 @@ public class UiMainFrame extends JFrame {
 		contentPane.add(btnModel1);
 		
 		// Model2 button
-		btnModel2 = new JButton("Simple evaluation");
+		btnModel2 = new JButton("Text evaluation");
 		btnModel2.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		btnModel2.setBounds(323, 224, 180, 50);
 		contentPane.add(btnModel2);

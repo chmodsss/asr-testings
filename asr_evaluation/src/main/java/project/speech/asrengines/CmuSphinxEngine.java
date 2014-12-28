@@ -10,6 +10,7 @@ import org.apache.commons.io.FilenameUtils;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.SpeechResult;
 import edu.cmu.sphinx.api.StreamSpeechRecognizer;
+import project.speech.globalAccess.Globals;
 import project.speech.readerAndWriter.*;
 
 public class CmuSphinxEngine {
@@ -17,19 +18,17 @@ public class CmuSphinxEngine {
 	private String languageModel;
 	private String dictionaryModel;
 	private String acousticModel;
-	private String asrName;
-	private ArrayList<String> outputSentencesCmu = new ArrayList<String>();
-	private ArrayList<String> outputFileNamesCmu = new ArrayList<String>();
+	private ArrayList<String> outputSentencesCmuList = new ArrayList<String>();
+	private ArrayList<String> outputFileNamesCmuList = new ArrayList<String>();
 	private double startTimeMsCmu;
 	private double stopTimeMsCmu;
-	private double timeDiffCmu;
+	private double timeDifferenceCmu;
 
-	public CmuSphinxEngine(File dict, String acous, File lang) {
+	public CmuSphinxEngine(File dictionary, String acoustic, File language) {
 		System.out.println("cmu object instantiated...");
-		dictionaryModel = dict.getPath();
-		acousticModel = acous;
-		languageModel = lang.getPath();
-		asrName = "CmuSphinx";
+		dictionaryModel = dictionary.getPath();
+		acousticModel = acoustic;
+		languageModel = language.getPath();
 	}
 
 	public Configuration configure() {
@@ -41,33 +40,30 @@ public class CmuSphinxEngine {
 		return configuration;
 	}
 
-	public void recognizeSpeech(Configuration config, File databaseName,
-			File speeches, File referenceFile) throws IOException {
+	public void recognizeSpeech(Configuration config, File currentSpeechFolder, File currentSpeechFiles, File referenceFile) throws IOException {
 
 		StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(config);
 		System.out.println("Start of recognition...\n");
 		
 		FileReader frCmu = new FileReader();
-		FileDetails fdCmu = frCmu.reader(speeches);
+		FileDetails fdCmu = frCmu.reader(currentSpeechFiles);
 
 		startTimeMsCmu = System.currentTimeMillis();
-		outputSentencesCmu.clear();
-		outputFileNamesCmu.clear();
+		outputSentencesCmuList.clear();
+		outputFileNamesCmuList.clear();
 		for (int idx = 0; idx < fdCmu.getFilePath().size(); idx++) {
 			String cmuCurrentPath = fdCmu.getFilePath().get(idx);
-			System.out.println("cmu audio files... "+ cmuCurrentPath);
 			recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
-			System.out.println("Cmu File path size..."+ fdCmu.getFilePath().size());
 			SpeechResult result = recognizer.getResult();
 			recognizer.stopRecognition();
 			String sentenceDetected = result.getHypothesis();
 			String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
-			outputSentencesCmu.add(sentenceDetected);
-			outputFileNamesCmu.add(fileName);
+			outputSentencesCmuList.add(sentenceDetected);
+			outputFileNamesCmuList.add(fileName);
 		}
 		stopTimeMsCmu = System.currentTimeMillis();
-		timeDiffCmu = (stopTimeMsCmu - startTimeMsCmu)/1000;
-		FileScripter.writer(asrName, databaseName, referenceFile, outputFileNamesCmu, outputSentencesCmu , timeDiffCmu);
+		timeDifferenceCmu = (stopTimeMsCmu - startTimeMsCmu)/1000;
+		FileScripter.writer(Globals.asr1SelectionNameUI, currentSpeechFolder, referenceFile, outputFileNamesCmuList, outputSentencesCmuList , timeDifferenceCmu);
 		System.out.println("End of recognition...\n");
 		System.out.println("Exit...");
 	}

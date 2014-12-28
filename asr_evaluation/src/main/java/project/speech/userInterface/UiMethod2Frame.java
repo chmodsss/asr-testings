@@ -1,6 +1,7 @@
 package project.speech.userInterface;
 
 import project.speech.evaluationsystem.*;
+import project.speech.globalAccess.Globals;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -50,7 +51,6 @@ public class UiMethod2Frame {
 	
 	private static String referenceChooserTitle = "Select the reference file";
 	private static String hypothesisChooserTitle = "Select the hypothesis file";
-	private static String select = "--- Select ---";
 	private static String algorithmSelected = null;
 	private static String outputFilePath = "/comparisonOutput/comparison-result.txt";
 	
@@ -74,7 +74,7 @@ public class UiMethod2Frame {
 		frame2.setBounds(100, 100, 726, 479);
 		frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame2.getContentPane().setLayout(null);
-		frame2.setTitle("Method 2 ...");
+		frame2.setTitle("Text evaluation");
 		frame2.setResizable(false);
 		
 		final UiInstructionFrame2 frameInstructions2 = new UiInstructionFrame2();
@@ -121,7 +121,7 @@ public class UiMethod2Frame {
 		comboAlgorithm = new JComboBox();
 		panelCriteria.add(comboAlgorithm);
 		comboAlgorithm.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] {"--- Select ---", "Algorithm1"}));
+		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] {Globals.select, Globals.algorithm1}));
 		
 		// Panel for evaluation
 		panelEvaluate = new JPanel();
@@ -132,7 +132,7 @@ public class UiMethod2Frame {
 
 		//=================== Labels ===================//
 		
-		lblModel2 = new JLabel("Simple evaluation");
+		lblModel2 = new JLabel("Text evaluation");
 		lblModel2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModel2.setFont(new Font("Century Gothic", Font.PLAIN, 30));
 		lblModel2.setBounds(151, 25, 384, 39);
@@ -180,27 +180,27 @@ public class UiMethod2Frame {
 		
 		// Check boxes
 		
-		chkWER = new JCheckBox("WER");
+		chkWER = new JCheckBox(Globals.werUI);
 		chkWER.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkWER.setBounds(21, 25, 130, 28);
 		panelPerformance.add(chkWER);
 		
-		chkSER = new JCheckBox("SER");
+		chkSER = new JCheckBox(Globals.serUI);
 		chkSER.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkSER.setBounds(21, 51, 130, 28);
 		panelPerformance.add(chkSER);
 		
-		chkMUC = new JCheckBox("MUC");
+		chkMUC = new JCheckBox(Globals.mucUI);
 		chkMUC.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkMUC.setBounds(21, 75, 130, 28);
 		panelPerformance.add(chkMUC);
 		
-		chkACC = new JCheckBox("ACC");
+		chkACC = new JCheckBox(Globals.accUI);
 		chkACC.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkACC.setBounds(21, 101, 130, 28);
 		panelPerformance.add(chkACC);
 		
-		chkALL = new JCheckBox("ALL");
+		chkALL = new JCheckBox(Globals.allUI);
 		chkALL.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		chkALL.setBounds(21, 125, 130, 28);
 		panelPerformance.add(chkALL);
@@ -244,7 +244,6 @@ public class UiMethod2Frame {
 		// Reference file - to choose the file
 		btnRefFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("entry poinnt...");
 				referenceFileChooser = new JFileChooser();
 				referenceFileChooser.setCurrentDirectory(new java.io.File("."));
 				referenceFileChooser.setDialogTitle(referenceChooserTitle);
@@ -283,7 +282,7 @@ public class UiMethod2Frame {
 				btnEvaluate.setEnabled(false);
 				// Store method of algorithm in String
 				algorithmSelected = (String) comboAlgorithm.getSelectedItem();
-				if (select.equals(algorithmSelected)) {
+				if (Globals.select.equals(algorithmSelected)) {
 					algorithmSelected = null;
 				}
 				
@@ -322,7 +321,7 @@ public class UiMethod2Frame {
 		btnEvaluate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					try {
-						EvaluationSystem.evaluateFromFiles(referenceFilePath, hypothesisFilePath, performanceListSelected, algorithmSelected);
+						EvaluationSystem.textEvaluation(referenceFilePath, hypothesisFilePath, performanceListSelected, algorithmSelected);
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}

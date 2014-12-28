@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--AgileJ Ltd. (http://www.agilej.com)-->
-<ajsv>
-    <diagram creationDate="2014-Dec-26 05:47" licenseGrade="evaluation" licenseeName="anon" licenseeOrganization="unknown" version="1.8.0.v20141121-2110">
-        <class className="project.speech.asrengines.IspeechEngine" project="asr_evaluation" xLocation="0" yLocation="0"/>
-        <class className="project.speech.asrengines.CmuSphinxEngine" project="asr_evaluation" xLocation="20" yLocation="20"/>
-    </diagram>
-</ajsv>
