@@ -29,7 +29,7 @@ public class UiMethod1Frame {
 	private static JButton btnCheck;
 	private static JButton btnInstructions;
 	private static JButton btnEvaluate;
-	private static JLabel btnShow;
+	private static JLabel lblSpeechCorpusPath;
 	public static JButton btnResult;
 
 	final static UiAsrProperties cmuProperties = new UiAsrProperties();
@@ -76,6 +76,11 @@ public class UiMethod1Frame {
 	private static JComboBox comboAsrResult;
 	@SuppressWarnings("rawtypes")
 	private static JComboBox comboAlgorithm;
+	private static JLabel lblDictionaryModel;
+	private static JLabel lblLanguageModel;
+	private static JLabel lblAcousticModel;
+	private static JLabel lblAsrChoice;
+	private static JLabel lblAlgorithmChoice;
 	
 	/**
 	 * @wbp.parser.entryPoint
@@ -85,7 +90,7 @@ public class UiMethod1Frame {
 
 		frame1 = new JFrame();
 		frame1.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod1Frame.class.getResource("/project/speech/userInterface/logo.jpg")));
-		frame1.setBounds(100, 100, 695, 450);
+		frame1.setBounds(100, 100, 801, 419);
 		frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
 		frame1.setTitle("Recognise & Evaluate");
@@ -95,16 +100,29 @@ public class UiMethod1Frame {
 		frame1.addWindowListener(new WindowAdapter() {
 
 			public void windowClosing(WindowEvent e) {
+				UiMainFrame framePrimary1 = new UiMainFrame();
+				framePrimary1.setVisible(true);
 				if (frameInstructions1 != null) {
 					frameInstructions1.dispose();
 				}
 			}
 		});
+		
+
+		/*
+		final UiTest frameGif = new UiTest();
+		frameGif.setVisible(false);
+		frameGif.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				if (frameGif != null) {
+					frameGif.dispose();
+				}
+			}
+		});*/
 
 		// Set UI to look more cool
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			// UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			UIManager.setLookAndFeel(Globals.theme1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -113,28 +131,28 @@ public class UiMethod1Frame {
 		speechPropertiesList.add(cmuProperties);
 		speechPropertiesList.add(iSpeechProperties);
 		
-		
+
 		//=================== Panels ===================//
 		JPanel panelProperties = new JPanel();
 		panelProperties.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Properties", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelProperties.setBounds(440, 60, 200, 310);
+		panelProperties.setBounds(476, 60, 301, 310);
 		frame1.getContentPane().add(panelProperties);
 		panelProperties.setLayout(null);
 		
 		JPanel panelEvaluation = new JPanel();
 		panelEvaluation.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Evaluation", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelEvaluation.setBounds(230, 209, 200, 161);
+		panelEvaluation.setBounds(286, 207, 180, 163);
 		frame1.getContentPane().add(panelEvaluation);
 		panelEvaluation.setLayout(null);
 		
 		JPanel panelCriteria = new JPanel();
-		panelCriteria.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Criteria", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelCriteria.setBounds(18, 60, 200, 310);
+		panelCriteria.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Output Choices", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelCriteria.setBounds(18, 60, 258, 310);
 		frame1.getContentPane().add(panelCriteria);
 		panelCriteria.setLayout(null);
 		
 		JPanel panelPerformance = new JPanel();
-		panelPerformance.setBounds(18, 143, 163, 161);
+		panelPerformance.setBounds(40, 139, 163, 161);
 		panelCriteria.add(panelPerformance);
 		panelPerformance.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Performance measures", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelPerformance.setLayout(null);
@@ -143,15 +161,14 @@ public class UiMethod1Frame {
 		lblModel1 = new JLabel("Recognise & Evaluate");
 		lblModel1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModel1.setFont(new Font("Century Gothic", Font.PLAIN, 30));
-		lblModel1.setBounds(118, 9, 384, 39);
+		lblModel1.setBounds(212, 10, 384, 39);
 		frame1.getContentPane().add(lblModel1);
 		
-		//=================== Buttons ===================//
 		
 		// Instructions
 		btnInstructions = new JButton("Instructions");
 		btnInstructions.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnInstructions.setBounds(250, 115, 135, 28);
+		btnInstructions.setBounds(310, 128, 135, 28);
 		frame1.getContentPane().add(btnInstructions);
 				
 		//***************** Buttons under Properties panel *****************//
@@ -165,36 +182,153 @@ public class UiMethod1Frame {
 		// Combo box to select asr systems
 		comboAsrSelect = new JComboBox();
 		comboAsrSelect.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		comboAsrSelect.setBounds(30, 87, 135, 28);
+		comboAsrSelect.setBounds(139, 89, 135, 28);
 		panelProperties.add(comboAsrSelect);
 		comboAsrSelect.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.asr1SelectionNameUI, Globals.asr2SelectionNameUI }));
 		
-		// Select models
-		btnShow = new JLabel();
-		btnShow.setBounds(6, 128, 194, 31);
-		panelProperties.add(btnShow);
-		btnShow.setFont(new Font("Dialog", Font.PLAIN, 12));
+		JLabel lblNewLabel = new JLabel("ASR engine :");
+		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblNewLabel.setBounds(35, 94, 94, 19);
+		panelProperties.add(lblNewLabel);
 		
-		// Dictionary model path button
-		btnDictionaryModel = new JButton("Dictionary model");
-		btnDictionaryModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnDictionaryModel.setBounds(28, 160, 138, 28);
-		panelProperties.add(btnDictionaryModel);
-		btnDictionaryModel.setEnabled(false);
+		lblSpeechCorpusPath = new JLabel();
+		lblSpeechCorpusPath.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblSpeechCorpusPath.setBounds(190, 40, 80, 20);
+		panelProperties.add(lblSpeechCorpusPath);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Model properties", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel.setBounds(10, 130, 281, 169);
+		panelProperties.add(panel);
+		panel.setLayout(null);
 		
 		// Language model path button
 		btnLanguageModel = new JButton("Language model");
+		btnLanguageModel.setBounds(30, 75, 138, 27);
+		panel.add(btnLanguageModel);
 		btnLanguageModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnLanguageModel.setBounds(28, 210, 138, 28);
-		panelProperties.add(btnLanguageModel);
 		btnLanguageModel.setEnabled(false);
 		
 		// Acoustic model path button
 		btnAcousticModel = new JButton("Acoustic model");
+		btnAcousticModel.setBounds(30, 120, 138, 27);
+		panel.add(btnAcousticModel);
 		btnAcousticModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnAcousticModel.setBounds(28, 260, 138, 28);
-		panelProperties.add(btnAcousticModel);
 		btnAcousticModel.setEnabled(false);
+		
+		lblDictionaryModel = new JLabel();
+		lblDictionaryModel.setBounds(180, 30, 80, 20);
+		panel.add(lblDictionaryModel);
+		lblDictionaryModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		
+		// Dictionary model path button
+		btnDictionaryModel = new JButton("Dictionary model");
+		btnDictionaryModel.setBounds(30, 30, 138, 27);
+		panel.add(btnDictionaryModel);
+		btnDictionaryModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		btnDictionaryModel.setEnabled(false);
+		
+		// Dictionary path selection
+		btnDictionaryModel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File dictionaryPathResult = null;
+				if (currentAsrSelected != null && modelsNeeded) {
+					dictionaryChooser = new JFileChooser();
+					dictionaryChooser.setCurrentDirectory(new java.io.File("."));
+					dictionaryChooser.setDialogTitle(dictionaryChoosertitle);
+					dictionaryChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+					dictionaryChooser.setAcceptAllFileFilterUsed(false);
+		
+					if (dictionaryChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+						btnEvaluate.setEnabled(false);
+						dictionaryPathResult = getRelativePath(dictionaryChooser.getSelectedFile());
+						btnDictionaryModel.setToolTipText(dictionaryPathResult.getAbsolutePath());
+						lblDictionaryModel.setText("Loaded");
+						System.out.println("dict path" + getRelativePath(dictionaryPathResult));
+						btnDictionaryModel.setBackground(Globals.turquoise);
+						dictLoadedCmu = true;
+					}
+					if (currentAsrSelected == Globals.asr1Name) {
+						cmuProperties.setUiDictionary(dictionaryPathResult);
+					}
+					/*
+					 * if(currentAsrSelected == Globals.asr2Name ){
+					 * iSpeechProperties.setUiDictionary(dictionaryPathResult);
+					 * }
+					 */
+					}
+				}
+		});
+		
+		lblLanguageModel = new JLabel();
+		lblLanguageModel.setBounds(180, 75, 80, 20);
+		panel.add(lblLanguageModel);
+		lblLanguageModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		
+		lblAcousticModel = new JLabel();
+		lblAcousticModel.setBounds(180, 120, 80, 20);
+		panel.add(lblAcousticModel);
+		lblAcousticModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		
+		// Acoustic path selection
+		btnAcousticModel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File acousticPathResult = null;
+				if (currentAsrSelected != null && modelsNeeded) {
+					acousticChooser = new JFileChooser();
+					acousticChooser.setCurrentDirectory(new java.io.File("."));
+					acousticChooser.setDialogTitle(acousticChoosertitle);
+					acousticChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+					acousticChooser.setAcceptAllFileFilterUsed(false);
+					
+					if (acousticChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+						btnEvaluate.setEnabled(false);
+						acousticPathResult = getRelativePath(acousticChooser.getSelectedFile());
+						btnAcousticModel.setToolTipText(acousticPathResult.getAbsolutePath());
+						lblAcousticModel.setText("Loaded");
+						btnAcousticModel.setBackground(Globals.turquoise);
+						acousLoadedCmu = true;
+					}
+					if (currentAsrSelected == Globals.asr1Name) {
+						cmuProperties.setUiAcoustic(acousticPathResult);
+					}
+					/*
+					 * if(currentAsrSelected == Globals.asr2Name){
+					 * iSpeechProperties.setUiAcoustic(acousticPathResult); }
+					 */
+					}
+				}
+		});
+		
+		// Language path selection
+		btnLanguageModel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File languagePathResult = null;
+				if (currentAsrSelected != null && modelsNeeded) {
+					languageChooser = new JFileChooser();
+					languageChooser.setCurrentDirectory(new java.io.File("."));
+					languageChooser.setDialogTitle(languageChoosertitle);
+					languageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+					languageChooser.setAcceptAllFileFilterUsed(false);
+		
+					if (languageChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
+						btnEvaluate.setEnabled(false);
+						languagePathResult = getRelativePath(languageChooser.getSelectedFile());
+						btnLanguageModel.setToolTipText(languagePathResult.getAbsolutePath());
+						lblLanguageModel.setText("Loaded");
+						langLoadedCmu = true;
+						btnLanguageModel.setBackground(Globals.turquoise);
+					}
+					if (currentAsrSelected == Globals.asr1Name) {
+						cmuProperties.setUiLanguage(languagePathResult);
+					}
+					/*
+					 * if(currentAsrSelected == Globals.asr2Name){
+					 * iSpeechProperties.setUiLanguage(languagePathResult); }
+					 */
+					}
+				}
+		});
 		
 		//***************** Buttons under Evaluation panel *****************//		
 				
@@ -223,14 +357,14 @@ public class UiMethod1Frame {
 		// Select output speech engines
 		comboAsrResult = new JComboBox();
 		comboAsrResult.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		comboAsrResult.setBounds(30, 51, 135, 28);
+		comboAsrResult.setBounds(103, 50, 135, 28);
 		panelCriteria.add(comboAsrResult);
 		comboAsrResult.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.asr1SelectionNameUI, Globals.asr2SelectionNameUI, Globals.allselectionUI }));
 		
 		// Combo box algorithm selection
 		comboAlgorithm = new JComboBox();
 		comboAlgorithm.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		comboAlgorithm.setBounds(30, 100, 135, 28);
+		comboAlgorithm.setBounds(103, 100, 135, 28);
 		panelCriteria.add(comboAlgorithm);
 		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.algorithm1}));
 				
@@ -266,6 +400,16 @@ public class UiMethod1Frame {
 		chkALL.setBounds(16, 127, 130, 28);
 		panelPerformance.add(chkALL);
 		
+		lblAsrChoice = new JLabel("ASR engine :");
+		lblAsrChoice.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblAsrChoice.setBounds(10, 55, 94, 19);
+		panelCriteria.add(lblAsrChoice);
+		
+		lblAlgorithmChoice = new JLabel("Algorithm :");
+		lblAlgorithmChoice.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblAlgorithmChoice.setBounds(10, 105, 94, 19);
+		panelCriteria.add(lblAlgorithmChoice);
+		
 		//=================== Action listener ===================//		
 		
 		// Instruction - to open instruction frame
@@ -290,8 +434,10 @@ public class UiMethod1Frame {
 				if (speechCorpusChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
 					btnEvaluate.setEnabled(false);
 					speechCorpusPathResult = speechCorpusChooser.getSelectedFile();
+					btnSpeechCorpus.setToolTipText(speechCorpusPathResult.getAbsolutePath());
+					lblSpeechCorpusPath.setText("Loaded");
 					speechCorpusLoaded = true;
-					btnSpeechCorpus.setBackground(Color.GREEN);
+					btnSpeechCorpus.setBackground(Globals.turquoise);
 				}
 			}
 		});
@@ -303,39 +449,43 @@ public class UiMethod1Frame {
 				JComboBox comboAsrSelected = (JComboBox) actionAsrSelected.getSource();
 				asrSelectedObj = comboAsrSelected.getSelectedItem();
 				
-				if (Globals.asr1Name.equals(asrSelectedObj)) {
+				if (Globals.asr1SelectionNameUI.equals(asrSelectedObj)) {
 					System.out.println("CmuSphnix is selected...");
 					modelsNeeded = true;
 					setSelectedAsr(Globals.asr1Name);
-					btnShow.setText("Set the properties of " + currentAsrSelected);
-					btnShow.setVisible(true);
 					btnDictionaryModel.setEnabled(true);
 					btnAcousticModel.setEnabled(true);
 					btnLanguageModel.setEnabled(true);
+					
+					lblDictionaryModel.setVisible(true);
+					lblLanguageModel.setVisible(true);
+					lblAcousticModel.setVisible(true);
 	
 					setDefaultColor();
 					if (dictLoadedCmu)
-						btnDictionaryModel.setBackground(Color.GREEN);
+						btnDictionaryModel.setBackground(Globals.turquoise);
 					if (acousLoadedCmu)
-						btnAcousticModel.setBackground(Color.GREEN);
+						btnAcousticModel.setBackground(Globals.turquoise);
 					if (langLoadedCmu)
-						btnLanguageModel.setBackground(Color.GREEN);
+						btnLanguageModel.setBackground(Globals.turquoise);
 				}
 	
-				if (Globals.asr2Name.equals(asrSelectedObj)) {
+				if (Globals.asr2SelectionNameUI.equals(asrSelectedObj)) {
 					System.out.println("iSpeech is selected...");
 					setSelectedAsr(Globals.asr2Name);
 					modelsNeeded = false;
-					btnShow.setText("No models are needed for iSpeech ");
-					btnShow.setVisible(true);
+					
+					lblDictionaryModel.setVisible(false);
+					lblLanguageModel.setVisible(false);
+					lblAcousticModel.setVisible(false);
 	
 					setDefaultColor();
 					if (dictLoadedIspeech)
-						btnDictionaryModel.setBackground(Color.GREEN);
+						btnDictionaryModel.setBackground(Globals.turquoise);
 					if (acousLoadedIspeech)
-						btnAcousticModel.setBackground(Color.GREEN);
+						btnAcousticModel.setBackground(Globals.turquoise);
 					if (langLoadedIspeech)
-						btnLanguageModel.setBackground(Color.GREEN);
+						btnLanguageModel.setBackground(Globals.turquoise);
 	
 					btnDictionaryModel.setEnabled(false);
 					btnAcousticModel.setEnabled(false);
@@ -345,7 +495,6 @@ public class UiMethod1Frame {
 				if (Globals.select.equals(asrSelectedObj)) {
 					System.out.println("Select is selected...");
 					setSelectedAsr(null);
-					btnShow.setText("Select anyone...");
 	
 					setDefaultColor();
 					btnDictionaryModel.setEnabled(false);
@@ -353,92 +502,6 @@ public class UiMethod1Frame {
 					btnLanguageModel.setEnabled(false);
 				}
 			}
-		});
-		
-		// Dictionary path selection
-		btnDictionaryModel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File dictionaryPathResult = null;
-				if (currentAsrSelected != null && modelsNeeded) {
-					dictionaryChooser = new JFileChooser();
-					dictionaryChooser.setCurrentDirectory(new java.io.File("."));
-					dictionaryChooser.setDialogTitle(dictionaryChoosertitle);
-					dictionaryChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-					dictionaryChooser.setAcceptAllFileFilterUsed(false);
-		
-					if (dictionaryChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
-						btnEvaluate.setEnabled(false);
-						dictionaryPathResult = getRelativePath(dictionaryChooser.getSelectedFile());
-						System.out.println("dict path" + getRelativePath(dictionaryPathResult));
-						btnDictionaryModel.setBackground(Color.GREEN);
-						dictLoadedCmu = true;
-					}
-					if (currentAsrSelected == Globals.asr1Name) {
-						cmuProperties.setUiDictionary(dictionaryPathResult);
-					}
-					/*
-					 * if(currentAsrSelected == Globals.asr2Name ){
-					 * iSpeechProperties.setUiDictionary(dictionaryPathResult);
-					 * }
-					 */
-					}
-				}
-		});
-		
-		// Language path selection
-		btnLanguageModel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File languagePathResult = null;
-				if (currentAsrSelected != null && modelsNeeded) {
-					languageChooser = new JFileChooser();
-					languageChooser.setCurrentDirectory(new java.io.File("."));
-					languageChooser.setDialogTitle(languageChoosertitle);
-					languageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-					languageChooser.setAcceptAllFileFilterUsed(false);
-		
-					if (languageChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
-						btnEvaluate.setEnabled(false);
-						languagePathResult = getRelativePath(languageChooser.getSelectedFile());
-						langLoadedCmu = true;
-						btnLanguageModel.setBackground(Color.GREEN);
-					}
-					if (currentAsrSelected == Globals.asr1Name) {
-						cmuProperties.setUiLanguage(languagePathResult);
-					}
-					/*
-					 * if(currentAsrSelected == Globals.asr2Name){
-					 * iSpeechProperties.setUiLanguage(languagePathResult); }
-					 */
-					}
-				}
-		});
-		
-		// Acoustic path selection
-		btnAcousticModel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File acousticPathResult = null;
-				if (currentAsrSelected != null && modelsNeeded) {
-					acousticChooser = new JFileChooser();
-					acousticChooser.setCurrentDirectory(new java.io.File("."));
-					acousticChooser.setDialogTitle(acousticChoosertitle);
-					acousticChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-					acousticChooser.setAcceptAllFileFilterUsed(false);
-					
-					if (acousticChooser.showOpenDialog(frame1) == JFileChooser.APPROVE_OPTION) {
-						btnEvaluate.setEnabled(false);
-						acousticPathResult = getRelativePath(acousticChooser.getSelectedFile());
-						btnAcousticModel.setBackground(Color.GREEN);
-						acousLoadedCmu = true;
-					}
-					if (currentAsrSelected == Globals.asr1Name) {
-						cmuProperties.setUiAcoustic(acousticPathResult);
-					}
-					/*
-					 * if(currentAsrSelected == Globals.asr2Name){
-					 * iSpeechProperties.setUiAcoustic(acousticPathResult); }
-					 */
-					}
-				}
 		});
 		
 		//***************** Actions under Evaluation panel *****************//		
@@ -508,11 +571,13 @@ public class UiMethod1Frame {
 					if (asrSystemsSelected.contains(Globals.asr1Name)){
 						if (Globals.asr1Name.equals(currentAsrSelected)){
 							checkCmu = dictLoadedCmu && acousLoadedCmu && langLoadedCmu;
+							System.out.println("Cmu is okay");
 							}
 						}
 					if (asrSystemsSelected.contains(Globals.asr2Name)){	
 						if ( Globals.asr2Name.equals(currentAsrSelected)){
 							checkIspeech = true;
+							System.out.println("ispeech is okay");
 						}
 					}
 				 if (asrSystemsSelected.contains(Globals.asr1Name) && asrSystemsSelected.contains(Globals.asr2Name)){
@@ -522,15 +587,23 @@ public class UiMethod1Frame {
 				 }
 				 else if (asrSystemsSelected.contains(Globals.asr1Name)){
 					 if (checkCmu){
+						 System.out.println("Cmu is double okay");
 					 btnEvaluate.setEnabled(true);
 					 }
 				 }
 				 else if (asrSystemsSelected.contains(Globals.asr2Name)){
 					 if (checkIspeech){
+						 System.out.println("ispeech is double okay");
 					 btnEvaluate.setEnabled(true);
 					 }
 				 }
+				 JOptionPane.showMessageDialog(frame1, "Successful ! \n Click Evaluate and please wait till the evaluation is complete...", "Data completed", JOptionPane.INFORMATION_MESSAGE);
+
 			}
+				 if(!btnEvaluate.isEnabled())
+				 {
+					 JOptionPane.showMessageDialog(frame1, "One or more selections are missing !", "Incomplete data", JOptionPane.INFORMATION_MESSAGE);
+				 }
 			}
 		});
 		
@@ -538,7 +611,11 @@ public class UiMethod1Frame {
 		btnEvaluate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					EvaluationSystem.recogniseAndEvaluate(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
+	        		System.out.println("Step 1...");
+	        		new UiSplashScreenEvaluationFrame(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
+					System.out.println("Step 2...");
+//					EvaluationSystem.recogniseAndEvaluate(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
+//					System.out.println("Step 3...");
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

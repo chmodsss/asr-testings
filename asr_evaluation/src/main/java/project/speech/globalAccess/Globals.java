@@ -1,8 +1,18 @@
 package project.speech.globalAccess;
 
+import java.awt.Color;
 import java.io.File;
 
+import javax.swing.UIManager;
+
 public class Globals {
+	
+	public static String theme1 = UIManager.getSystemLookAndFeelClassName();
+	public static String theme2 = "com.sun.java.swing.plaf.windows.WindowsLookAndFeel";
+	public static String theme3 = "javax.swing.plaf.metal.MetalLookAndFeel";
+	
+	public static Color turquoise = new Color(0, 162, 232, 255);
+	
 	public static String select = "--- Select ---";
 	public static String asr1Name = "cmusphinx";
 	public static String asr2Name = "ispeech";
@@ -27,7 +37,7 @@ public class Globals {
 	public static File textEvaluationResultDirectory = new File ("comparisonOutput");
 	
 	
-	public static String referenceFileName = "prompts-original.txt";
+	public static String referenceFileName = "prompts-original";
 	public static String hypothesisOutputFileNameAsr1 = asr1SelectionNameUI+"-output.txt";
 	public static String hypothesisOutputFileNameAsr2 = asr2SelectionNameUI+"-output.txt";
 	
