@@ -1,15 +1,17 @@
 package project.speech.userInterface;
 
-import project.speech.evaluationsystem.*;
 import project.speech.globalAccess.Globals;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import org.apache.commons.io.FileUtils;
 
 public class UiMethod1Frame {
 
@@ -30,7 +32,7 @@ public class UiMethod1Frame {
 	private static JButton btnInstructions;
 	private static JButton btnEvaluate;
 	private static JLabel lblSpeechCorpusPath;
-	public static JButton btnResult;
+	public static JButton btnSaveResult;
 
 	final static UiAsrProperties cmuProperties = new UiAsrProperties();
 	final static UiAsrProperties iSpeechProperties = new UiAsrProperties();
@@ -67,7 +69,6 @@ public class UiMethod1Frame {
 	private static ArrayList<String> asrSystemsSelected = new ArrayList<String>();
 	private static String algorithmSelected = null;
 
-	private static String outputFilePath = "/evaluationOutput/evaluation-result.txt";
 	private static JLabel lblModel1;
 
 	@SuppressWarnings("rawtypes")
@@ -107,18 +108,6 @@ public class UiMethod1Frame {
 				}
 			}
 		});
-		
-
-		/*
-		final UiTest frameGif = new UiTest();
-		frameGif.setVisible(false);
-		frameGif.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				if (frameGif != null) {
-					frameGif.dispose();
-				}
-			}
-		});*/
 
 		// Set UI to look more cool
 		try {
@@ -192,7 +181,8 @@ public class UiMethod1Frame {
 		panelProperties.add(lblNewLabel);
 		
 		lblSpeechCorpusPath = new JLabel();
-		lblSpeechCorpusPath.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblSpeechCorpusPath.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSpeechCorpusPath.setFont(new Font("SansSerif", Font.PLAIN, 10));
 		lblSpeechCorpusPath.setBounds(190, 40, 80, 20);
 		panelProperties.add(lblSpeechCorpusPath);
 		
@@ -217,9 +207,10 @@ public class UiMethod1Frame {
 		btnAcousticModel.setEnabled(false);
 		
 		lblDictionaryModel = new JLabel();
+		lblDictionaryModel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDictionaryModel.setBounds(180, 30, 80, 20);
 		panel.add(lblDictionaryModel);
-		lblDictionaryModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblDictionaryModel.setFont(new Font("SansSerif", Font.PLAIN, 10));
 		
 		// Dictionary model path button
 		btnDictionaryModel = new JButton("Dictionary model");
@@ -243,7 +234,7 @@ public class UiMethod1Frame {
 						btnEvaluate.setEnabled(false);
 						dictionaryPathResult = getRelativePath(dictionaryChooser.getSelectedFile());
 						btnDictionaryModel.setToolTipText(dictionaryPathResult.getAbsolutePath());
-						lblDictionaryModel.setText("Loaded");
+						lblDictionaryModel.setText(dictionaryPathResult.getName());
 						System.out.println("dict path" + getRelativePath(dictionaryPathResult));
 						btnDictionaryModel.setBackground(Globals.turquoise);
 						dictLoadedCmu = true;
@@ -261,14 +252,16 @@ public class UiMethod1Frame {
 		});
 		
 		lblLanguageModel = new JLabel();
+		lblLanguageModel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLanguageModel.setBounds(180, 75, 80, 20);
 		panel.add(lblLanguageModel);
-		lblLanguageModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblLanguageModel.setFont(new Font("SansSerif", Font.PLAIN, 10));
 		
 		lblAcousticModel = new JLabel();
+		lblAcousticModel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAcousticModel.setBounds(180, 120, 80, 20);
 		panel.add(lblAcousticModel);
-		lblAcousticModel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblAcousticModel.setFont(new Font("SansSerif", Font.PLAIN, 10));
 		
 		// Acoustic path selection
 		btnAcousticModel.addActionListener(new ActionListener() {
@@ -285,7 +278,7 @@ public class UiMethod1Frame {
 						btnEvaluate.setEnabled(false);
 						acousticPathResult = getRelativePath(acousticChooser.getSelectedFile());
 						btnAcousticModel.setToolTipText(acousticPathResult.getAbsolutePath());
-						lblAcousticModel.setText("Loaded");
+						lblAcousticModel.setText(acousticPathResult.getName());
 						btnAcousticModel.setBackground(Globals.turquoise);
 						acousLoadedCmu = true;
 					}
@@ -315,7 +308,7 @@ public class UiMethod1Frame {
 						btnEvaluate.setEnabled(false);
 						languagePathResult = getRelativePath(languageChooser.getSelectedFile());
 						btnLanguageModel.setToolTipText(languagePathResult.getAbsolutePath());
-						lblLanguageModel.setText("Loaded");
+						lblLanguageModel.setText(languagePathResult.getName());
 						langLoadedCmu = true;
 						btnLanguageModel.setBackground(Globals.turquoise);
 					}
@@ -346,11 +339,11 @@ public class UiMethod1Frame {
 		panelEvaluation.add(btnCheck);
 		
 		// Get result button
-		btnResult = new JButton("Get result");
-		btnResult.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnResult.setBounds(20, 111, 135, 28);
-		panelEvaluation.add(btnResult);
-		btnResult.setEnabled(false);
+		btnSaveResult = new JButton("Save result");
+		btnSaveResult.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		btnSaveResult.setBounds(20, 111, 135, 28);
+		panelEvaluation.add(btnSaveResult);
+		btnSaveResult.setEnabled(false);
 		
 		//***************** Buttons under Criteria panel *****************//
 		
@@ -435,7 +428,7 @@ public class UiMethod1Frame {
 					btnEvaluate.setEnabled(false);
 					speechCorpusPathResult = speechCorpusChooser.getSelectedFile();
 					btnSpeechCorpus.setToolTipText(speechCorpusPathResult.getAbsolutePath());
-					lblSpeechCorpusPath.setText("Loaded");
+					lblSpeechCorpusPath.setText(speechCorpusPathResult.getName());
 					speechCorpusLoaded = true;
 					btnSpeechCorpus.setBackground(Globals.turquoise);
 				}
@@ -610,26 +603,39 @@ public class UiMethod1Frame {
 		// Evaluate button - to send values to evaluator
 		btnEvaluate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-	        		System.out.println("Step 1...");
-	        		new UiSplashScreenEvaluationFrame(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
-					System.out.println("Step 2...");
-//					EvaluationSystem.recogniseAndEvaluate(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
-//					System.out.println("Step 3...");
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
+	        		try {
+						new UiSplashScreenEvaluationFrame(speechCorpusPathResult, speechPropertiesList, performanceListSelected, asrSystemsSelected, algorithmSelected);
+					} catch (InvocationTargetException e1) {
+						e1.printStackTrace();
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 			}
 		});
 
 		// Get result button - to retrieve the result from file
-		btnResult.addActionListener(new ActionListener() {
+		btnSaveResult.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Specify a file to save");   
+				 
+				int userSelection = fileChooser.showSaveDialog(frame1);
+				 
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
 					String newPath;
-					newPath = currentPath + outputFilePath;
-					UiResultFrame1.initialise(newPath);
+					newPath = currentPath + Globals.model1OutputFilePath;
+				    File fileToSave = fileChooser.getSelectedFile();
+				    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+				    File fileToCopy = new File(newPath);
+				    try {
+						FileUtils.copyFile(fileToCopy, fileToSave);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		

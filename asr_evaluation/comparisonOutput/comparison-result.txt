@@ -1,6 +1,5 @@
 
-
   : : : : : : :  Evaluation Result  : : : : : : :  
 
- << ------ prompts-original  ------ >> 
- 	WER : 1.9047619104385376	SER : 0	MUC : 5.217391490936279	ACC : -4.217391490936279
+ << ------ iSpeech-output  ------ >> 
+ 	SER : 0	MUC : 5.25

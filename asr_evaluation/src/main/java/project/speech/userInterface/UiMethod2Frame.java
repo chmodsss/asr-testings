@@ -1,6 +1,5 @@
 package project.speech.userInterface;
 
-import project.speech.evaluationsystem.*;
 import project.speech.globalAccess.Globals;
 
 import java.awt.Font;
@@ -9,7 +8,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.awt.Toolkit;
 
@@ -27,7 +29,7 @@ public class UiMethod2Frame {
 	private static JButton btnHypFile;
 	private static JButton btnCheck;
 	private static JButton btnEvaluate;
-	public static JButton btnGetResult2;
+	public static JButton btnSaveResult2;
 	
 	private static JLabel lblModel2;
 	
@@ -51,7 +53,6 @@ public class UiMethod2Frame {
 	private static String referenceChooserTitle = "Select the reference file";
 	private static String hypothesisChooserTitle = "Select the hypothesis file";
 	private static String algorithmSelected = null;
-	private static String outputFilePath = "/comparisonOutput/comparison-result.txt";
 	
 	private static boolean referenceFileLoaded = false;
 	private static boolean hypothesisFileLoaded = false;
@@ -264,14 +265,14 @@ public class UiMethod2Frame {
 		
 		lblReferenceFile = new JLabel();
 		lblReferenceFile.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReferenceFile.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblReferenceFile.setBounds(55, 99, 80, 20);
+		lblReferenceFile.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblReferenceFile.setBounds(30, 99, 135, 20);
 		panelFileChooser.add(lblReferenceFile);
 		
 		lblHypothesisFile = new JLabel();
 		lblHypothesisFile.setHorizontalAlignment(SwingConstants.CENTER);
-		lblHypothesisFile.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblHypothesisFile.setBounds(55, 191, 80, 20);
+		lblHypothesisFile.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblHypothesisFile.setBounds(30, 191, 135, 20);
 		panelFileChooser.add(lblHypothesisFile);
 		
 		// Check button
@@ -288,11 +289,11 @@ public class UiMethod2Frame {
 		btnEvaluate.setEnabled(false);
 		
 		// Get result button
-		btnGetResult2 = new JButton("Get Result");
-		btnGetResult2.setBounds(23, 133, 135, 28);
-		panelEvaluate.add(btnGetResult2);
-		btnGetResult2.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnGetResult2.setEnabled(false);
+		btnSaveResult2 = new JButton("Save Result");
+		btnSaveResult2.setBounds(23, 133, 135, 28);
+		panelEvaluate.add(btnSaveResult2);
+		btnSaveResult2.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		btnSaveResult2.setEnabled(false);
 		
 		
 		//=================== Action listener ===================//
@@ -326,7 +327,7 @@ public class UiMethod2Frame {
 				if (referenceFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
 					btnEvaluate.setEnabled(false);
 					referenceFilePath = referenceFileChooser.getSelectedFile();
-					lblReferenceFile.setText("Loaded");
+					lblReferenceFile.setText(referenceFilePath.getName());
 					btnRefFile.setToolTipText(referenceFilePath.getAbsolutePath());
 					referenceFileLoaded = true;
 					btnRefFile.setBackground(Globals.turquoise);
@@ -345,7 +346,7 @@ public class UiMethod2Frame {
 				if (hypothesisFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
 					btnEvaluate.setEnabled(false);
 					hypothesisFilePath = hypothesisFileChooser.getSelectedFile();
-					lblHypothesisFile.setText("Loaded");
+					lblHypothesisFile.setText(hypothesisFilePath.getName());
 					btnHypFile.setToolTipText(hypothesisFilePath.getAbsolutePath());
 					hypothesisFileLoaded = true;
 					btnHypFile.setBackground(Globals.turquoise);
@@ -402,34 +403,40 @@ public class UiMethod2Frame {
 		// Evaluate - send the options for evaluation
 		btnEvaluate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					try {
-						EvaluationSystem.textEvaluation(referenceFilePath, hypothesisFilePath, performanceListSelected, algorithmSelected);
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+							try {
+								new UiSplashScreenEvaluationFrame(referenceFilePath, hypothesisFilePath, performanceListSelected, algorithmSelected);
+							} catch (InvocationTargetException e1) {
+								e1.printStackTrace();
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
 			}
 		});
 		
 		// Get result - retrieve the output file
-		btnGetResult2.addActionListener(new ActionListener() {
+		btnSaveResult2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-/*				try {
-					JTextArea ta = new JTextArea(50, 100);
+				System.out.println("Executed to save");
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Specify a file to save");   
+				 
+				int userSelection = fileChooser.showSaveDialog(frame2);
+				 
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
-					outputFilePath = currentPath + outputFilePath;
-					ta.read(new FileReader(outputFilePath), null);
-					ta.setEditable(false);
-					JOptionPane.showMessageDialog(btnGetResult2, new JScrollPane(ta));
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}*/
-				
-				File currentFolder = new java.io.File("");
-				String currentPath = currentFolder.getAbsolutePath();
-				String newPath;
-				newPath = currentPath + outputFilePath;
-				UiResultFrame2.initialise(newPath);
+					String newPath;
+					newPath = currentPath + Globals.model2OutputFilePath;
+				    File fileToSave = fileChooser.getSelectedFile();
+				    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+				    File fileToCopy = new File(newPath);
+				    try {
+						FileUtils.copyFile(fileToCopy, fileToSave);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 			});
 	}

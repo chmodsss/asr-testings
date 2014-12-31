@@ -60,6 +60,9 @@ public class EvaluationSystem {
 		EvaluationAligner e1 = new EvaluationAligner(tempReferenceFile, tempHypothesisFile);
 		EvaluatorResult eResult = e1.evaluateNoTime();
 		
+		System.out.println("Mic check...");
+		System.out.println("selec.. "+performanceList);
+		
 		if (!isTextEvaluationResultDirectoryOccured ){
 			FileUtils.deleteDirectory(Globals.textEvaluationResultDirectory);
 			Globals.textEvaluationResultDirectory.mkdirs();
@@ -68,7 +71,7 @@ public class EvaluationSystem {
 		File textEvaluationResultFile = new File(Globals.textEvaluationResultDirectory, Globals.textEvaluationResultFileName);
 			hypothesisFileName = tempHypothesisFile.getName();
 			writeResultFile(textEvaluationResultFile, performanceList, eResult, hypothesisFileName);
-			UiMethod2Frame.btnGetResult2.setEnabled(true);
+			UiMethod2Frame.btnSaveResult2.setEnabled(true);
 		}
 	}
 
@@ -84,6 +87,9 @@ public class EvaluationSystem {
 		wer = (eresult.getSubstitutions()+eresult.getDeletions()+eresult.getInsertions())/(float)eresult.getNumberOfWords();
 		mar = (eresult.getHits()+eresult.getDeletions()+eresult.getInsertions()+eresult.getSubstitutions())/(float)eresult.getHits();
 		recall = eresult.getHits()/(float)eresult.getNumberOfWords();
+		
+		System.out.println("Final test...");
+			System.out.println(tempSelectedPerformanceList);
 		evaluationResultFileWriter.print("\n\n << ------ "+FilenameUtils.removeExtension(tempHypothesisFileName)+"  ------ >> \n ");
 
 		if (tempSelectedPerformanceList.contains(Globals.werUI))
@@ -208,7 +214,7 @@ public class EvaluationSystem {
 			}
 			isEvalutionDirectoryOccured = false;
 		}
-		UiMethod1Frame.btnResult.setEnabled(true);
+		UiMethod1Frame.btnSaveResult.setEnabled(true);
 	}
 
 }

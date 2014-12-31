@@ -47,4 +47,7 @@ public class Globals {
 	public static String textEvaluationResultFileName = "comparison-result.txt";
 	public static String recogniseAndEvaluateResultFileName = "evaluation-result.txt";
 	
+	public static String model1OutputFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateResultFileName;
+	public static String model2OutputFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationResultFileName;
+	
 }

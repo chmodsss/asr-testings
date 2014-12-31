@@ -13,6 +13,9 @@ import project.speech.globalAccess.Globals;
 @SuppressWarnings("serial")
 public class UiSplashScreenEvaluationFrame extends JWindow {
 	
+	static String model1 = "model1";
+	static String model2 = "model2";
+	
 	    public UiSplashScreenEvaluationFrame
 	    ( final File speechDatabaseDirectory, final ArrayList<UiAsrProperties> asrPropertiesObj, final ArrayList<String> selectedPerformanceList , final ArrayList<String> selectedAsrList, final String algorithmSelected) throws InvocationTargetException, InterruptedException  {
 	    	EventQueue.invokeLater(new Runnable(){
@@ -24,7 +27,24 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 						}
 				    	JWindow guiWindow = createGUI();
 				        guiWindow.setVisible( true );
-					    MySwingWorker worker = new MySwingWorker(speechDatabaseDirectory,  asrPropertiesObj,  selectedPerformanceList ,  selectedAsrList, algorithmSelected, guiWindow);
+					    MySwingWorker worker = new MySwingWorker(speechDatabaseDirectory,  asrPropertiesObj,  selectedPerformanceList ,  selectedAsrList, algorithmSelected, guiWindow , model1);
+					    worker.execute();
+			           }
+	    });
+	    }
+	    
+	    public UiSplashScreenEvaluationFrame  
+	    ( final File referenceFilePath, final File hypothesisFilePath, final ArrayList<String> performanceListSelected , final String algorithmSelected) throws InvocationTargetException, InterruptedException  {
+	    	EventQueue.invokeLater(new Runnable(){
+	    	      public void run() {
+				    	try{
+							UIManager.setLookAndFeel(Globals.theme2);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+				    	JWindow guiWindow = createGUI();
+				        guiWindow.setVisible( true );
+					    MySwingWorker worker = new MySwingWorker(referenceFilePath, hypothesisFilePath, performanceListSelected, algorithmSelected , guiWindow, model2);
 					    worker.execute();
 			           }
 	    });
@@ -73,10 +93,7 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	        toFront();
 	        
 	        return this;
-
 	    }
-
-
 	  }
 	  class MySwingWorker extends SwingWorker<String, Double>{
 
@@ -87,22 +104,45 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 		  private String algorithmSelected1;
 		  private JWindow guiWindow1;
 		  
+		  private File referenceFilePath2;
+		  private File hypothesisFilePath2;
+		  private ArrayList<String> performanceListSelected2;
+		  private String algorithmSelected2;
+		  private JWindow guiWindow2;
+		  
+		  private String model;
+		  
 	    public MySwingWorker(File speechDatabaseDirectory,
 				ArrayList<UiAsrProperties> asrPropertiesObj,
 				ArrayList<String> selectedPerformanceList,
-				ArrayList<String> selectedAsrList, String algorithmSelected, JWindow guiWindow) {
+				ArrayList<String> selectedAsrList, String algorithmSelected, JWindow guiWindow , String model1) {
 	    	speechDatabaseDirectory1 = speechDatabaseDirectory;
 	    	asrPropertiesObj1 = asrPropertiesObj;
 			selectedPerformanceList1 = selectedPerformanceList;
 			selectedAsrList1 = selectedAsrList;
 			algorithmSelected1 = algorithmSelected;
 			guiWindow1 = guiWindow;
+			model = model1;
 		}
+	    
+	    public MySwingWorker(File referenceFilePath, File hypothesisFilePath, ArrayList<String> performanceListSelected , String algorithmSelected , JWindow guiWindow, String model2) {
+	    	  referenceFilePath2 = referenceFilePath;
+			  hypothesisFilePath2 = hypothesisFilePath;
+			  performanceListSelected2 = performanceListSelected;
+			  algorithmSelected2 = algorithmSelected;
+			  guiWindow2 = guiWindow;
+			  model = model2;
+			  }	    
 
 		@Override
 	    protected String doInBackground() throws Exception {
+			if (model == UiSplashScreenEvaluationFrame.model1){
 	    	EvaluationSystem.recogniseAndEvaluate(speechDatabaseDirectory1,  asrPropertiesObj1,  selectedPerformanceList1 ,  selectedAsrList1, algorithmSelected1);
-	    	return "Finished";
+			}
+			else if (model == UiSplashScreenEvaluationFrame.model2){
+				EvaluationSystem.textEvaluation(referenceFilePath2, hypothesisFilePath2, performanceListSelected2, algorithmSelected2);
+			}
+	    	return "Completed";
 	    }
 
 	    /*
@@ -115,6 +155,22 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 
 	    @Override
 	    protected void done()  {
-	    	  guiWindow1.setVisible(false);
-		} 
+	    	if (model == UiSplashScreenEvaluationFrame.model1){
+	    		guiWindow1.setVisible(false);
+	    		openUpResult(Globals.model1OutputFilePath);
+	    	}
+	    	else if (model == UiSplashScreenEvaluationFrame.model2){
+	    	guiWindow2.setVisible(false);
+	    	openUpResult(Globals.model2OutputFilePath);
+	    	} 
+	    }
+	    
+		public void openUpResult(String modelOutputFilePath){
+			File currentFolder = new java.io.File("");
+			String currentPath = currentFolder.getAbsolutePath();
+			String newPath;
+			newPath = currentPath + modelOutputFilePath;
+			UiResultFrame1.initialise(newPath);
+		}
+		
 }

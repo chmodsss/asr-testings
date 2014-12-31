@@ -66,11 +66,18 @@ public class EvaluationAligner {
 			BufferedReader readRef = new BufferedReader(new FileReader(ref));
 			BufferedReader readHyp = new BufferedReader(new FileReader(hyp));
 			String refLine;
-			while ((refLine = readRef.readLine()) != null) {
-				String hypLine = readHyp.readLine();
+			String hypLine;
+
+			while  (((refLine = readRef.readLine()) !=null) && ((hypLine = readHyp.readLine()) !=null) ){
 				refLine = refLine.replace(".", " ");
+				hypLine = hypLine.replace(".", " ");
 				List<String> refWords = new ArrayList<String>(Arrays.asList(refLine.split(" ")));
 				List<String> hypWords = new ArrayList<String>(Arrays.asList(hypLine.split(" ")));
+				
+				if (! refWords.get(0).equals(hypWords.get(0))){
+					System.out.println("refwords :"+refWords.get(0)+" and hypwords :"+hypWords.get(0));
+					break;
+				}
 				
 				numberOfWords = numberOfWords + refWords.size();
 		
