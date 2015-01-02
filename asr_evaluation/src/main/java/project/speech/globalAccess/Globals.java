@@ -21,7 +21,7 @@ public class Globals {
 	public static String asr2SelectionNameUI = "iSpeech";
 	public static String allselectionUI = "All";
 	
-	public static String algorithm1 = "HSDI weights";
+	public static String hsdiWeightsAlgorithm = "HSDI weights";
 	
 	public static String werUI = "WER";
 	public static String serUI = "SER";
@@ -32,22 +32,36 @@ public class Globals {
 	public static String wavFolder = "wav";
 	public static String etcFolder = "etc";
 	
+	public static String referenceFileName = "prompts-original";
+	public static String hypothesisOutputFileNameAsr1 = asr1SelectionNameUI+"-output";
+	public static String hypothesisOutputFileNameAsr2 = asr2SelectionNameUI+"-output";
+	
+	public static String hypothesisTimeFileNameAsr1 = asr1SelectionNameUI+"-time";
+	public static String hypothesisTimeFileNameAsr2 = asr2SelectionNameUI+"-time";
+	
 	public static File recognitionOutputDirectory = new File("asrOutput");
 	public static File RecogniseAndEvaluateResultDirectory = new File("evaluationOutput");
 	public static File textEvaluationResultDirectory = new File ("comparisonOutput");
 	
+	public static String recogniseAndEvaluateResultFileName = "evaluation-result";
+	public static String textEvaluationResultFileName = "comparison-result";
 	
-	public static String referenceFileName = "prompts-original";
-	public static String hypothesisOutputFileNameAsr1 = asr1SelectionNameUI+"-output.txt";
-	public static String hypothesisOutputFileNameAsr2 = asr2SelectionNameUI+"-output.txt";
+	public static String recogniseAndEvaluateAlignmentFileName = "evaluation-alignment";
+	public static String textEvaluationAlignmentFileName = "comparison-alignment";
 	
-	public static String hypothesisTimeFileNameAsr1 = asr1SelectionNameUI+"-time.txt";
-	public static String hypothesisTimeFileNameAsr2 = asr2SelectionNameUI+"-time.txt";
+	public static String recogniseAndEvaluateCompleteOutputFileName = "evaluation-complete-output";
+	public static String textEvaluationCompleteOutputFileName = "comparison-complete-output";
 	
-	public static String textEvaluationResultFileName = "comparison-result.txt";
-	public static String recogniseAndEvaluateResultFileName = "evaluation-result.txt";
+	public static String model1ResultFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateResultFileName;
+	public static String model2ResultFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationResultFileName;
 	
-	public static String model1OutputFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateResultFileName;
-	public static String model2OutputFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationResultFileName;
+	public static String model1AlignmentFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateAlignmentFileName;
+	public static String model2AlignmentFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationAlignmentFileName;
+	
+	public static String model1CompleteOutputFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateCompleteOutputFileName;
+	public static String model2CompleteOutputFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationCompleteOutputFileName;
+	
+	public static File currentFile = new File("");
+	public static String currentPath = currentFile.getAbsolutePath() + "/";
 	
 }

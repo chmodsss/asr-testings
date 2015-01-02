@@ -359,7 +359,7 @@ public class UiMethod1Frame {
 		comboAlgorithm.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		comboAlgorithm.setBounds(103, 100, 135, 28);
 		panelCriteria.add(comboAlgorithm);
-		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.algorithm1}));
+		comboAlgorithm.setModel(new DefaultComboBoxModel(new String[] { Globals.select, Globals.hsdiWeightsAlgorithm}));
 				
 		//***************** Buttons under Criteria panel *****************//		
 		
@@ -625,7 +625,7 @@ public class UiMethod1Frame {
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
 					String newPath;
-					newPath = currentPath + Globals.model1OutputFilePath;
+					newPath = currentPath + Globals.model1ResultFilePath;
 				    File fileToSave = fileChooser.getSelectedFile();
 				    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
 				    File fileToCopy = new File(newPath);

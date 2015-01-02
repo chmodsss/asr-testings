@@ -53,14 +53,33 @@ public class CmuSphinxEngine {
 		outputFileNamesCmuList.clear();
 		for (int idx = 0; idx < fdCmu.getFilePath().size(); idx++) {
 			String cmuCurrentPath = fdCmu.getFilePath().get(idx);
-			recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
-			SpeechResult result = recognizer.getResult();
-			recognizer.stopRecognition();
-			String sentenceDetected = result.getHypothesis();
-			String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
-			outputSentencesCmuList.add(sentenceDetected);
-			outputFileNamesCmuList.add(fileName);
+			System.out.println("recognition started...");
+				try{
+					recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
+					SpeechResult result = recognizer.getResult();
+					System.out.println("result obtined...");
+					recognizer.stopRecognition();
+					System.out.println("recognition stopped...");
+					String sentenceDetected = result.getHypothesis();
+					System.out.println("result get hypothesis...");
+					String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
+					System.out.println("sentence detected adding...");
+					outputSentencesCmuList.add(sentenceDetected);
+					outputFileNamesCmuList.add(fileName);
+				}
+				catch (Exception e){
+					System.out.println("It is null bro...");
+					String sentenceDetected = "  ";
+					System.out.println("result get hypothesis...");
+					String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
+					System.out.println("sentence detected adding...");
+					outputSentencesCmuList.add(sentenceDetected);
+					System.out.println("sentence completed...");
+					outputFileNamesCmuList.add(fileName);	
+					System.out.println("file name completed...");
+				}
 		}
+			
 		stopTimeMsCmu = System.currentTimeMillis();
 		timeDifferenceCmu = (stopTimeMsCmu - startTimeMsCmu)/1000;
 		FileScripter.writer(Globals.asr1SelectionNameUI, currentSpeechFolder, referenceFile, outputFileNamesCmuList, outputSentencesCmuList , timeDifferenceCmu);

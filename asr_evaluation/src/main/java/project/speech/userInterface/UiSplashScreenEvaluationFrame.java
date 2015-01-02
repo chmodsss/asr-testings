@@ -2,10 +2,13 @@ package project.speech.userInterface;
 
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import javax.swing.*;
+
+import org.apache.commons.io.FileUtils;
 
 import project.speech.evaluationsystem.EvaluationSystem;
 import project.speech.globalAccess.Globals;
@@ -157,20 +160,43 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	    protected void done()  {
 	    	if (model == UiSplashScreenEvaluationFrame.model1){
 	    		guiWindow1.setVisible(false);
-	    		openUpResult(Globals.model1OutputFilePath);
+	    		try {
+					openUpResult(Globals.model1ResultFilePath, Globals.model1AlignmentFilePath,  Globals.model1CompleteOutputFilePath);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	    	}
 	    	else if (model == UiSplashScreenEvaluationFrame.model2){
 	    	guiWindow2.setVisible(false);
-	    	openUpResult(Globals.model2OutputFilePath);
+	    	try {
+				openUpResult(Globals.model2ResultFilePath, Globals.model2AlignmentFilePath, Globals.model2CompleteOutputFilePath);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	    	} 
 	    }
 	    
-		public void openUpResult(String modelOutputFilePath){
-			File currentFolder = new java.io.File("");
-			String currentPath = currentFolder.getAbsolutePath();
-			String newPath;
-			newPath = currentPath + modelOutputFilePath;
-			UiResultFrame1.initialise(newPath);
+		public void openUpResult(String modelOutputFilePath, String modelAlignmentFilePath, String completeOutputFilePath) throws IOException {
+
+			File currentFile = new File("");
+			String currentPath = currentFile.getAbsolutePath();
+
+			File file1 = new File(currentPath+"/"+modelAlignmentFilePath);
+			File file2 = new File(currentPath+"/"+modelOutputFilePath);
+			File file3 = new File(currentPath+"/"+completeOutputFilePath);
+			
+			String file1Str = FileUtils.readFileToString(file1);
+			String file2Str = FileUtils.readFileToString(file2);
+
+			// Write the file
+			FileUtils.write(file3, file1Str);
+			FileUtils.write(file3, file2Str, true); // true for append
+			
+			///
+			String newnewPath = currentPath+"/"+completeOutputFilePath;
+			UiResultFrame1.initialise(newnewPath);
 		}
 		
 }

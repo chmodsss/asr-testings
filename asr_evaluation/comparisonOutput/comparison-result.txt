@@ -1,5 +1,0 @@
-
-  : : : : : : :  Evaluation Result  : : : : : : :  
-
- << ------ iSpeech-output  ------ >> 
- 	SER : 0	MUC : 5.25

@@ -13,19 +13,33 @@ public class FileScripter {
 	public static void writer(String asrName, File databaseName, File referenceFile, ArrayList<String> fileNameList ,ArrayList<String> sentenceDetectedList, double timeDifference) throws IOException {
 		File createFolder = new File(Globals.recognitionOutputDirectory,databaseName.getName());
 		createFolder.mkdirs();
+		System.out.println("Entered writer directory");
 		
 		File promptOriginal = new File(createFolder, Globals.referenceFileName);
+		System.out.println("prompt origitnal created");
+		try{
 		FileUtils.copyFile(referenceFile, promptOriginal);
-		
-		File createAsrFile = new File(createFolder, asrName+"-output.txt");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("copy complete");
+		String newPath;
+		newPath = Globals.currentPath + asrName+"-output";
+		File createAsrFile = new File(Globals.currentPath, newPath);
+
+		System.out.println("create asr file");
 		PrintWriter asrOutFile = new PrintWriter(new FileWriter((createAsrFile),true));
+		System.out.println("asr out file created");
+		System.out.println("Going to enter loop");
 		for (int i=0 ; i<fileNameList.size() ; i++){
 		asrOutFile.print(fileNameList.get(i) + " ");
 		asrOutFile.println(sentenceDetectedList.get(i));
+		System.out.println("something detectd : "+sentenceDetectedList.get(i));
 		}
 		asrOutFile.close();
 		
-		File createTimeFile = new File(createFolder, asrName+"-time.txt");
+		File createTimeFile = new File(createFolder, asrName+"-time");
 		PrintWriter timeOutFile = new PrintWriter(createTimeFile);
 		timeOutFile.print(timeDifference);
 		timeOutFile.close();

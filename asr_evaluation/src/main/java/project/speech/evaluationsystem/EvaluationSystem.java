@@ -50,35 +50,28 @@ public class EvaluationSystem {
 		}
 		return folders;
 	}
-
-
-	//=================== Text evaluation ===================//
 	
 	public static void textEvaluation (File tempReferenceFile, File tempHypothesisFile , ArrayList<String> performanceList , String algorithmSelected) throws IOException {
-	
-		if (algorithmSelected.equals(Globals.algorithm1)){
+
+		if (algorithmSelected.equals(Globals.hsdiWeightsAlgorithm)){
 		EvaluationAligner e1 = new EvaluationAligner(tempReferenceFile, tempHypothesisFile);
 		EvaluatorResult eResult = e1.evaluateNoTime();
 		
 		System.out.println("Mic check...");
 		System.out.println("selec.. "+performanceList);
 		
-		if (!isTextEvaluationResultDirectoryOccured ){
-			FileUtils.deleteDirectory(Globals.textEvaluationResultDirectory);
-			Globals.textEvaluationResultDirectory.mkdirs();
-			isTextEvaluationResultDirectoryOccured = true;
-		}
-		File textEvaluationResultFile = new File(Globals.textEvaluationResultDirectory, Globals.textEvaluationResultFileName);
+		File currentFile = new File("");
+		String currentPath = currentFile.getAbsolutePath();
+		String newPath = currentPath +"/"+ Globals.textEvaluationResultDirectory;
+		File textEvaluationResultFile = new File(newPath, Globals.textEvaluationResultFileName);
 			hypothesisFileName = tempHypothesisFile.getName();
 			writeResultFile(textEvaluationResultFile, performanceList, eResult, hypothesisFileName);
 			UiMethod2Frame.btnSaveResult2.setEnabled(true);
 		}
 	}
-
 	
 	public static void writeResultFile (File fileToWriteResult , ArrayList<String> tempSelectedPerformanceList , EvaluatorResult eresult , String tempHypothesisFileName) throws IOException{
 		
-		System.out.println("Text evaluation initiated...");
 		PrintWriter evaluationResultFileWriter = new PrintWriter(new FileWriter((fileToWriteResult),true));
 		if (!evaluationResultFileOpened){
 			evaluationResultFileWriter.print("\n  : : : : : : :  Evaluation Result  : : : : : : :  ");
@@ -109,6 +102,7 @@ public class EvaluationSystem {
 		
 		if (Globals.recognitionOutputDirectory.exists()){
 			FileUtils.deleteDirectory(Globals.recognitionOutputDirectory);
+			Globals.recognitionOutputDirectory.mkdirs();
 		}
 		
 		if (selectedAsrList.contains(Globals.asr1Name))
@@ -190,7 +184,7 @@ public class EvaluationSystem {
 						}
 					}
 					
-					if (algorithmSelected.equals(Globals.algorithm1)){
+					if (algorithmSelected.equals(Globals.hsdiWeightsAlgorithm)){
 						
 					EvaluationAligner e = new EvaluationAligner(referenceFile , hypothesisFile , timeTakenFile);
 					System.out.println("ref file :"+ referenceFile.getAbsolutePath());

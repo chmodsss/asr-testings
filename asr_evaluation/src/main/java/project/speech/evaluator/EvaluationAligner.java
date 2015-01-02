@@ -1,12 +1,8 @@
 package project.speech.evaluator;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
+
+import project.speech.globalAccess.Globals;
 
 
 public class EvaluationAligner {
@@ -19,8 +15,15 @@ public class EvaluationAligner {
 		private int numDel = 0;
 		private int numIns = 0;
 		private int numberOfWords = 0;
+		private int markLimit = 1000;
 		private static String empty = "*****";
 		private String timeSpan;
+		
+		private String model1= "model1";
+		private String model2 = "model2";
+		private String model;
+		private File alignmentFile;
+		
 		File ref = null;
 		File hyp = null;
 		File time = null;
@@ -29,11 +32,13 @@ public class EvaluationAligner {
 			this.ref = referenceFile;
 			this.hyp = hypothesisFile;
 			this.time = timeFile;
+			this.model= model1;
 		}
 
 		public EvaluationAligner(File referenceFile, File hypothesisFile) {
 			this.ref = referenceFile;
 			this.hyp = hypothesisFile;
+			this.model = model2;
 		}
 		
 		@SuppressWarnings("resource")
@@ -46,12 +51,26 @@ public class EvaluationAligner {
 		}
 		
 		public EvaluatorResult evaluateNoTime() throws IOException {
-			evaluate();
+			this.evaluate();
 			EvaluatorResult eval = new EvaluatorResult(hits - 1, numSubTotal, numDelTotal, numInsTotal , numberOfWords -1);
 			return eval;
 		}
+		
 
-		@SuppressWarnings("resource")
+		void insertEmptyLines(List<String> refWords, BufferedReader readHyp, List<List<String>> newHypList) throws IOException{
+			List<String> tempRefWords = new ArrayList<String>();
+			System.out.println("temp ref created.. ");
+			tempRefWords.add(refWords.get(0));
+			for (int i=0; i<refWords.size()-1; i++){
+				System.out.println("looping.. ");
+				tempRefWords.add(empty);
+			}
+			newHypList.add(tempRefWords);
+			System.out.println("temp ref wrods added.. ");
+			readHyp.reset();
+			System.out.println("reset completed.. ");				
+		}
+		
 		public void evaluate() throws IOException{
 			
 			int deletionPenalty = 75;
@@ -67,17 +86,67 @@ public class EvaluationAligner {
 			BufferedReader readHyp = new BufferedReader(new FileReader(hyp));
 			String refLine;
 			String hypLine;
+			
+			List<List<String>> newHypList = new ArrayList<List<String>>();
+			List<List<String>> newRefList = new ArrayList<List<String>>();
+			
 
-			while  (((refLine = readRef.readLine()) !=null) && ((hypLine = readHyp.readLine()) !=null) ){
+			while  ((refLine = readRef.readLine()) !=null ) {
 				refLine = refLine.replace(".", " ");
-				hypLine = hypLine.replace(".", " ");
+				System.out.println("read hyp marking.. "); 
+				System.out.println("read hyp .. ");
+				readHyp.mark(markLimit);
 				List<String> refWords = new ArrayList<String>(Arrays.asList(refLine.split(" ")));
+				
+				try{
+				hypLine = readHyp.readLine();
+
+				hypLine = hypLine.replace(".", " ");
 				List<String> hypWords = new ArrayList<String>(Arrays.asList(hypLine.split(" ")));
 				
-				if (! refWords.get(0).equals(hypWords.get(0))){
-					System.out.println("refwords :"+refWords.get(0)+" and hypwords :"+hypWords.get(0));
-					break;
+				if (! refWords.get(0).equals( hypWords.get(0))){
+					insertEmptyLines(refWords , readHyp, newHypList);
 				}
+				else{
+					System.out.println("ordinary hyp words... ");
+					newHypList.add(hypWords);
+				}
+				newRefList.add(refWords);
+			}
+				catch(Exception e){
+					System.out.println("Come on.. its empty..");
+						insertEmptyLines(refWords , readHyp, newHypList);
+						newRefList.add(refWords);
+				}
+			}
+
+			if(model == model1){
+				if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
+					Globals.RecogniseAndEvaluateResultDirectory.delete();
+				}
+				Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
+				File currentFile = new File("");
+				String currentPath = currentFile.getAbsolutePath();
+				String newPath = currentPath + Globals.RecogniseAndEvaluateResultDirectory;
+				alignmentFile = new File(newPath, Globals.recogniseAndEvaluateAlignmentFileName);
+			}
+			else if (model == model2){
+				if (Globals.textEvaluationResultDirectory.exists()){
+					Globals.textEvaluationResultDirectory.delete();
+				}
+				Globals.textEvaluationResultDirectory.mkdirs();
+				File currentFile = new File("");
+				String currentPath = currentFile.getAbsolutePath();
+				String newPath = currentPath + "/"+Globals.textEvaluationResultDirectory;
+				alignmentFile = new File(newPath, Globals.textEvaluationAlignmentFileName);
+			}
+			
+			System.out.println("alignment file creating");
+			PrintWriter alignmentPrintFile = new PrintWriter(new FileWriter((alignmentFile),true));
+			System.out.println("alignment file created");
+			for (int index=0 ; index < newRefList.size(); index++){
+				List<String> hypWords = newHypList.get(index);
+				List<String> refWords = newRefList.get(index);
 				
 				numberOfWords = numberOfWords + refWords.size();
 		
@@ -156,7 +225,12 @@ public class EvaluationAligner {
 		System.out.println(resultRef);
 		System.out.println(resultHyp);
 		
+		alignmentPrintFile.println(resultRef);
+		alignmentPrintFile.println(resultHyp);
+		System.out.println("in the loop");
 		}
 			readRef.close();
+			alignmentPrintFile.close();
+			System.out.println("Everything closed");
 	}
 }
