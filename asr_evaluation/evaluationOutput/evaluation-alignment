@@ -1,0 +1,32 @@
+
+$-----------------------------  airport_0dB  -----------------------------$    
+
+   (< -------------------------  ispeech  ------------------------- >) 
+
+ [sp01_airport_sn0, THE, BIRCH, CANOE, SLID, ON, THE, SMOOTH, PLANKS]
+[sp01_airport_sn0, *****, *****, *****, *****, *****, *****, *****, *****]
+
+[sp02_airport_sn0, HE, KNEW, THE, SKILL, OF, THE, GREAT, YOUNG, ACTRESS]
+[sp02_airport_sn0, *****, *****, *****, *****, *****, *****, *****, *****, *****]
+
+[sp03_airport_sn0, HER, PURSE, WAS, FULL, OF, USELESS, TRASH]
+[sp03_airport_sn0, *****, *****, *****, *****, *****, *****, *****]
+
+===============================================================================
+
+
+$-----------------------------  airport_10dB  -----------------------------$    
+
+   (< -------------------------  ispeech  ------------------------- >) 
+
+ [sp01_airport_sn10, THE, BIRCH, CANOE, SLID, ON, THE, SMOOTH, PLANKS]
+[sp01_airport_sn10, *****, *****, *****, *****, *****, *****, *****, *****]
+
+[sp02_airport_sn10, HE, KNEW, THE, SKILL, OF, THE, great, YOUNG, ACTRESS]
+[sp02_airport_sn10, *****, *****, *****, YOU, YOU'LL, DO, great, *****, NUMBER]
+
+[sp03_airport_sn10, HER, PURSE, WAS, FULL, OF, USELESS, TRASH]
+[sp03_airport_sn10, *****, *****, *****, *****, *****, *****, ROAD]
+
+===============================================================================
+
