@@ -24,6 +24,9 @@ public class EvaluationAligner {
 		private String model;
 		private File alignmentFile;
 		
+		private String asrUSed;
+		private File subSpeechFolder;
+		
 		File ref = null;
 		File hyp = null;
 		File time = null;
@@ -42,7 +45,9 @@ public class EvaluationAligner {
 		}
 		
 		@SuppressWarnings("resource")
-		public EvaluatorResult evaluateWithTime() throws IOException {
+		public EvaluatorResult evaluateWithTime(File subSpeechFolder , String asrUsed) throws IOException {
+			this.asrUSed = asrUsed;
+			this.subSpeechFolder = subSpeechFolder;
 			BufferedReader readTime = new BufferedReader(new FileReader(time));
 			timeSpan = readTime.readLine();
 			this.evaluate();
@@ -121,19 +126,26 @@ public class EvaluationAligner {
 			}
 
 			if(model == model1){
+/*
 				if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
-					Globals.RecogniseAndEvaluateResultDirectory.delete();
+					FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);
+					Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
+					System.out.println("Entered once in recognise and eval..");
 				}
-				Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
+				else{
+					Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
+				}
+	*/				
 				File currentFile = new File("");
 				String currentPath = currentFile.getAbsolutePath();
-				String newPath = currentPath + Globals.RecogniseAndEvaluateResultDirectory;
+				String newPath = currentPath +"/"+ Globals.RecogniseAndEvaluateResultDirectory;
+				if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
+					System.out.println("Dir exists..");
+				}
 				alignmentFile = new File(newPath, Globals.recogniseAndEvaluateAlignmentFileName);
 			}
 			else if (model == model2){
-				if (Globals.textEvaluationResultDirectory.exists()){
-					Globals.textEvaluationResultDirectory.delete();
-				}
+
 				Globals.textEvaluationResultDirectory.mkdirs();
 				File currentFile = new File("");
 				String currentPath = currentFile.getAbsolutePath();
@@ -143,6 +155,10 @@ public class EvaluationAligner {
 			
 			System.out.println("alignment file creating");
 			PrintWriter alignmentPrintFile = new PrintWriter(new FileWriter((alignmentFile),true));
+			if (model == model1){
+				alignmentPrintFile.println("\n$-----------------------------  "+ subSpeechFolder.getName() +"  -----------------------------$    \n");
+				alignmentPrintFile.print("   (< -------------------------  "+ asrUSed +"  ------------------------- >) \n\n ");
+			}
 			System.out.println("alignment file created");
 			for (int index=0 ; index < newRefList.size(); index++){
 				List<String> hypWords = newHypList.get(index);
@@ -227,9 +243,11 @@ public class EvaluationAligner {
 		
 		alignmentPrintFile.println(resultRef);
 		alignmentPrintFile.println(resultHyp);
+		alignmentPrintFile.println();
 		System.out.println("in the loop");
 		}
 			readRef.close();
+			alignmentPrintFile.println("===============================================================================\n");
 			alignmentPrintFile.close();
 			System.out.println("Everything closed");
 	}

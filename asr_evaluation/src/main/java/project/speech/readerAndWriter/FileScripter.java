@@ -18,15 +18,13 @@ public class FileScripter {
 		File promptOriginal = new File(createFolder, Globals.referenceFileName);
 		System.out.println("prompt origitnal created");
 		try{
-		FileUtils.copyFile(referenceFile, promptOriginal);
+			FileUtils.copyFile(referenceFile, promptOriginal);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
 		System.out.println("copy complete");
-		String newPath;
-		newPath = Globals.currentPath + asrName+"-output";
-		File createAsrFile = new File(Globals.currentPath, newPath);
+		File createAsrFile = new File(createFolder,  asrName+"-output");
 
 		System.out.println("create asr file");
 		PrintWriter asrOutFile = new PrintWriter(new FileWriter((createAsrFile),true));

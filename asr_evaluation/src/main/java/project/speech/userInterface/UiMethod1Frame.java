@@ -625,7 +625,7 @@ public class UiMethod1Frame {
 					File currentFolder = new java.io.File("");
 					String currentPath = currentFolder.getAbsolutePath();
 					String newPath;
-					newPath = currentPath + Globals.model1ResultFilePath;
+					newPath = currentPath + Globals.model1CompleteOutputFilePath;
 				    File fileToSave = fileChooser.getSelectedFile();
 				    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
 				    File fileToCopy = new File(newPath);

@@ -32,17 +32,16 @@ public class EvaluationSystem {
 	private static File cmuLanguageFile;
 	private static String hypothesisFileName;
 	private static String timeTakenCount;
+	private static String asrUsed;
 	private static double wer;
 	private static double mar;
 	@SuppressWarnings("unused")
 	private static double recall;
 	private static boolean evaluationResultFileOpened = false;
 	private static boolean isEvalutionDirectoryOccured = false;
-	private static boolean isTextEvaluationResultDirectoryOccured = false;
 	private static boolean asr1Status = false;
 	private static boolean asr2Status = false;
 
-	//=================== Returns the list of files in the path ===================//
 	public static ArrayList<File> readDirectory(File currentPath) {
 		ArrayList<File> folders = new ArrayList<File>();
 		for (File eachPath : currentPath.listFiles()) {
@@ -53,6 +52,11 @@ public class EvaluationSystem {
 	
 	public static void textEvaluation (File tempReferenceFile, File tempHypothesisFile , ArrayList<String> performanceList , String algorithmSelected) throws IOException {
 
+		if (Globals.textEvaluationResultDirectory.exists()){
+			FileUtils.deleteDirectory(Globals.textEvaluationResultDirectory);
+			Globals.textEvaluationResultDirectory.mkdirs();
+		}
+		
 		if (algorithmSelected.equals(Globals.hsdiWeightsAlgorithm)){
 		EvaluationAligner e1 = new EvaluationAligner(tempReferenceFile, tempHypothesisFile);
 		EvaluatorResult eResult = e1.evaluateNoTime();
@@ -65,16 +69,17 @@ public class EvaluationSystem {
 		String newPath = currentPath +"/"+ Globals.textEvaluationResultDirectory;
 		File textEvaluationResultFile = new File(newPath, Globals.textEvaluationResultFileName);
 			hypothesisFileName = tempHypothesisFile.getName();
-			writeResultFile(textEvaluationResultFile, performanceList, eResult, hypothesisFileName);
+			File noNameFolder = new File("");
+			writeResultFile(textEvaluationResultFile, performanceList, eResult, hypothesisFileName, noNameFolder);
 			UiMethod2Frame.btnSaveResult2.setEnabled(true);
 		}
 	}
 	
-	public static void writeResultFile (File fileToWriteResult , ArrayList<String> tempSelectedPerformanceList , EvaluatorResult eresult , String tempHypothesisFileName) throws IOException{
+	public static void writeResultFile (File fileToWriteResult , ArrayList<String> tempSelectedPerformanceList , EvaluatorResult eresult , String tempHypothesisFileName, File subSpeechFolder) throws IOException{
 		
 		PrintWriter evaluationResultFileWriter = new PrintWriter(new FileWriter((fileToWriteResult),true));
 		if (!evaluationResultFileOpened){
-			evaluationResultFileWriter.print("\n  : : : : : : :  Evaluation Result  : : : : : : :  ");
+			evaluationResultFileWriter.print("\n [[[------------------------  Performance measures  ------------------------]]]  ");
 			evaluationResultFileOpened = true;
 		}
 		wer = (eresult.getSubstitutions()+eresult.getDeletions()+eresult.getInsertions())/(float)eresult.getNumberOfWords();
@@ -83,25 +88,41 @@ public class EvaluationSystem {
 		
 		System.out.println("Final test...");
 			System.out.println(tempSelectedPerformanceList);
-		evaluationResultFileWriter.print("\n\n << ------ "+FilenameUtils.removeExtension(tempHypothesisFileName)+"  ------ >> \n ");
+		evaluationResultFileWriter.print("\n\n <<---------------------- "+FilenameUtils.removeExtension(tempHypothesisFileName)+"  ---------------------->> \n ");
+		evaluationResultFileWriter.print("\n ==================== "+ subSpeechFolder.getName() +" ==================== \n\n ");
 
 		if (tempSelectedPerformanceList.contains(Globals.werUI))
-			evaluationResultFileWriter.print("\t"+"WER : " + wer);
+			evaluationResultFileWriter.println("\t"+"WER : " + wer);
 		if (tempSelectedPerformanceList.contains(Globals.serUI))
-			evaluationResultFileWriter.print("\t"+"SER : " + 0);
+			evaluationResultFileWriter.println("\t"+"SER : " + 0);
 		if (tempSelectedPerformanceList.contains(Globals.mucUI))
-			evaluationResultFileWriter.print("\t"+"MUC : " +(1- mar));
+			evaluationResultFileWriter.println("\t"+"MUC : " +(1- mar));
 		if (tempSelectedPerformanceList.contains(Globals.accUI))
-			evaluationResultFileWriter.print("\t"+"ACC : " + mar);				
+			evaluationResultFileWriter.println("\t"+"ACC : " + mar);				
 		
 		evaluationResultFileWriter.close();
 	}
 
 	public static void recogniseAndEvaluate(File speechDatabaseDirectory, ArrayList<UiAsrProperties> asrPropertiesObj, ArrayList<String> selectedPerformanceList , ArrayList<String> selectedAsrList, String algorithmSelected) throws Exception {
+		
+		System.out.println("Atleast entered recognitino and evalaitons");
+		if (! isEvalutionDirectoryOccured){
+			if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
+				FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);
+				Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
+			}
+			else{
+				Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
+			}
+			isEvalutionDirectoryOccured = true;
+		}
 		System.out.println("Recognise and evaluate initiated...");
 		
 		if (Globals.recognitionOutputDirectory.exists()){
 			FileUtils.deleteDirectory(Globals.recognitionOutputDirectory);
+			Globals.recognitionOutputDirectory.mkdirs();
+		}
+		else{
 			Globals.recognitionOutputDirectory.mkdirs();
 		}
 		
@@ -164,14 +185,18 @@ public class EvaluationSystem {
 				if (selectedAsrList.get(j).contains(Globals.asr1Name)){
 					hypothesisFileName = Globals.hypothesisOutputFileNameAsr1;
 					timeTakenCount = Globals.hypothesisTimeFileNameAsr1;
+					asrUsed = Globals.asr1Name;
 				}
 				else if (selectedAsrList.get(j).contains(Globals.asr2Name)){
 					hypothesisFileName = Globals.hypothesisOutputFileNameAsr2;
 					timeTakenCount = Globals.hypothesisTimeFileNameAsr2;
+					asrUsed = Globals.asr2Name;
 				}
-				File currentFolder = recognitionOutputFolders.get(i);
-				if (currentFolder.isDirectory() == true) {
-					for (File each : currentFolder.listFiles()) {
+				File subSpeechFolder = recognitionOutputFolders.get(i);
+				if (subSpeechFolder.isDirectory() == true) {
+					for (File each : subSpeechFolder.listFiles()) {
+						System.out.println("Hypothesis file name:" + hypothesisFileName);
+						System.out.println("Each file name :"+each);
 						if (each.getName().compareTo(Globals.referenceFileName) == 0){
 							System.out.println("found reference file...");
 						referenceFile = each;
@@ -190,16 +215,19 @@ public class EvaluationSystem {
 					System.out.println("ref file :"+ referenceFile.getAbsolutePath());
 					System.out.println("hyp file :"+ hypothesisFile.getAbsolutePath());
 					System.out.println("time file :"+ timeTakenFile.getAbsolutePath());
-					EvaluatorResult eResult = e.evaluateWithTime();
+					
+					EvaluatorResult eResult = e.evaluateWithTime(subSpeechFolder , asrUsed);
 				
+					/*
 					if (!isEvalutionDirectoryOccured ){
 						FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);
 						Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
 						isEvalutionDirectoryOccured = true;
 					}
+					*/
 					File evaluationResult = new File(Globals.RecogniseAndEvaluateResultDirectory, Globals.recogniseAndEvaluateResultFileName);
 					
-					writeResultFile(evaluationResult, selectedPerformanceList, eResult, hypothesisFileName);
+					writeResultFile(evaluationResult, selectedPerformanceList, eResult, hypothesisFileName, subSpeechFolder);
 					}
 //					evalOutFile.print("\t"+"Recall : " + recall);
 //					evalOutFile.print("\t"+"Timetaken : " + result.getTime()+"s");
