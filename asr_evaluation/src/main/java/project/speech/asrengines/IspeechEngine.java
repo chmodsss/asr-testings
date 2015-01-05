@@ -40,13 +40,9 @@ public class IspeechEngine implements SpeechRecognizerEvent {
 		startTimeMsIspeech = System.currentTimeMillis();
 		for (int idx = 0; idx < fdIspeech.getFilePath().size(); idx++) {
 			String ispeechCurrentPath = fdIspeech.getFilePath().get(idx);
-			System.out.println("ispeech File path size..."+ fdIspeech.getFilePath().size());
-			System.out.println("idx value..."+ idx);
 			SpeechResult result = iSpeech.startFileRecognize(ispeechCurrentPath, new File(ispeechCurrentPath), this);
-			System.out.println("current path name... "+ispeechCurrentPath);
 			// iSpeech.setLocale("es-ES");
 			String sentenceDetected = result.Text;
-			System.out.println("Result = " + result.Text + " "+ result.Confidence);
 			String fileName = FilenameUtils.removeExtension(fdIspeech.getFileNameExtension().get(idx));
 			outputSentencesIspeechList.add(sentenceDetected);
 			outputFileNamesIspeechList.add(fileName);

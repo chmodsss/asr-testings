@@ -7,14 +7,16 @@ import project.speech.globalAccess.Globals;
 
 public class EvaluationAligner {
 
-		private int hits = 0;
+		private int numHitsTotal = 0;
 		private int numSubTotal = 0;
 		private int numDelTotal = 0;
 		private int numInsTotal = 0;
+		private int numHits = 0;
 		private int numSub = 0;
 		private int numDel = 0;
 		private int numIns = 0;
 		private int numberOfWords = 0;
+		private int numberOfWordsTotal = 0;
 		private int markLimit = 1000;
 		private static String empty = "*****";
 		private String timeSpan;
@@ -51,29 +53,32 @@ public class EvaluationAligner {
 			BufferedReader readTime = new BufferedReader(new FileReader(time));
 			timeSpan = readTime.readLine();
 			this.evaluate();
-			EvaluatorResult eval = new EvaluatorResult(hits - 1, numSubTotal, numDelTotal, numInsTotal , numberOfWords -1, timeSpan);
+			EvaluatorResult eval = new EvaluatorResult(numHitsTotal , numSubTotal, numDelTotal, numInsTotal , numberOfWordsTotal , timeSpan);
 			return eval;
 		}
 		
 		public EvaluatorResult evaluateNoTime() throws IOException {
 			this.evaluate();
-			EvaluatorResult eval = new EvaluatorResult(hits - 1, numSubTotal, numDelTotal, numInsTotal , numberOfWords -1);
+			System.out.println("result total hits " + numHitsTotal);
+			System.out.println("result total subs " + numSubTotal);
+			System.out.println("Result total ins :" + numInsTotal);
+			System.out.println("Result total del :" + numDelTotal);
+			System.out.println("Result total numbr of words :" + numberOfWordsTotal);
+			
+			EvaluatorResult eval = new EvaluatorResult(numHitsTotal , numSubTotal, numDelTotal, numInsTotal , numberOfWordsTotal );
 			return eval;
 		}
 		
 
 		void insertEmptyLines(List<String> refWords, BufferedReader readHyp, List<List<String>> newHypList) throws IOException{
 			List<String> tempRefWords = new ArrayList<String>();
-			System.out.println("temp ref created.. ");
+			
 			tempRefWords.add(refWords.get(0));
 			for (int i=0; i<refWords.size()-1; i++){
-				System.out.println("looping.. ");
 				tempRefWords.add(empty);
 			}
 			newHypList.add(tempRefWords);
-			System.out.println("temp ref wrods added.. ");
-			readHyp.reset();
-			System.out.println("reset completed.. ");				
+			readHyp.reset();				
 		}
 		
 		public void evaluate() throws IOException{
@@ -98,8 +103,6 @@ public class EvaluationAligner {
 
 			while  ((refLine = readRef.readLine()) !=null ) {
 				refLine = refLine.replace(".", " ");
-				System.out.println("read hyp marking.. "); 
-				System.out.println("read hyp .. ");
 				readHyp.mark(markLimit);
 				List<String> refWords = new ArrayList<String>(Arrays.asList(refLine.split(" ")));
 				
@@ -113,34 +116,21 @@ public class EvaluationAligner {
 					insertEmptyLines(refWords , readHyp, newHypList);
 				}
 				else{
-					System.out.println("ordinary hyp words... ");
 					newHypList.add(hypWords);
 				}
 				newRefList.add(refWords);
 			}
 				catch(Exception e){
-					System.out.println("Come on.. its empty..");
 						insertEmptyLines(refWords , readHyp, newHypList);
 						newRefList.add(refWords);
 				}
 			}
 
 			if(model == model1){
-/*
-				if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
-					FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);
-					Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
-					System.out.println("Entered once in recognise and eval..");
-				}
-				else{
-					Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
-				}
-	*/				
 				File currentFile = new File("");
 				String currentPath = currentFile.getAbsolutePath();
 				String newPath = currentPath +"/"+ Globals.RecogniseAndEvaluateResultDirectory;
 				if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
-					System.out.println("Dir exists..");
 				}
 				alignmentFile = new File(newPath, Globals.recogniseAndEvaluateAlignmentFileName);
 			}
@@ -153,21 +143,21 @@ public class EvaluationAligner {
 				alignmentFile = new File(newPath, Globals.textEvaluationAlignmentFileName);
 			}
 			
-			System.out.println("alignment file creating");
 			PrintWriter alignmentPrintFile = new PrintWriter(new FileWriter((alignmentFile),true));
 			if (model == model1){
-				alignmentPrintFile.println("\n$-----------------------------  "+ subSpeechFolder.getName() +"  -----------------------------$    \n");
+				alignmentPrintFile.println(" [-----------------------------  "+ subSpeechFolder.getName() +"  -----------------------------] ");
 				alignmentPrintFile.print("   (< -------------------------  "+ asrUSed +"  ------------------------- >) \n\n ");
 			}
-			System.out.println("alignment file created");
+			
 			for (int index=0 ; index < newRefList.size(); index++){
 				List<String> hypWords = newHypList.get(index);
 				List<String> refWords = newRefList.get(index);
 				
-				numberOfWords = numberOfWords + refWords.size();
-		
-//		String refLine = "hey dude how are you doing here";
-//		String hypLine = "hello hey dude how  are doing you here it"; 
+				numberOfWords = refWords.size() - 1; 
+				numIns = 0;
+				numSub = 0;
+				numDel = 0;
+				numHits = 0;
 				
 		int [][] cost = new int[refWords.size()+1][hypWords.size() + 1];
 		int [][] backtrace = new int[refWords.size() + 1][hypWords.size() + 1];
@@ -230,25 +220,39 @@ public class EvaluationAligner {
 			}
 		}
 		
+		numHits = numberOfWords - (numSub + numDel);
+		
 		numSubTotal = numSubTotal + numSub;
 		numDelTotal = numDelTotal + numDel;
 		numInsTotal = numInsTotal + numIns;
+		numHitsTotal = numHitsTotal + numHits;
+		numberOfWordsTotal = numberOfWordsTotal + numberOfWords;
+		
+		System.out.println("Line numbr : "+index);
+		System.out.println("numsub : "+numSub);
+		System.out.println("numdel : "+numDel);
+		System.out.println("numins : "+numIns);
+		System.out.println("numHits : "+numHits);
+		System.out.println("total num sub : "+numSubTotal);
+		System.out.println("total num del : "+numDelTotal);
+		System.out.println("total num ins : "+numInsTotal);
+		System.out.println("hits : "+numHitsTotal);
+		System.out.println("total numbr of words : "+ numberOfWordsTotal );
+		System.out.println(" \n------------------------------------------------- \n");
 		
 		String resultRef = alignedReference.toString();
 		String resultHyp = alignedHypothesis.toString();
-		hits = alignedHypothesis.size() - (numSub + numIns);
+//		hits = alignedHypothesis.size() - (numSub + numIns);
 		
-		System.out.println(resultRef);
-		System.out.println(resultHyp);
+//		System.out.println(resultRef);
+//		System.out.println(resultHyp);
 		
-		alignmentPrintFile.println(resultRef);
-		alignmentPrintFile.println(resultHyp);
+		alignmentPrintFile.println("REF: " + resultRef);
+		alignmentPrintFile.println("HYP: " +resultHyp);
 		alignmentPrintFile.println();
-		System.out.println("in the loop");
 		}
 			readRef.close();
 			alignmentPrintFile.println("===============================================================================\n");
 			alignmentPrintFile.close();
-			System.out.println("Everything closed");
 	}
 }

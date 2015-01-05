@@ -43,7 +43,6 @@ public class CmuSphinxEngine {
 	public void recognizeSpeech(Configuration config, File currentSpeechFolder, File currentSpeechFiles, File referenceFile) throws IOException {
 
 		StreamSpeechRecognizer recognizer = new StreamSpeechRecognizer(config);
-		System.out.println("Start of recognition...\n");
 		
 		FileReader frCmu = new FileReader();
 		FileDetails fdCmu = frCmu.reader(currentSpeechFiles);
@@ -53,37 +52,26 @@ public class CmuSphinxEngine {
 		outputFileNamesCmuList.clear();
 		for (int idx = 0; idx < fdCmu.getFilePath().size(); idx++) {
 			String cmuCurrentPath = fdCmu.getFilePath().get(idx);
-			System.out.println("recognition started...");
+			System.out.println("string name  :" + cmuCurrentPath);
 				try{
 					recognizer.startRecognition(new FileInputStream(cmuCurrentPath));
 					SpeechResult result = recognizer.getResult();
-					System.out.println("result obtined...");
 					recognizer.stopRecognition();
-					System.out.println("recognition stopped...");
 					String sentenceDetected = result.getHypothesis();
-					System.out.println("result get hypothesis...");
 					String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
-					System.out.println("sentence detected adding...");
 					outputSentencesCmuList.add(sentenceDetected);
 					outputFileNamesCmuList.add(fileName);
 				}
 				catch (Exception e){
-					System.out.println("It is null bro...");
 					String sentenceDetected = "  ";
-					System.out.println("result get hypothesis...");
 					String fileName = FilenameUtils.removeExtension(fdCmu.getFileNameExtension().get(idx));
-					System.out.println("sentence detected adding...");
 					outputSentencesCmuList.add(sentenceDetected);
-					System.out.println("sentence completed...");
 					outputFileNamesCmuList.add(fileName);	
-					System.out.println("file name completed...");
 				}
 		}
 			
 		stopTimeMsCmu = System.currentTimeMillis();
 		timeDifferenceCmu = (stopTimeMsCmu - startTimeMsCmu)/1000;
 		FileScripter.writer(Globals.asr1SelectionNameUI, currentSpeechFolder, referenceFile, outputFileNamesCmuList, outputSentencesCmuList , timeDifferenceCmu);
-		System.out.println("End of recognition...\n");
-		System.out.println("Exit...");
 	}
 }

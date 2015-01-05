@@ -94,6 +94,7 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	        // Display it
 	        setVisible(true);
 	        toFront();
+	        //setAlwaysOnTop(true);
 	        
 	        return this;
 	    }
@@ -148,14 +149,6 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	    	return "Completed";
 	    }
 
-	    /*
-	    @Override
-	    protected void process( List<Double> aDoubles ) {
-	      //update the percentage of the progress bar that is done
-	      int amount = fProgressBar.getMaximum() - fProgressBar.getMinimum();
-	      fProgressBar.setValue( ( int ) (fProgressBar.getMinimum() + ( amount * aDoubles.get( aDoubles.size() - 1 ))) );
-	    }*/
-
 	    @Override
 	    protected void done()  {
 	    	if (model == UiSplashScreenEvaluationFrame.model1){
@@ -194,7 +187,6 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 			FileUtils.write(file3, file1Str);
 			FileUtils.write(file3, file2Str, true); // true for append
 			
-			///
 			String newnewPath = currentPath+"/"+completeOutputFilePath;
 			UiResultFrame1.initialise(newnewPath);
 		}

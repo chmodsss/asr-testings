@@ -38,10 +38,13 @@ public class UiMethod2Frame {
 	private static JPanel panelEvaluate;
 	private static JPanel panelCriteria ;
 	
+	private static JCheckBox chkPercentHits;
+	private static JCheckBox chkPercentSubs;
+	private static JCheckBox chkPercentDel;
+	private static JCheckBox chkPercentIns;
+	private static JCheckBox chkMER;
+	private static JCheckBox chkWIL;
 	private static JCheckBox chkWER;
-	private static JCheckBox chkSER;
-	private static JCheckBox chkMUC;
-	private static JCheckBox chkACC;
 	private static JCheckBox chkALL;
 	
 	private static JFileChooser referenceFileChooser;
@@ -74,7 +77,7 @@ public class UiMethod2Frame {
 				
 		frame2 = new JFrame();
 		frame2.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod2Frame.class.getResource("/project/speech/userInterface/logo.jpg")));
-		frame2.setBounds(100, 100, 684, 400);
+		frame2.setBounds(100, 100, 722, 402);
 		frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame2.getContentPane().setLayout(null);
 		frame2.setTitle("Text evaluation");
@@ -102,14 +105,14 @@ public class UiMethod2Frame {
 		// Panel to choose files
 		panelFileChooser = new JPanel();
 		panelFileChooser.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "File chooser", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelFileChooser.setBounds(462, 92, 190, 262);
+		panelFileChooser.setBounds(499, 92, 190, 262);
 		frame2.getContentPane().add(panelFileChooser);
 		panelFileChooser.setLayout(null);
 				
 		// Panel to select the criteria
 		panelCriteria = new JPanel();
 		panelCriteria.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Output Choices", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelCriteria.setBounds(31, 92, 221, 262);
+		panelCriteria.setBounds(31, 92, 258, 262);
 		frame2.getContentPane().add(panelCriteria);
 		panelCriteria.setLayout(null);
 		
@@ -125,36 +128,52 @@ public class UiMethod2Frame {
 		
 		// Panel to display performance measures
 		panelPerformance = new JPanel();
-		panelPerformance.setBounds(25, 80, 170, 170);
+		panelPerformance.setBounds(20, 80, 218, 171);
 		panelCriteria.add(panelPerformance);
 		panelPerformance.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Performance measures", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelPerformance.setLayout(null);
 		
 		// Check boxes
 		
+		chkPercentHits = new JCheckBox(Globals.hitsPercentUI);
+		chkPercentHits.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentHits.setBounds(20, 30, 75, 28);
+		panelPerformance.add(chkPercentHits);
+		
+		chkPercentSubs = new JCheckBox(Globals.subsPercentUI);
+		chkPercentSubs.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentSubs.setBounds(20, 60, 75, 28);
+		panelPerformance.add(chkPercentSubs);
+		
+		chkPercentDel = new JCheckBox(Globals.delPercentUI);
+		chkPercentDel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentDel.setBounds(20, 90, 75, 28);
+		panelPerformance.add(chkPercentDel);
+		
+		chkPercentIns = new JCheckBox(Globals.insPercentUI);
+		chkPercentIns.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentIns.setBounds(20, 120, 75, 28);
+		panelPerformance.add(chkPercentIns);
+		
 		chkWER = new JCheckBox(Globals.werUI);
 		chkWER.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkWER.setBounds(21, 25, 130, 28);
+		chkWER.setBounds(115, 30, 75, 28);
 		panelPerformance.add(chkWER);
 		
-		chkSER = new JCheckBox(Globals.serUI);
-		chkSER.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkSER.setBounds(21, 51, 130, 28);
-		panelPerformance.add(chkSER);
+		chkMER = new JCheckBox(Globals.merUI);
+		chkMER.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkMER.setBounds(115, 60, 75, 28);
+		panelPerformance.add(chkMER);
 		
-		chkMUC = new JCheckBox(Globals.mucUI);
-		chkMUC.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkMUC.setBounds(21, 75, 130, 28);
-		panelPerformance.add(chkMUC);
+		chkWIL = new JCheckBox(Globals.wilUI);
+		chkWIL.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkWIL.setBounds(115, 90, 75, 28);
+		panelPerformance.add(chkWIL);
 		
-		chkACC = new JCheckBox(Globals.accUI);
-		chkACC.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkACC.setBounds(21, 101, 130, 28);
-		panelPerformance.add(chkACC);
-		
+		//All the parameters
 		chkALL = new JCheckBox(Globals.allUI);
 		chkALL.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkALL.setBounds(21, 125, 130, 28);
+		chkALL.setBounds(115, 120, 75, 28);
 		panelPerformance.add(chkALL);
 		
 		lblAlgorithm = new JLabel("Algorithm :");
@@ -162,76 +181,85 @@ public class UiMethod2Frame {
 		lblAlgorithm.setBounds(14, 40, 94, 19);
 		panelCriteria.add(lblAlgorithm);
 		
-		// Check all - to switch off all other check boxes
 		chkALL.addActionListener(new ActionListener() {
 			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				btnEvaluate.setEnabled(false);
 				if (e.ACTION_PERFORMED != 0 && (!chkALL.isSelected())) {
 					System.out.println("action" + e.ACTION_PERFORMED);
+					chkPercentHits.setSelected(false);
+					chkPercentSubs.setSelected(false);
+					chkPercentDel.setSelected(false);
+					chkPercentIns.setSelected(false);
+					chkMER.setSelected(false);
+					chkWIL.setSelected(false);
 					chkWER.setSelected(false);
-					chkSER.setSelected(false);
-					chkMUC.setSelected(false);
-					chkACC.setSelected(false);
 				}
 			}
 		});
-		
-		
+					
 		//=================== Item listener ===================//
 		
 		chkALL.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				btnEvaluate.setEnabled(false);
 				if (e.getStateChange() == 1) {
-					chkWER.setSelected(true);
-					chkSER.setSelected(true);
-					chkMUC.setSelected(true);
-					chkACC.setSelected(true);
-				}
+					chkPercentHits.setSelected(true);
+					chkPercentSubs.setSelected(true);
+					chkPercentDel.setSelected(true);
+					chkPercentIns.setSelected(true);
+					chkMER.setSelected(true);
+					chkWIL.setSelected(true);
+					chkWER.setSelected(true);				}
 			}
 		});
 		
-		chkACC.addItemListener(new ItemListener() {
+		chkPercentHits.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
+			}
+		});
+		
+		chkPercentDel.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				btnEvaluate.setEnabled(false);
-				if (e.getStateChange() == 2) {
-					chkALL.setSelected(false);
-				}
+				setChkAllFalse(e);
 			}
 		});
 		
-		chkMUC.addItemListener(new ItemListener() {
+		chkPercentSubs.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-			btnEvaluate.setEnabled(false);
-			if (e.getStateChange() == 2) {
-				chkALL.setSelected(false);
-				}
+				setChkAllFalse(e);
 			}
 		});
 		
-		chkSER.addItemListener(new ItemListener() {
-		public void itemStateChanged(ItemEvent e) {
-			btnEvaluate.setEnabled(false);
-			if (e.getStateChange() == 2) {
-				chkALL.setSelected(false);
-				}
+		chkPercentIns.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
 			}
 		});
-		
+
 		chkWER.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-			btnEvaluate.setEnabled(false);
-			if (e.getStateChange() == 2) {
-				chkALL.setSelected(false);
-				}
+				setChkAllFalse(e);
 			}
-		});		
+		});
+		
+		chkMER.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
+			}
+		});	
+		
+		chkWIL.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
+			}
+		});			
 		
 		// Panel for evaluation
 		panelEvaluate = new JPanel();
 		panelEvaluate.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Evaluate", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelEvaluate.setBounds(262, 167, 190, 187);
+		panelEvaluate.setBounds(299, 167, 190, 187);
 		frame2.getContentPane().add(panelEvaluate);
 		panelEvaluate.setLayout(null);
 
@@ -248,7 +276,7 @@ public class UiMethod2Frame {
 		// Instruction button
 		btnInstructions = new JButton("Instructions");
 		btnInstructions.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnInstructions.setBounds(291, 118, 135, 28);
+		btnInstructions.setBounds(327, 125, 135, 28);
 		frame2.getContentPane().add(btnInstructions);
 		
 		// Hypothesis file selection
@@ -368,12 +396,15 @@ public class UiMethod2Frame {
 				if (!performanceListSelected.isEmpty())
 					performanceListSelected.clear();
 				
-				// Strings for storing the performance measures
+				//--- Strings for storing the performance measures ---
 				performanceListChecked.clear();
+				performanceListChecked.add(chkPercentHits);
+				performanceListChecked.add(chkPercentSubs);
+				performanceListChecked.add(chkPercentDel);
+				performanceListChecked.add(chkPercentIns);
 				performanceListChecked.add(chkWER);
-				performanceListChecked.add(chkSER);
-				performanceListChecked.add(chkMUC);
-				performanceListChecked.add(chkACC);
+				performanceListChecked.add(chkMER);
+				performanceListChecked.add(chkWIL);
 
 				// Computing the performance list
 				if (chkALL.isSelected()) {
@@ -439,5 +470,12 @@ public class UiMethod2Frame {
 				}
 			}
 			});
+	}
+	//=========== Resets check button and evaluate button ===========//
+	public static void setChkAllFalse(ItemEvent e){
+		btnEvaluate.setEnabled(false);
+		if (e.getStateChange() == 2) {
+			chkALL.setSelected(false);
+		}
 	}
 }

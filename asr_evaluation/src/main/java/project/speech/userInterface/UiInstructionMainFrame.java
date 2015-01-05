@@ -27,13 +27,13 @@ public class UiInstructionMainFrame extends JFrame {
 		//=================== Panels ===================//
 		
 		panelModel1 = new JPanel();
-		panelModel1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Model1", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelModel1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Recognise & Evaluate", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelModel1.setBounds(5, 30, 370, 250);
 		contentPane.add(panelModel1);
 		panelModel1.setLayout(null);
 		
 		panelModel2 = new JPanel();
-		panelModel2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Model2", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelModel2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Text evaluation", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelModel2.setBounds(383, 30, 370, 250);
 		contentPane.add(panelModel2);
 		panelModel2.setLayout(null);

@@ -9,7 +9,7 @@ import project.speech.globalAccess.Globals;
 @SuppressWarnings("serial")
 public class UiSplashScreenLoadingFrame extends JWindow {
 	
-	private int threadCount = 10;
+	private int threadCount = 50;
 	static JProgressBar progressBar;
 	
 	    public UiSplashScreenLoadingFrame() {
@@ -57,6 +57,7 @@ public class UiSplashScreenLoadingFrame extends JWindow {
 	        // Display it
 	        setVisible(true);
 	        toFront();
+	        setAlwaysOnTop(true);
 	        
 
 	        try{

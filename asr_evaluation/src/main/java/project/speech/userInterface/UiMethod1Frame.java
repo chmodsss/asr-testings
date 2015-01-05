@@ -18,10 +18,13 @@ public class UiMethod1Frame {
 	// Buttons on the UI
 	static JFrame frame1;
 
+	private static JCheckBox chkPercentHits;
+	private static JCheckBox chkPercentSubs;
+	private static JCheckBox chkPercentDel;
+	private static JCheckBox chkPercentIns;
+	private static JCheckBox chkMER;
+	private static JCheckBox chkWIL;
 	private static JCheckBox chkWER;
-	private static JCheckBox chkSER;
-	private static JCheckBox chkMUC;
-	private static JCheckBox chkACC;
 	private static JCheckBox chkALL;
 	
 	private static JButton btnDictionaryModel;
@@ -83,6 +86,8 @@ public class UiMethod1Frame {
 	private static JLabel lblAsrChoice;
 	private static JLabel lblAlgorithmChoice;
 	
+	private static String lastDirectoryVisited= ".";
+	
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -141,7 +146,7 @@ public class UiMethod1Frame {
 		panelCriteria.setLayout(null);
 		
 		JPanel panelPerformance = new JPanel();
-		panelPerformance.setBounds(40, 139, 163, 161);
+		panelPerformance.setBounds(20, 139, 218, 161);
 		panelCriteria.add(panelPerformance);
 		panelPerformance.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Performance measures", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelPerformance.setLayout(null);
@@ -225,7 +230,7 @@ public class UiMethod1Frame {
 				File dictionaryPathResult = null;
 				if (currentAsrSelected != null && modelsNeeded) {
 					dictionaryChooser = new JFileChooser();
-					dictionaryChooser.setCurrentDirectory(new java.io.File("."));
+					dictionaryChooser.setCurrentDirectory(new java.io.File(lastDirectoryVisited));
 					dictionaryChooser.setDialogTitle(dictionaryChoosertitle);
 					dictionaryChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 					dictionaryChooser.setAcceptAllFileFilterUsed(false);
@@ -269,7 +274,7 @@ public class UiMethod1Frame {
 				File acousticPathResult = null;
 				if (currentAsrSelected != null && modelsNeeded) {
 					acousticChooser = new JFileChooser();
-					acousticChooser.setCurrentDirectory(new java.io.File("."));
+					acousticChooser.setCurrentDirectory(new java.io.File(lastDirectoryVisited));
 					acousticChooser.setDialogTitle(acousticChoosertitle);
 					acousticChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 					acousticChooser.setAcceptAllFileFilterUsed(false);
@@ -299,7 +304,7 @@ public class UiMethod1Frame {
 				File languagePathResult = null;
 				if (currentAsrSelected != null && modelsNeeded) {
 					languageChooser = new JFileChooser();
-					languageChooser.setCurrentDirectory(new java.io.File("."));
+					languageChooser.setCurrentDirectory(new java.io.File(lastDirectoryVisited));
 					languageChooser.setDialogTitle(languageChoosertitle);
 					languageChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 					languageChooser.setAcceptAllFileFilterUsed(false);
@@ -363,34 +368,45 @@ public class UiMethod1Frame {
 				
 		//***************** Buttons under Criteria panel *****************//		
 		
-		// Word error rate
+		chkPercentHits = new JCheckBox(Globals.hitsPercentUI);
+		chkPercentHits.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentHits.setBounds(20, 30, 75, 28);
+		panelPerformance.add(chkPercentHits);
+		
+		chkPercentSubs = new JCheckBox(Globals.subsPercentUI);
+		chkPercentSubs.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentSubs.setBounds(20, 60, 75, 28);
+		panelPerformance.add(chkPercentSubs);
+		
+		chkPercentDel = new JCheckBox(Globals.delPercentUI);
+		chkPercentDel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentDel.setBounds(20, 90, 75, 28);
+		panelPerformance.add(chkPercentDel);
+		
+		chkPercentIns = new JCheckBox(Globals.insPercentUI);
+		chkPercentIns.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkPercentIns.setBounds(20, 120, 75, 28);
+		panelPerformance.add(chkPercentIns);
+		
 		chkWER = new JCheckBox(Globals.werUI);
 		chkWER.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkWER.setBounds(16, 27, 130, 28);
+		chkWER.setBounds(115, 30, 75, 28);
 		panelPerformance.add(chkWER);
 		
-		// Slot error rate
-		chkSER = new JCheckBox(Globals.serUI);
-		chkSER.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkSER.setBounds(16, 53, 130, 28);
-		panelPerformance.add(chkSER);
+		chkMER = new JCheckBox(Globals.merUI);
+		chkMER.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkMER.setBounds(115, 60, 75, 28);
+		panelPerformance.add(chkMER);
 		
-		// MUC
-		chkMUC = new JCheckBox(Globals.mucUI);
-		chkMUC.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkMUC.setBounds(16, 77, 130, 28);
-		panelPerformance.add(chkMUC);
-		
-		//Accuracy
-		chkACC = new JCheckBox(Globals.accUI);
-		chkACC.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkACC.setBounds(16, 103, 130, 28);
-		panelPerformance.add(chkACC);
+		chkWIL = new JCheckBox(Globals.wilUI);
+		chkWIL.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		chkWIL.setBounds(115, 90, 75, 28);
+		panelPerformance.add(chkWIL);
 		
 		//All the parameters
 		chkALL = new JCheckBox(Globals.allUI);
 		chkALL.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		chkALL.setBounds(16, 127, 130, 28);
+		chkALL.setBounds(115, 120, 75, 28);
 		panelPerformance.add(chkALL);
 		
 		lblAsrChoice = new JLabel("ASR engine :");
@@ -420,7 +436,7 @@ public class UiMethod1Frame {
 		btnSpeechCorpus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				speechCorpusChooser = new JFileChooser();
-				speechCorpusChooser.setCurrentDirectory(new java.io.File("."));
+				speechCorpusChooser.setCurrentDirectory(new java.io.File(lastDirectoryVisited));
 				speechCorpusChooser.setDialogTitle(speechCorpusChoosertitle);
 				speechCorpusChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				speechCorpusChooser.setAcceptAllFileFilterUsed(false);
@@ -443,7 +459,6 @@ public class UiMethod1Frame {
 				asrSelectedObj = comboAsrSelected.getSelectedItem();
 				
 				if (Globals.asr1SelectionNameUI.equals(asrSelectedObj)) {
-					System.out.println("CmuSphnix is selected...");
 					modelsNeeded = true;
 					setSelectedAsr(Globals.asr1Name);
 					btnDictionaryModel.setEnabled(true);
@@ -464,7 +479,6 @@ public class UiMethod1Frame {
 				}
 	
 				if (Globals.asr2SelectionNameUI.equals(asrSelectedObj)) {
-					System.out.println("iSpeech is selected...");
 					setSelectedAsr(Globals.asr2Name);
 					modelsNeeded = false;
 					
@@ -486,7 +500,6 @@ public class UiMethod1Frame {
 				}
 	
 				if (Globals.select.equals(asrSelectedObj)) {
-					System.out.println("Select is selected...");
 					setSelectedAsr(null);
 	
 					setDefaultColor();
@@ -513,34 +526,32 @@ public class UiMethod1Frame {
 				Object resultAsrSelectedObj = comboAsrResult.getSelectedItem();
 				if ("CmuSphinx".equals(resultAsrSelectedObj)) {
 					asrSystemsSelected.add(Globals.asr1Name);
-					System.out.println("CmuSphnix's result is required...");
 				}
 				if ("iSpeech".equals(resultAsrSelectedObj)) {
 					asrSystemsSelected.add(Globals.asr2Name);
-					System.out.println("ispeech''s result is required...");
 				}
 				if ("All".equals(resultAsrSelectedObj)) {
 					asrSystemsSelected.add(Globals.asr1Name);
 					asrSystemsSelected.add(Globals.asr2Name);
-					System.out.println("All results are required...");
 				}
 				if (Globals.select.equals(resultAsrSelectedObj)) {
 					asrSystemsSelected.clear();
-					System.out.println("Nothing is selected...");
 				}
 
 				//--- Strings for storing the performance measures ---
 				performanceListChecked.clear();
+				performanceListChecked.add(chkPercentHits);
+				performanceListChecked.add(chkPercentSubs);
+				performanceListChecked.add(chkPercentDel);
+				performanceListChecked.add(chkPercentIns);
 				performanceListChecked.add(chkWER);
-				performanceListChecked.add(chkSER);
-				performanceListChecked.add(chkMUC);
-				performanceListChecked.add(chkACC);
+				performanceListChecked.add(chkMER);
+				performanceListChecked.add(chkWIL);
 
 				//--- Computing the performance list ---
 				if (chkALL.isSelected()) {
 					for (int i = 0; i < performanceListChecked.size(); i++) {
 						performanceListSelected.add(performanceListChecked.get(i).getText());
-						System.out.println("Selected ones All..." + performanceListChecked.get(i).getText());
 					}
 				} else {
 					for (int j = 0; j < performanceListChecked.size(); j++) {
@@ -548,7 +559,6 @@ public class UiMethod1Frame {
 						if (each != null) {
 							if (each.isSelected()) {
 								performanceListSelected.add(each.getText());
-								System.out.println("Selected ones..." + each.getText());
 							}
 						}
 					}
@@ -559,20 +569,16 @@ public class UiMethod1Frame {
 					algorithmSelected = null;
 				}
 
-				checkBool = speechCorpusLoaded && (asrSelectedObj != null) && (algorithmSelected != null) && (!performanceListSelected.isEmpty()) && (!asrSystemsSelected.isEmpty()) ;
+				checkBool = speechCorpusLoaded /* && (asrSelectedObj != null) */ && (algorithmSelected != null) && (!performanceListSelected.isEmpty()) && (!asrSystemsSelected.isEmpty()) ;
 				if (checkBool){
 					if (asrSystemsSelected.contains(Globals.asr1Name)){
 						if (Globals.asr1Name.equals(currentAsrSelected)){
-							checkCmu = dictLoadedCmu && acousLoadedCmu && langLoadedCmu;
-							System.out.println("Cmu is okay");
+								checkCmu = dictLoadedCmu && acousLoadedCmu && langLoadedCmu;
 							}
 						}
-					if (asrSystemsSelected.contains(Globals.asr2Name)){	
-						if ( Globals.asr2Name.equals(currentAsrSelected)){
-							checkIspeech = true;
-							System.out.println("ispeech is okay");
-						}
-					}
+
+				checkIspeech = true;
+
 				 if (asrSystemsSelected.contains(Globals.asr1Name) && asrSystemsSelected.contains(Globals.asr2Name)){
 					 if (checkCmu && checkIspeech){
 						 btnEvaluate.setEnabled(true);
@@ -580,20 +586,19 @@ public class UiMethod1Frame {
 				 }
 				 else if (asrSystemsSelected.contains(Globals.asr1Name)){
 					 if (checkCmu){
-						 System.out.println("Cmu is double okay");
-					 btnEvaluate.setEnabled(true);
+						 btnEvaluate.setEnabled(true);
 					 }
 				 }
 				 else if (asrSystemsSelected.contains(Globals.asr2Name)){
 					 if (checkIspeech){
-						 System.out.println("ispeech is double okay");
-					 btnEvaluate.setEnabled(true);
+						 btnEvaluate.setEnabled(true);
 					 }
 				 }
-				 JOptionPane.showMessageDialog(frame1, "Successful ! \n Click Evaluate and please wait till the evaluation is complete...", "Data completed", JOptionPane.INFORMATION_MESSAGE);
-
 			}
-				 if(!btnEvaluate.isEnabled())
+				if (btnEvaluate.isEnabled()){
+					JOptionPane.showMessageDialog(frame1, "Successful ! \n Click Evaluate and please wait till the evaluation is complete...", "Data completed", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
 				 {
 					 JOptionPane.showMessageDialog(frame1, "One or more selections are missing !", "Incomplete data", JOptionPane.INFORMATION_MESSAGE);
 				 }
@@ -663,10 +668,13 @@ public class UiMethod1Frame {
 				btnEvaluate.setEnabled(false);
 				if (e.ACTION_PERFORMED != 0 && (!chkALL.isSelected())) {
 					System.out.println("action" + e.ACTION_PERFORMED);
+					chkPercentHits.setSelected(false);
+					chkPercentSubs.setSelected(false);
+					chkPercentDel.setSelected(false);
+					chkPercentIns.setSelected(false);
+					chkMER.setSelected(false);
+					chkWIL.setSelected(false);
 					chkWER.setSelected(false);
-					chkSER.setSelected(false);
-					chkMUC.setSelected(false);
-					chkACC.setSelected(false);
 				}
 			}
 		});
@@ -677,49 +685,65 @@ public class UiMethod1Frame {
 			public void itemStateChanged(ItemEvent e) {
 				btnEvaluate.setEnabled(false);
 				if (e.getStateChange() == 1) {
-					chkWER.setSelected(true);
-					chkSER.setSelected(true);
-					chkMUC.setSelected(true);
-					chkACC.setSelected(true);
-				}
+					chkPercentHits.setSelected(true);
+					chkPercentSubs.setSelected(true);
+					chkPercentDel.setSelected(true);
+					chkPercentIns.setSelected(true);
+					chkMER.setSelected(true);
+					chkWIL.setSelected(true);
+					chkWER.setSelected(true);				}
 			}
 		});
 		
-		chkACC.addItemListener(new ItemListener() {
+		chkPercentHits.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
+			}
+		});
+		
+		chkPercentDel.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				btnEvaluate.setEnabled(false);
-				if (e.getStateChange() == 2) {
-					chkALL.setSelected(false);
-				}
+				setChkAllFalse(e);
 			}
 		});
 		
-		chkMUC.addItemListener(new ItemListener() {
+		chkPercentSubs.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-			btnEvaluate.setEnabled(false);
-			if (e.getStateChange() == 2) {
-				chkALL.setSelected(false);
-				}
+				setChkAllFalse(e);
 			}
 		});
 		
-		chkSER.addItemListener(new ItemListener() {
-		public void itemStateChanged(ItemEvent e) {
-			btnEvaluate.setEnabled(false);
-			if (e.getStateChange() == 2) {
-				chkALL.setSelected(false);
-				}
+		chkPercentIns.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
 			}
 		});
-		
+
 		chkWER.addItemListener(new ItemListener() {
 		public void itemStateChanged(ItemEvent e) {
-			btnEvaluate.setEnabled(false);
-			if (e.getStateChange() == 2) {
-				chkALL.setSelected(false);
-				}
+				setChkAllFalse(e);
 			}
-		});																	
+		});
+		
+		chkMER.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
+			}
+		});	
+		
+		chkWIL.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+				setChkAllFalse(e);
+			}
+		});			
+	}
+	
+	//=========== Resets check button and evaluate button ===========//
+	public static void setChkAllFalse(ItemEvent e){
+		btnEvaluate.setEnabled(false);
+		if (e.getStateChange() == 2) {
+			chkALL.setSelected(false);
+		}
 	}
 
 	//=========== Returns a relative path ===========//

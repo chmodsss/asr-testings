@@ -29,7 +29,7 @@ public class UiResultFrame1 {
 		frameResult =  new JFrame();
 		frameResult.setIconImage(Toolkit.getDefaultToolkit().getImage(UiResultFrame1.class.getResource("/project/speech/userInterface/logo.jpg")));
 		frameResult.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frameResult.setBounds(100, 100, 667, 473);
+		frameResult.setBounds(100, 100, 718, 473);
 		frameResult.setTitle("Evaluation result...");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -49,7 +49,7 @@ public class UiResultFrame1 {
 				br.close();
 				txtAreaResult2.requestFocus();
 				JScrollPane scroll = new JScrollPane (txtAreaResult2,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-				scroll.setSize(636, 419);
+				scroll.setSize(697, 429);
 				scroll.setLocation(5, 5);
 				frameResult.getContentPane().add(scroll);
 				frameResult.setVisible(true);

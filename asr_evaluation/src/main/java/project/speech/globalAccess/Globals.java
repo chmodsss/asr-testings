@@ -23,10 +23,13 @@ public class Globals {
 	
 	public static String hsdiWeightsAlgorithm = "HSDI weights";
 	
+	public static String hitsPercentUI = "%Hits";
+	public static String subsPercentUI = "%Subs";
+	public static String delPercentUI = "%Del";
+	public static String insPercentUI = "%Ins";
 	public static String werUI = "WER";
-	public static String serUI = "SER";
-	public static String mucUI = "MUC";
-	public static String accUI = "ACC";
+	public static String merUI = "MER";
+	public static String wilUI = "WIL";
 	public static String allUI = "ALL";
 	
 	public static String wavFolder = "wav";

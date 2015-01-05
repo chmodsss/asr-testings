@@ -6,6 +6,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import org.apache.commons.io.FileUtils;
+
 import project.speech.globalAccess.Globals;
 
 
@@ -19,12 +21,17 @@ public class UiMainFrame extends JFrame {
 	private static JButton btnInstructions;
 	private static JLabel lblAsrTool;
 	
-
-	
-	// Main function
-	
 	public static void main(String[] args) {
-		
+		try{
+		if (Globals.recognitionOutputDirectory.exists()){
+		FileUtils.deleteDirectory(Globals.recognitionOutputDirectory);}
+		if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
+		FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);}
+		if (Globals.textEvaluationResultDirectory.exists()){
+		FileUtils.deleteDirectory(Globals.textEvaluationResultDirectory);}
+		}
+		catch(Exception e){
+		}
 		new UiSplashScreenLoadingFrame();
 
 		EventQueue.invokeLater(new Runnable() {

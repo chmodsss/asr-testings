@@ -33,10 +33,21 @@ public class EvaluationSystem {
 	private static String hypothesisFileName;
 	private static String timeTakenCount;
 	private static String asrUsed;
+	
+	private static int H;
+	private static int S;
+	private static int D;
+	private static int I;
+	private static int N;
+	
+	private static double percentHits;
+	private static double percentSubstitutions;
+	private static double percentDeletions;
+	private static double percentInsertions;
 	private static double wer;
-	private static double mar;
-	@SuppressWarnings("unused")
-	private static double recall;
+	private static double mer;
+	private static double wil;
+	
 	private static boolean evaluationResultFileOpened = false;
 	private static boolean isEvalutionDirectoryOccured = false;
 	private static boolean asr1Status = false;
@@ -61,15 +72,12 @@ public class EvaluationSystem {
 		EvaluationAligner e1 = new EvaluationAligner(tempReferenceFile, tempHypothesisFile);
 		EvaluatorResult eResult = e1.evaluateNoTime();
 		
-		System.out.println("Mic check...");
-		System.out.println("selec.. "+performanceList);
-		
 		File currentFile = new File("");
 		String currentPath = currentFile.getAbsolutePath();
 		String newPath = currentPath +"/"+ Globals.textEvaluationResultDirectory;
 		File textEvaluationResultFile = new File(newPath, Globals.textEvaluationResultFileName);
 			hypothesisFileName = tempHypothesisFile.getName();
-			File noNameFolder = new File("");
+			File noNameFolder = new File("Results");
 			writeResultFile(textEvaluationResultFile, performanceList, eResult, hypothesisFileName, noNameFolder);
 			UiMethod2Frame.btnSaveResult2.setEnabled(true);
 		}
@@ -79,33 +87,52 @@ public class EvaluationSystem {
 		
 		PrintWriter evaluationResultFileWriter = new PrintWriter(new FileWriter((fileToWriteResult),true));
 		if (!evaluationResultFileOpened){
-			evaluationResultFileWriter.print("\n [[[------------------------  Performance measures  ------------------------]]]  ");
+			evaluationResultFileWriter.print("\n [[[---------------------  Performance measures  ---------------------]]]  ");
 			evaluationResultFileOpened = true;
 		}
-		wer = (eresult.getSubstitutions()+eresult.getDeletions()+eresult.getInsertions())/(float)eresult.getNumberOfWords();
-		mar = (eresult.getHits()+eresult.getDeletions()+eresult.getInsertions()+eresult.getSubstitutions())/(float)eresult.getHits();
-		recall = eresult.getHits()/(float)eresult.getNumberOfWords();
+		H = eresult.getHits();
+		S = eresult.getSubstitutions();
+		D = eresult.getDeletions();
+		I = eresult.getInsertions();
+		N = eresult.getNumberOfWords();
 		
-		System.out.println("Final test...");
-			System.out.println(tempSelectedPerformanceList);
+		percentHits = ( H/(float)N ) * 100;
+		percentSubstitutions = ( S/(float)N ) * 100;
+		percentDeletions = ( D/(float)N ) * 100;
+		percentInsertions = ( I/(float)N ) * 100;
+		wer = (S+D+I) / (float)(H+S+D);
+		mer = (S+D+I) / (float)(H+S+D+I);
+		wil = 1- ( (H/(float)(H+S+D)) * (H/(float)(H+S+I)) );
+		
 		evaluationResultFileWriter.print("\n\n <<---------------------- "+FilenameUtils.removeExtension(tempHypothesisFileName)+"  ---------------------->> \n ");
 		evaluationResultFileWriter.print("\n ==================== "+ subSpeechFolder.getName() +" ==================== \n\n ");
 
+		if (tempSelectedPerformanceList.contains(Globals.hitsPercentUI))
+			evaluationResultFileWriter.println("\t"+" Percent of correct words (% Hits) [0-100] : " + percentHits);
+		
+		if (tempSelectedPerformanceList.contains(Globals.subsPercentUI))
+			evaluationResultFileWriter.println("\t"+" Percent of substituted words (% Subs) [0-100] : " + percentSubstitutions);
+		
+		if (tempSelectedPerformanceList.contains(Globals.delPercentUI))
+			evaluationResultFileWriter.println("\t"+" Percent of deleted words (% Del) [0-100] : " + percentDeletions);
+		
+		if (tempSelectedPerformanceList.contains(Globals.insPercentUI))
+			evaluationResultFileWriter.println("\t"+" Percent of inserted words (% Ins) [0-100] : " + percentInsertions);
+		
 		if (tempSelectedPerformanceList.contains(Globals.werUI))
-			evaluationResultFileWriter.println("\t"+"WER : " + wer);
-		if (tempSelectedPerformanceList.contains(Globals.serUI))
-			evaluationResultFileWriter.println("\t"+"SER : " + 0);
-		if (tempSelectedPerformanceList.contains(Globals.mucUI))
-			evaluationResultFileWriter.println("\t"+"MUC : " +(1- mar));
-		if (tempSelectedPerformanceList.contains(Globals.accUI))
-			evaluationResultFileWriter.println("\t"+"ACC : " + mar);				
+			evaluationResultFileWriter.println("\t"+" Word error rate (WER) : " + wer);
+		
+		if (tempSelectedPerformanceList.contains(Globals.merUI))
+			evaluationResultFileWriter.println("\t"+" Match error rate (MER) [0-1] : " + mer);
+		
+		if (tempSelectedPerformanceList.contains(Globals.wilUI))
+			evaluationResultFileWriter.println("\t"+" Word Information Lost (WIL) [0-1] : " + wil);
 		
 		evaluationResultFileWriter.close();
 	}
 
 	public static void recogniseAndEvaluate(File speechDatabaseDirectory, ArrayList<UiAsrProperties> asrPropertiesObj, ArrayList<String> selectedPerformanceList , ArrayList<String> selectedAsrList, String algorithmSelected) throws Exception {
 		
-		System.out.println("Atleast entered recognitino and evalaitons");
 		if (! isEvalutionDirectoryOccured){
 			if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
 				FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);
@@ -116,7 +143,6 @@ public class EvaluationSystem {
 			}
 			isEvalutionDirectoryOccured = true;
 		}
-		System.out.println("Recognise and evaluate initiated...");
 		
 		if (Globals.recognitionOutputDirectory.exists()){
 			FileUtils.deleteDirectory(Globals.recognitionOutputDirectory);
@@ -130,21 +156,15 @@ public class EvaluationSystem {
 			asr1Status = true;
 		if (selectedAsrList.contains(Globals.asr2Name))
 			asr2Status = true;
-
-		
-		// Setting up speech database for recognition
-//		speechCorpora = speechDatabaseDirectory;
 		
 		speechDatabaseFolders = readDirectory(speechDatabaseDirectory);
 
 		for (int i = 0; i < speechDatabaseFolders.size(); i++) {
-			System.out.println("speech database size... "+speechDatabaseFolders.size());
 			File currentSpeechFolder = speechDatabaseFolders.get(i);
 			File originalReferenceFile = null;
 			if (currentSpeechFolder.isDirectory() == true) {
 				for (File each : currentSpeechFolder.listFiles()) {
 					if (each.getName().compareTo(Globals.wavFolder) == 0) {
-//						speechFiles = readDirectory(each);
 						currentSpeechFiles = each;
 					}
 					if (each.getName().compareTo(Globals.etcFolder) == 0) {
@@ -163,10 +183,6 @@ public class EvaluationSystem {
 				cmuDictionaryFile = asrPropertiesObj.get(0).getUiDictionary();
 				cmuAcousticString = "resource:/"+FilenameUtils.removeExtension(asrPropertiesObj.get(0).getUiAcoustic().getName());
 				cmuLanguageFile = asrPropertiesObj.get(0).getUiLanguage();
-				
-				System.out.println("Cmu dict file... :"+ cmuDictionaryFile);
-				System.out.println("Cmu Acous file... :"+ cmuAcousticString);
-				System.out.println("Cmu Lang file... :"+ cmuLanguageFile);
 				
 				CmuSphinxEngine cmu = new CmuSphinxEngine(cmuDictionaryFile, cmuAcousticString, cmuLanguageFile);
 				Configuration conf = cmu.configure();
@@ -195,43 +211,26 @@ public class EvaluationSystem {
 				File subSpeechFolder = recognitionOutputFolders.get(i);
 				if (subSpeechFolder.isDirectory() == true) {
 					for (File each : subSpeechFolder.listFiles()) {
-						System.out.println("Hypothesis file name:" + hypothesisFileName);
-						System.out.println("Each file name :"+each);
 						if (each.getName().compareTo(Globals.referenceFileName) == 0){
-							System.out.println("found reference file...");
-						referenceFile = each;
+							referenceFile = each;
 						}
 						else if (each.getName().compareTo(hypothesisFileName) == 0){
-						hypothesisFile = each;
+							hypothesisFile = each;
 						}
 						else if (each.getName().compareTo(timeTakenCount) == 0){
-						timeTakenFile = each;
+							timeTakenFile = each;
 						}
 					}
 					
 					if (algorithmSelected.equals(Globals.hsdiWeightsAlgorithm)){
 						
 					EvaluationAligner e = new EvaluationAligner(referenceFile , hypothesisFile , timeTakenFile);
-					System.out.println("ref file :"+ referenceFile.getAbsolutePath());
-					System.out.println("hyp file :"+ hypothesisFile.getAbsolutePath());
-					System.out.println("time file :"+ timeTakenFile.getAbsolutePath());
-					
 					EvaluatorResult eResult = e.evaluateWithTime(subSpeechFolder , asrUsed);
-				
-					/*
-					if (!isEvalutionDirectoryOccured ){
-						FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);
-						Globals.RecogniseAndEvaluateResultDirectory.mkdirs();
-						isEvalutionDirectoryOccured = true;
-					}
-					*/
+					
 					File evaluationResult = new File(Globals.RecogniseAndEvaluateResultDirectory, Globals.recogniseAndEvaluateResultFileName);
 					
 					writeResultFile(evaluationResult, selectedPerformanceList, eResult, hypothesisFileName, subSpeechFolder);
 					}
-//					evalOutFile.print("\t"+"Recall : " + recall);
-//					evalOutFile.print("\t"+"Timetaken : " + result.getTime()+"s");
-					
 				}
 			}
 			isEvalutionDirectoryOccured = false;
