@@ -29,23 +29,44 @@ public class EvaluationAligner {
 		private String asrUSed;
 		private File subSpeechFolder;
 		
+		private int deletionPenalty;
+		private int substitutionPenalty;
+		private int insertionPenalty;
+		
 		File ref = null;
 		File hyp = null;
 		File time = null;
 		
+/**
+ * This constructor assigns the following files and sets the model to be recognise and evaluate(model1)
+ * @param referenceFile Reference text file for evaluation
+ * @param hypothesisFile Hypothesis text file to be evaluated
+ * @param timeFile Time file contains the duration in seconds needed to recognize the whole folder
+ */
 		public EvaluationAligner(File referenceFile, File hypothesisFile, File timeFile) {
 			this.ref = referenceFile;
 			this.hyp = hypothesisFile;
 			this.time = timeFile;
 			this.model= model1;
 		}
-
+/**
+ *  This constructor assigns the following files and sets the model to be Performance calculator (model2) 
+ * @param referenceFile Reference text file for evaluation
+ * @param hypothesisFile Hypothesis text file to be evaluated
+ */
 		public EvaluationAligner(File referenceFile, File hypothesisFile) {
 			this.ref = referenceFile;
 			this.hyp = hypothesisFile;
 			this.model = model2;
 		}
 		
+/**
+ * This function is used by recognise and evaluate - model1, and it calls evaluate function
+ * @param subSpeechFolder Name of the directory containing the speech files and transcription file
+ * @param asrUsed Name of the speech recognition engine used
+ * @return Object of EvaluatorResult containing number of hits, substitutions, deletions, insertions, reference words and time consumed
+ * @throws IOException
+ */
 		@SuppressWarnings("resource")
 		public EvaluatorResult evaluateWithTime(File subSpeechFolder , String asrUsed) throws IOException {
 			this.asrUSed = asrUsed;
@@ -57,6 +78,11 @@ public class EvaluationAligner {
 			return eval;
 		}
 		
+/**
+ * This function is used by performance calculator - model2, and it calls evaluate function
+ * @return Object of EvaluatorResult containing number of hits, substitutions, deletions, insertions and reference words
+ * @throws IOException
+ */
 		public EvaluatorResult evaluateNoTime() throws IOException {
 			this.evaluate();
 			System.out.println("result total hits " + numHitsTotal);
@@ -69,7 +95,13 @@ public class EvaluationAligner {
 			return eval;
 		}
 		
-
+/**
+ * This function inserts empty slots equal to the number of reference words, when nothing is recognised by the speech recognizer
+ * @param refWords list containing the reference words
+ * @param readHyp Buffered reader to reset the pointer to the previous location
+ * @param newHypList list adding the number of empty spaces as the number of reference words
+ * @throws IOException
+ */
 		void insertEmptyLines(List<String> refWords, BufferedReader readHyp, List<List<String>> newHypList) throws IOException{
 			List<String> tempRefWords = new ArrayList<String>();
 			
@@ -81,11 +113,11 @@ public class EvaluationAligner {
 			readHyp.reset();				
 		}
 		
+/**
+ * This function aligns the reference text with the recognition output(hypothesized text) and writes the output in an alignment file
+ * @throws IOException when a file could not be read
+ */
 		public void evaluate() throws IOException{
-			
-			int deletionPenalty = 75;
-			int substitutionPenalty = 100;
-			int insertionPenalty = 75;
 			
 			final int OK = 0;  
 			final int SUB = 1;
@@ -136,11 +168,11 @@ public class EvaluationAligner {
 			}
 			else if (model == model2){
 
-				Globals.textEvaluationResultDirectory.mkdirs();
+				Globals.performanceCalculationResultDirectory.mkdirs();
 				File currentFile = new File("");
 				String currentPath = currentFile.getAbsolutePath();
-				String newPath = currentPath + "/"+Globals.textEvaluationResultDirectory;
-				alignmentFile = new File(newPath, Globals.textEvaluationAlignmentFileName);
+				String newPath = currentPath + "/"+Globals.performanceCalculationResultDirectory;
+				alignmentFile = new File(newPath, Globals.performanceCalculationAlignmentFileName);
 			}
 			
 			PrintWriter alignmentPrintFile = new PrintWriter(new FileWriter((alignmentFile),true));
@@ -167,13 +199,13 @@ public class EvaluationAligner {
 		
 		// First column represents the case where we achieve zero hypothesis words by deleting all reference words.
 		for(int i=1; i<cost.length; i++) {
-			cost[i][0] = deletionPenalty * i;
+			cost[i][0] = Globals.defaultDeletionPenalty * i;
 			backtrace[i][0] = DEL; 
 		}
 
 		// First row represents the case where we achieve the hypothesis by inserting all hypothesis words into a zero-length reference.
 		for(int j=1; j<cost[0].length; j++) {
-			cost[0][j] = insertionPenalty * j;
+			cost[0][j] = Globals.defaultInsertionPenalty * j;
 			backtrace[0][j] = INS; 
 		}
 		
@@ -186,10 +218,10 @@ public class EvaluationAligner {
 					cs = cost[i-1][j-1];
 				} else {
 					subOp = SUB;
-					cs = cost[i-1][j-1] + substitutionPenalty;
+					cs = cost[i-1][j-1] + Globals.defaultSubstitutionPenalty;
 				}
-				int ci = cost[i][j-1] + insertionPenalty;
-				int cd = cost[i-1][j] + deletionPenalty;
+				int ci = cost[i][j-1] + Globals.defaultInsertionPenalty;
+				int cd = cost[i-1][j] + Globals.defaultDeletionPenalty;
 				
 				int mincost = Math.min(cs, Math.min(ci, cd));
 				if(cs == mincost) {

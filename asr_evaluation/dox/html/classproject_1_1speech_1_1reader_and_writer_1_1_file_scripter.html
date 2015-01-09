@@ -157,6 +157,23 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function writes the output obtained by the speech recognizer in a file </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">asrName</td><td>Name of the speech recognition engine used </td></tr>
+    <tr><td class="paramname">databaseName</td><td>Name of the speech folder used for recognition </td></tr>
+    <tr><td class="paramname">referenceFile</td><td>Reference file available in the speech database for evaluation </td></tr>
+    <tr><td class="paramname">fileNameList</td><td>List consisting of the names of all speech files present in the folder, inserted as the first word in every sentence </td></tr>
+    <tr><td class="paramname">sentenceDetectedList</td><td>List containing the sentences recognized by the speech recognition engine </td></tr>
+    <tr><td class="paramname">timeDifference</td><td>time consumed by the speech engine for recognition </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -166,7 +183,7 @@ Static Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 30 2014 17:50:54 for ASRevaluationtoolkit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 5 2015 23:41:47 for ASRevaluationtoolkit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9
 </small></address>

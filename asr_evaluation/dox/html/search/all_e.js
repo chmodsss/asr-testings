@@ -2,8 +2,9 @@ var searchData=
 [
   ['readdirectory',['readDirectory',['../classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#aaae715bc2fca5fa37798f0a677e64ba2',1,'project::speech::evaluationsystem::EvaluationSystem']]],
   ['reader',['reader',['../classproject_1_1speech_1_1reader_and_writer_1_1_file_reader.html#a60f161c3d4922cc7c6b765c54e3f7148',1,'project::speech::readerAndWriter::FileReader']]],
-  ['recall',['recall',['../classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#aa426bcb1fd2281aaa5b8b8aa1a207e09',1,'project::speech::evaluationsystem::EvaluationSystem']]],
   ['recogniseandevaluate',['recogniseAndEvaluate',['../classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a2a5dfddc5e18caf53a3499fd612b742f',1,'project::speech::evaluationsystem::EvaluationSystem']]],
+  ['recogniseandevaluatealignmentfilename',['recogniseAndEvaluateAlignmentFileName',['../classproject_1_1speech_1_1global_access_1_1_globals.html#aea76373859cbb76476ce24e7a97e5da8',1,'project::speech::globalAccess::Globals']]],
+  ['recogniseandevaluatecompleteoutputfilename',['recogniseAndEvaluateCompleteOutputFileName',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a40a3477b64c79f871bd7a705ccebc46d',1,'project::speech::globalAccess::Globals']]],
   ['recogniseandevaluateresultdirectory',['RecogniseAndEvaluateResultDirectory',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a3a662cfeb45ab8d94ef35af9daac8882',1,'project::speech::globalAccess::Globals']]],
   ['recogniseandevaluateresultfilename',['recogniseAndEvaluateResultFileName',['../classproject_1_1speech_1_1global_access_1_1_globals.html#af8ac30351ad344fb4895ee1e25e08707',1,'project::speech::globalAccess::Globals']]],
   ['recognitionoutputdirectory',['recognitionOutputDirectory',['../classproject_1_1speech_1_1global_access_1_1_globals.html#ab87f4d14c9ee6ef9bab7cad481ea6bfe',1,'project::speech::globalAccess::Globals']]],

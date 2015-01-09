@@ -9,5 +9,5 @@ var searchData=
   ['filereader_2ejava',['FileReader.java',['../_file_reader_8java.html',1,'']]],
   ['filescripter',['FileScripter',['../classproject_1_1speech_1_1reader_and_writer_1_1_file_scripter.html',1,'project::speech::readerAndWriter']]],
   ['filescripter_2ejava',['FileScripter.java',['../_file_scripter_8java.html',1,'']]],
-  ['frameresult',['frameResult',['../classproject_1_1speech_1_1user_interface_1_1_ui_result_frame1.html#aad7dc824c022fc4f5d7c3e690fcccef5',1,'project.speech.userInterface.UiResultFrame1.frameResult()'],['../classproject_1_1speech_1_1user_interface_1_1_ui_result_frame2.html#a0a4d9363f7388eb75d36328d5c219758',1,'project.speech.userInterface.UiResultFrame2.frameResult()']]]
+  ['frameresult',['frameResult',['../classproject_1_1speech_1_1user_interface_1_1_ui_result_frame1.html#aad7dc824c022fc4f5d7c3e690fcccef5',1,'project::speech::userInterface::UiResultFrame1']]]
 ];

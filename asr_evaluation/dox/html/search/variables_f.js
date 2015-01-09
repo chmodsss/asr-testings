@@ -1,5 +1,7 @@
 var searchData=
 [
+  ['textevaluationalignmentfilename',['textEvaluationAlignmentFileName',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a45c9e6ebeca1c7dbf739ce809d920476',1,'project::speech::globalAccess::Globals']]],
+  ['textevaluationcompleteoutputfilename',['textEvaluationCompleteOutputFileName',['../classproject_1_1speech_1_1global_access_1_1_globals.html#afc2e29dd539fb703d15d5ddd43f0affe',1,'project::speech::globalAccess::Globals']]],
   ['textevaluationresultdirectory',['textEvaluationResultDirectory',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a3ed8766a2ad2a26c85b85617e2457cb6',1,'project::speech::globalAccess::Globals']]],
   ['textevaluationresultfilename',['textEvaluationResultFileName',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a76e37aef84db8f00bb5c577047ff317a',1,'project::speech::globalAccess::Globals']]],
   ['theme1',['theme1',['../classproject_1_1speech_1_1global_access_1_1_globals.html#afcb7890913a70ba1b2def6a8150d4468',1,'project::speech::globalAccess::Globals']]],

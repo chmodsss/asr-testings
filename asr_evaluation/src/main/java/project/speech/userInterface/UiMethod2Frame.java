@@ -1,7 +1,6 @@
 package project.speech.userInterface;
 
 import project.speech.globalAccess.Globals;
-
 import java.awt.Font;
 import java.awt.event.*;
 
@@ -62,13 +61,20 @@ public class UiMethod2Frame {
 	
 	private static ArrayList<JCheckBox> performanceListChecked = new ArrayList<JCheckBox>();
 	private static ArrayList<String> performanceListSelected = new ArrayList<String>();
+	private static ArrayList<Integer> penaltyListSelected = new ArrayList<Integer>(); 
 	private static JLabel lblAlgorithm;
 	private static JLabel lblReferenceFile;
 	private static JLabel lblHypothesisFile;
+	private static JLabel lblSubstitutionPenalty;
+	private static JLabel lblDeletionPenalty;
+	private static JLabel lblIinsertionPenalty;
+	private static JPanel panel;
+	private static JPanel panel_1;
+	private static JTextField txtSubs;
+	private static JTextField txtDel;
+	private static JTextField txtIns;
 	
 
-
-	
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -76,11 +82,11 @@ public class UiMethod2Frame {
 	static void initialize(){
 				
 		frame2 = new JFrame();
-		frame2.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod2Frame.class.getResource("/project/speech/userInterface/logo.jpg")));
-		frame2.setBounds(100, 100, 722, 402);
+		frame2.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod2Frame.class.getResource("/project/speech/userInterface/logo.png")));
+		frame2.setBounds(100, 100, 891, 435);
 		frame2.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame2.getContentPane().setLayout(null);
-		frame2.setTitle("Text evaluation");
+		frame2.setTitle("Performance calculator");
 		frame2.setResizable(false);
 		
 		final UiInstructionFrame2 frameInstructions2 = new UiInstructionFrame2();
@@ -104,15 +110,15 @@ public class UiMethod2Frame {
 				
 		// Panel to choose files
 		panelFileChooser = new JPanel();
-		panelFileChooser.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "File chooser", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelFileChooser.setBounds(499, 92, 190, 262);
+		panelFileChooser.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Input", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelFileChooser.setBounds(499, 92, 350, 288);
 		frame2.getContentPane().add(panelFileChooser);
 		panelFileChooser.setLayout(null);
 				
 		// Panel to select the criteria
 		panelCriteria = new JPanel();
 		panelCriteria.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Output Choices", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelCriteria.setBounds(31, 92, 258, 262);
+		panelCriteria.setBounds(31, 92, 258, 288);
 		frame2.getContentPane().add(panelCriteria);
 		panelCriteria.setLayout(null);
 		
@@ -128,7 +134,7 @@ public class UiMethod2Frame {
 		
 		// Panel to display performance measures
 		panelPerformance = new JPanel();
-		panelPerformance.setBounds(20, 80, 218, 171);
+		panelPerformance.setBounds(14, 93, 218, 171);
 		panelCriteria.add(panelPerformance);
 		panelPerformance.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Performance measures", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelPerformance.setLayout(null);
@@ -259,7 +265,7 @@ public class UiMethod2Frame {
 		// Panel for evaluation
 		panelEvaluate = new JPanel();
 		panelEvaluate.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Evaluate", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelEvaluate.setBounds(299, 167, 190, 187);
+		panelEvaluate.setBounds(299, 188, 190, 192);
 		frame2.getContentPane().add(panelEvaluate);
 		panelEvaluate.setLayout(null);
 
@@ -268,7 +274,7 @@ public class UiMethod2Frame {
 		lblModel2 = new JLabel("Performance calculator");
 		lblModel2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblModel2.setFont(new Font("Century Gothic", Font.PLAIN, 30));
-		lblModel2.setBounds(151, 25, 384, 39);
+		lblModel2.setBounds(237, 27, 384, 39);
 		frame2.getContentPane().add(lblModel2);
 		
 		//=================== Buttons ===================//
@@ -279,29 +285,187 @@ public class UiMethod2Frame {
 		btnInstructions.setBounds(327, 125, 135, 28);
 		frame2.getContentPane().add(btnInstructions);
 		
-		// Hypothesis file selection
-		btnHypFile = new JButton("Hypothesis File");
-		btnHypFile.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnHypFile.setBounds(30, 152, 135, 28);
-		panelFileChooser.add(btnHypFile);
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "File chooser", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel.setBounds(15, 20, 320, 115);
+		panelFileChooser.add(panel);
+		panel.setLayout(null);
 		
 		// Reference file selection
 		btnRefFile = new JButton("Reference File");
+		btnRefFile.setBounds(13, 25, 135, 28);
+		panel.add(btnRefFile);
 		btnRefFile.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnRefFile.setBounds(30, 60, 135, 28);
-		panelFileChooser.add(btnRefFile);
+		
+		// Hypothesis file selection
+		btnHypFile = new JButton("Hypothesis File");
+		btnHypFile.setBounds(13, 70, 135, 28);
+		panel.add(btnHypFile);
+		btnHypFile.setFont(new Font("SansSerif", Font.PLAIN, 14));
 		
 		lblReferenceFile = new JLabel();
+		lblReferenceFile.setBounds(160, 25, 135, 20);
+		panel.add(lblReferenceFile);
 		lblReferenceFile.setHorizontalAlignment(SwingConstants.CENTER);
 		lblReferenceFile.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblReferenceFile.setBounds(30, 99, 135, 20);
-		panelFileChooser.add(lblReferenceFile);
 		
 		lblHypothesisFile = new JLabel();
+		lblHypothesisFile.setBounds(160, 70, 135, 20);
+		panel.add(lblHypothesisFile);
 		lblHypothesisFile.setHorizontalAlignment(SwingConstants.CENTER);
 		lblHypothesisFile.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblHypothesisFile.setBounds(30, 191, 135, 20);
-		panelFileChooser.add(lblHypothesisFile);
+		
+		// Hypothesis file - to choose the file		
+		btnHypFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hypothesisFileChooser = new JFileChooser();
+				hypothesisFileChooser.setCurrentDirectory(new java.io.File("."));
+				hypothesisFileChooser.setDialogTitle(hypothesisChooserTitle);
+				hypothesisFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				hypothesisFileChooser.setAcceptAllFileFilterUsed(false);
+				if (hypothesisFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
+					btnEvaluate.setEnabled(false);
+					hypothesisFilePath = hypothesisFileChooser.getSelectedFile();
+					lblHypothesisFile.setText(hypothesisFilePath.getName());
+					btnHypFile.setToolTipText(hypothesisFilePath.getAbsolutePath());
+					hypothesisFileLoaded = true;
+					btnHypFile.setBackground(Globals.turquoise);
+				}
+			}
+		});
+		
+		// Reference file - to choose the file
+		btnRefFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				referenceFileChooser = new JFileChooser();
+				referenceFileChooser.setCurrentDirectory(new java.io.File("."));
+				referenceFileChooser.setDialogTitle(referenceChooserTitle);
+				referenceFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				referenceFileChooser.setAcceptAllFileFilterUsed(false);
+				if (referenceFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
+					btnEvaluate.setEnabled(false);
+					referenceFilePath = referenceFileChooser.getSelectedFile();
+					lblReferenceFile.setText(referenceFilePath.getName());
+					btnRefFile.setToolTipText(referenceFilePath.getAbsolutePath());
+					referenceFileLoaded = true;
+					btnRefFile.setBackground(Globals.turquoise);
+			}
+			}
+		});
+		
+		panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "Alignment penalties", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panel_1.setBounds(15, 145, 320, 130);
+		panelFileChooser.add(panel_1);
+		panel_1.setLayout(null);
+		
+		lblSubstitutionPenalty = new JLabel("Substitution penalty");
+		lblSubstitutionPenalty.setBounds(10, 17, 135, 28);
+		panel_1.add(lblSubstitutionPenalty);
+		lblSubstitutionPenalty.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubstitutionPenalty.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		
+		lblDeletionPenalty = new JLabel("Deletion penalty");
+		lblDeletionPenalty.setBounds(10, 52, 135, 28);
+		panel_1.add(lblDeletionPenalty);
+		lblDeletionPenalty.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDeletionPenalty.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		
+		lblIinsertionPenalty = new JLabel("Insertion penalty");
+		lblIinsertionPenalty.setBounds(10, 87, 135, 28);
+		panel_1.add(lblIinsertionPenalty);
+		lblIinsertionPenalty.setHorizontalAlignment(SwingConstants.CENTER);
+		lblIinsertionPenalty.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		
+		txtSubs = new JTextField();
+		txtSubs.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) { 
+				try{
+				int i = Integer.parseInt( txtSubs.getText());
+				if (!(i >=0 && i<=100)){
+					txtSubs.setText(Integer.toString(Globals.defaultSubstitutionPenalty));
+				}
+				}
+				catch (Exception ee){
+					txtSubs.setText(Integer.toString(Globals.defaultSubstitutionPenalty));
+				}
+			}
+		});
+		txtSubs.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if ( !(Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
+					e.consume();
+				}
+			}
+		});
+		txtSubs.setText(Integer.toString(Globals.defaultSubstitutionPenalty));
+		txtSubs.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtSubs.setBounds(193, 23, 86, 20);
+		panel_1.add(txtSubs);
+		txtSubs.setColumns(10);
+		
+		txtDel = new JTextField();
+		txtDel.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				try{
+				int i = Integer.parseInt( txtDel.getText());
+				if (!(i >=0 && i<=100)){
+					txtDel.setText(Integer.toString(Globals.defaultDeletionPenalty));
+				}
+				}
+				catch (Exception ee){
+					txtDel.setText(Integer.toString(Globals.defaultDeletionPenalty));
+				}
+			}
+		});
+		txtDel.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if ( !(Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
+					e.consume();
+				}
+			}
+		});
+		txtDel.setText(Integer.toString(Globals.defaultDeletionPenalty));
+		txtDel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtDel.setBounds(193, 58, 86, 20);
+		panel_1.add(txtDel);
+		txtDel.setColumns(10);
+		
+		txtIns = new JTextField();
+		txtIns.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				try{
+				int i = Integer.parseInt( txtIns.getText());
+				if (!(i >=0 && i<=100)){
+					txtIns.setText(Integer.toString(Globals.defaultInsertionPenalty));
+				}
+				}
+				catch (Exception ee){
+					txtIns.setText(Integer.toString(Globals.defaultInsertionPenalty));
+				}
+			}
+		});
+		txtIns.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if ( !(Character.isDigit(c)) || (c==KeyEvent.VK_BACK_SPACE) || (c==KeyEvent.VK_DELETE)){
+					e.consume();
+				}
+			}
+		});
+		txtIns.setText(Integer.toString(Globals.defaultInsertionPenalty));
+		txtIns.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		txtIns.setBounds(193, 93, 86, 20);
+		panel_1.add(txtIns);
+		txtIns.setColumns(10);
 		
 		// Check button
 		btnCheck = new JButton("Check");
@@ -341,44 +505,6 @@ public class UiMethod2Frame {
 				frameInstructions2.setVisible(true);
 				frameInstructions2.setTitle("Instructions...");
 				frameInstructions2.setResizable(false);
-			}
-		});
-		
-		// Reference file - to choose the file
-		btnRefFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				referenceFileChooser = new JFileChooser();
-				referenceFileChooser.setCurrentDirectory(new java.io.File("."));
-				referenceFileChooser.setDialogTitle(referenceChooserTitle);
-				referenceFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				referenceFileChooser.setAcceptAllFileFilterUsed(false);
-				if (referenceFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
-					btnEvaluate.setEnabled(false);
-					referenceFilePath = referenceFileChooser.getSelectedFile();
-					lblReferenceFile.setText(referenceFilePath.getName());
-					btnRefFile.setToolTipText(referenceFilePath.getAbsolutePath());
-					referenceFileLoaded = true;
-					btnRefFile.setBackground(Globals.turquoise);
-			}
-			}
-		});
-		
-		// Hypothesis file - to choose the file		
-		btnHypFile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				hypothesisFileChooser = new JFileChooser();
-				hypothesisFileChooser.setCurrentDirectory(new java.io.File("."));
-				hypothesisFileChooser.setDialogTitle(hypothesisChooserTitle);
-				hypothesisFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-				hypothesisFileChooser.setAcceptAllFileFilterUsed(false);
-				if (hypothesisFileChooser.showOpenDialog(frame2) == JFileChooser.APPROVE_OPTION) {
-					btnEvaluate.setEnabled(false);
-					hypothesisFilePath = hypothesisFileChooser.getSelectedFile();
-					lblHypothesisFile.setText(hypothesisFilePath.getName());
-					btnHypFile.setToolTipText(hypothesisFilePath.getAbsolutePath());
-					hypothesisFileLoaded = true;
-					btnHypFile.setBackground(Globals.turquoise);
-				}
 			}
 		});
 		
@@ -471,7 +597,11 @@ public class UiMethod2Frame {
 			}
 			});
 	}
-	//=========== Resets check button and evaluate button ===========//
+
+/**
+ * Resets check button and evaluate button
+ * @param e when the event retuns 2, the item is selected
+ */
 	public static void setChkAllFalse(ItemEvent e){
 		btnEvaluate.setEnabled(false);
 		if (e.getStateChange() == 2) {

@@ -8,34 +8,66 @@ public class UiAsrProperties {
 	private File uiAcoustic;
 	private File uiLanguage;
 	
-	// Speech corpus get and set methods
+/**
+ * Returns speech database path
+ * @return Folder path of the speech database
+ */
 	public File getUiSpeechCorpus() {
 		return uiSpeechCorpus;
 	}
+
+ /**
+ *  Sets speech database path
+ * @param uiSpeechCorpus Folder path of the speech database
+ */
 	public void setUiSpeechCorpus(File uiSpeechCorpus) {
 		this.uiSpeechCorpus = uiSpeechCorpus;
 	}
 	
-	// dictionary get and set methods
+/**
+ * Returns dictionary model path
+ * @return File path of dictionary file
+ */
 	public File getUiDictionary() {
 		return uiDictionary;
 	}
+	
+/**
+ * Sets dictionary model path
+ * @param uiDictionary File path of dictionary file
+ */
 	public void setUiDictionary(File uiDictionary) {
 		this.uiDictionary = uiDictionary;
 	}
 	
-	// Acoustic get and set methods
+/**
+ * Returns acoustic model path
+ * @return File path of acoustic file
+ */
 	public File getUiAcoustic() {
 		return uiAcoustic;
 	}
+	
+/**
+ * Sets acoustic file path
+ * @param uiAcoustic  File path of acoustic file
+ */
 	public void setUiAcoustic(File uiAcoustic) {
 		this.uiAcoustic = uiAcoustic;
 	}
 	
-	// Language get and set methods
+/**
+ * Returns Language model path
+ * @return File path of language file
+ */
 	public File getUiLanguage() {
 		return uiLanguage;
 	}
+	
+/**
+ * Sets language file path
+ * @param uiLanguage File path of language file
+ */
 	public void setUiLanguage(File uiLanguage) {
 		this.uiLanguage = uiLanguage;
 	}

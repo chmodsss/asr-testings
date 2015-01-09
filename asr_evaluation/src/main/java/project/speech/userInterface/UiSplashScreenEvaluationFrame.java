@@ -18,7 +18,17 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	
 	static String model1 = "model1";
 	static String model2 = "model2";
-	
+/**
+ * 
+ * @param speechDatabaseDirectory
+ * @param asrPropertiesObj
+ * @param selectedPerformanceList
+ * @param selectedAsrList
+ * @param algorithmSelected
+ * @throws InvocationTargetException
+ * @throws InterruptedException
+ * @wbp.parser.constructor
+ */
 	    public UiSplashScreenEvaluationFrame
 	    ( final File speechDatabaseDirectory, final ArrayList<UiAsrProperties> asrPropertiesObj, final ArrayList<String> selectedPerformanceList , final ArrayList<String> selectedAsrList, final String algorithmSelected) throws InvocationTargetException, InterruptedException  {
 	    	EventQueue.invokeLater(new Runnable(){
@@ -36,6 +46,15 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	    });
 	    }
 	    
+/**
+ * Creates a thread to run the evaluation, in parallel to showing the loading splash screen
+ * @param referenceFilePath Path of the reference file
+ * @param hypothesisFilePath Path of the hypothesis file
+ * @param performanceListSelected List of performance metrics selected
+ * @param algorithmSelected Alignment algorithm selected for evaluation
+ * @throws InvocationTargetException
+ * @throws InterruptedException
+ */
 	    public UiSplashScreenEvaluationFrame  
 	    ( final File referenceFilePath, final File hypothesisFilePath, final ArrayList<String> performanceListSelected , final String algorithmSelected) throws InvocationTargetException, InterruptedException  {
 	    	EventQueue.invokeLater(new Runnable(){
@@ -53,13 +72,16 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	    });
 	    }
 	    
+/**   
+ * @return Object of JWindow having all the properties
+ */
 	    private JWindow createGUI(){
 	    	JPanel content = (JPanel) getContentPane();
 	        content.setBackground(Color.white);
 
 	        // Set the window's bounds, centering the window
-	        int width = 500;
-	        int height = 350;
+	        int width = 680;
+	        int height = 440;
 	        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 	        int x = (screen.width - width) / 2;
 	        int y = (screen.height - height) / 2;
@@ -68,25 +90,25 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 
 	        // Build the splash screen
 	        JLabel label = new JLabel(new ImageIcon(getClass().getResource("/project/speech/userInterface/splashscreenimg.png")));
-	        label.setBounds(0, 0, 500, 350);
+	        label.setBounds(15, 15, 650, 415);
 
 	        content.add(label);
 	       	
-	       	JLabel lblLoading = new JLabel("");
-	       	lblLoading.setIcon(new ImageIcon(UiSplashScreenEvaluationFrame.class.getResource("/project/speech/userInterface/load.GIF")));
-	       	label.add(lblLoading);
-	       	lblLoading.setFont(new Font("SansSerif", Font.PLAIN, 16));
-	       	lblLoading.setBounds(170, 251, 200, 30);
-	       	
 	       	JLabel lblgif = new JLabel("");
 	       	lblgif.setIcon(new ImageIcon(UiSplashScreenEvaluationFrame.class.getResource("/project/speech/userInterface/evaluategif.GIF")));
-	       	lblgif.setBounds(40, 280, 190, 50);
+	       	lblgif.setBounds(130, 360, 190, 50);
 	       	getContentPane().add(lblgif);
 	       	
 	       	JLabel label_1 = new JLabel("");
 	       	label_1.setIcon(new ImageIcon(UiSplashScreenEvaluationFrame.class.getResource("/project/speech/userInterface/evaluategif.GIF")));
-	       	label_1.setBounds(225, 280, 200, 50);
+	       	label_1.setBounds(315, 360, 200, 50);
 	       	getContentPane().add(label_1);
+	       	
+	       	JLabel lblLoading = new JLabel("");
+	       	getContentPane().add(lblLoading);
+	       	lblLoading.setIcon(new ImageIcon(UiSplashScreenEvaluationFrame.class.getResource("/project/speech/userInterface/load.GIF")));
+	       	lblLoading.setFont(new Font("SansSerif", Font.PLAIN, 16));
+	       	lblLoading.setBounds(225, 315, 200, 30);
 
 	        
 	        content.setBorder(BorderFactory.createLineBorder(Globals.turquoise, 5));
@@ -115,7 +137,16 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 		  private JWindow guiWindow2;
 		  
 		  private String model;
-		  
+  /**
+   * Constructor of swing worker thread class setting up parameters for model1
+   * @param speechDatabaseDirectory Path of the speech database to be used
+   * @param asrPropertiesObj Speech recognition properties containing dictionary, languge and acoustic models
+   * @param selectedPerformanceList List of performance metrics selected
+   * @param selectedAsrList List of Speech recognition engines selected
+   * @param algorithmSelected Alignment algorithm selected for evaluation
+   * @param guiWindow guiWindow consisting of all the properties
+   * @param model1model is set as Recognise and evaluate
+   */
 	    public MySwingWorker(File speechDatabaseDirectory,
 				ArrayList<UiAsrProperties> asrPropertiesObj,
 				ArrayList<String> selectedPerformanceList,
@@ -128,7 +159,15 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 			guiWindow1 = guiWindow;
 			model = model1;
 		}
-	    
+/**
+ * Constructor of swing worker thread class setting up parameters for model2
+* @param referenceFilePath Path of the reference file
+ * @param hypothesisFilePath Path of the hypothesis file
+ * @param performanceListSelected List of performance metrics selected
+ * @param algorithmSelected Alignment algorithm selected for evaluation
+ * @param guiWindow guiWindow consisting of all the properties
+ * @param model2 model is set as Performance calculator
+ */
 	    public MySwingWorker(File referenceFilePath, File hypothesisFilePath, ArrayList<String> performanceListSelected , String algorithmSelected , JWindow guiWindow, String model2) {
 	    	  referenceFilePath2 = referenceFilePath;
 			  hypothesisFilePath2 = hypothesisFilePath;
@@ -144,7 +183,7 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 	    	EvaluationSystem.recogniseAndEvaluate(speechDatabaseDirectory1,  asrPropertiesObj1,  selectedPerformanceList1 ,  selectedAsrList1, algorithmSelected1);
 			}
 			else if (model == UiSplashScreenEvaluationFrame.model2){
-				EvaluationSystem.textEvaluation(referenceFilePath2, hypothesisFilePath2, performanceListSelected2, algorithmSelected2);
+				EvaluationSystem.performanceCalculation(referenceFilePath2, hypothesisFilePath2, performanceListSelected2, algorithmSelected2);
 			}
 	    	return "Completed";
 	    }
@@ -170,7 +209,14 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 			}
 	    	} 
 	    }
-	    
+
+ /**
+ * This function writes the whole result file, appending the alignment result with the performance metric result 	    
+ * @param modelOutputFilePath Path of file containing performance metrics result
+ * @param modelAlignmentFilePath Path of file containing alignment output
+ * @param completeOutputFilePath Path of file containing whole result alignment and performance metrics
+ * @throws IOException
+ */
 		public void openUpResult(String modelOutputFilePath, String modelAlignmentFilePath, String completeOutputFilePath) throws IOException {
 
 			File currentFile = new File("");
@@ -188,7 +234,7 @@ public class UiSplashScreenEvaluationFrame extends JWindow {
 			FileUtils.write(file3, file2Str, true); // true for append
 			
 			String newnewPath = currentPath+"/"+completeOutputFilePath;
-			UiResultFrame1.initialise(newnewPath);
+			UiResultFrame.initialise(newnewPath);
 		}
 		
 }

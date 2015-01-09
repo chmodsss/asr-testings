@@ -23,7 +23,7 @@ public class UiInstructionFrame1 extends JFrame {
 	private JLabel lblPerformance2;
 
 	public UiInstructionFrame1() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionFrame1.class.getResource("/project/speech/userInterface/logo.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionFrame1.class.getResource("/project/speech/userInterface/logo.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(200, 200, 1024, 708);
 		contentPane = new JPanel();

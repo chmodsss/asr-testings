@@ -1,9 +1,14 @@
 \section{project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame Class Reference}
 \label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame}\index{project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame@{project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame}}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf set\+Chk\+All\+False} (Item\+Event e)
+\end{DoxyCompactItemize}
 \subsection*{Static Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static J\+Button {\bf btn\+Get\+Result2}
+static J\+Button {\bf btn\+Save\+Result2}
 \end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -35,13 +40,19 @@ static J\+Panel {\bf panel\+Evaluate}
 \item 
 static J\+Panel {\bf panel\+Criteria}
 \item 
+static J\+Check\+Box {\bf chk\+Percent\+Hits}
+\item 
+static J\+Check\+Box {\bf chk\+Percent\+Subs}
+\item 
+static J\+Check\+Box {\bf chk\+Percent\+Del}
+\item 
+static J\+Check\+Box {\bf chk\+Percent\+Ins}
+\item 
+static J\+Check\+Box {\bf chk\+M\+E\+R}
+\item 
+static J\+Check\+Box {\bf chk\+W\+I\+L}
+\item 
 static J\+Check\+Box {\bf chk\+W\+E\+R}
-\item 
-static J\+Check\+Box {\bf chk\+S\+E\+R}
-\item 
-static J\+Check\+Box {\bf chk\+M\+U\+C}
-\item 
-static J\+Check\+Box {\bf chk\+A\+C\+C}
 \item 
 static J\+Check\+Box {\bf chk\+A\+L\+L}
 \item 
@@ -59,8 +70,6 @@ static String {\bf hypothesis\+Chooser\+Title} = \char`\"{}Select the hypothesis
 \item 
 static String {\bf algorithm\+Selected} = null
 \item 
-static String {\bf output\+File\+Path} = \char`\"{}/comparison\+Output/comparison-\/result.\+txt\char`\"{}
-\item 
 static boolean {\bf reference\+File\+Loaded} = false
 \item 
 static boolean {\bf hypothesis\+File\+Loaded} = false
@@ -77,6 +86,21 @@ static J\+Label {\bf lbl\+Hypothesis\+File}
 \end{DoxyCompactItemize}
 
 
+\subsection{Member Function Documentation}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!set\+Chk\+All\+False@{set\+Chk\+All\+False}}
+\index{set\+Chk\+All\+False@{set\+Chk\+All\+False}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{set\+Chk\+All\+False}]{\setlength{\rightskip}{0pt plus 5cm}static void project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+set\+Chk\+All\+False (
+\begin{DoxyParamCaption}
+\item[{Item\+Event}]{e}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a2525a727a4f3f87a2e7a36c81d5806a6}
+Resets check button and evaluate button 
+\begin{DoxyParams}{Parameters}
+{\em e} & when the event retuns 2, the item is selected \\
+\hline
+\end{DoxyParams}
+
+
 \subsection{Member Data Documentation}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!algorithm\+Selected@{algorithm\+Selected}}
 \index{algorithm\+Selected@{algorithm\+Selected}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
@@ -87,9 +111,6 @@ static J\+Label {\bf lbl\+Hypothesis\+File}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!btn\+Evaluate@{btn\+Evaluate}}
 \index{btn\+Evaluate@{btn\+Evaluate}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{btn\+Evaluate}]{\setlength{\rightskip}{0pt plus 5cm}J\+Button project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+btn\+Evaluate\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_afabdd1d6178dae46108d551a433577b4}
-\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!btn\+Get\+Result2@{btn\+Get\+Result2}}
-\index{btn\+Get\+Result2@{btn\+Get\+Result2}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
-\subsubsection[{btn\+Get\+Result2}]{\setlength{\rightskip}{0pt plus 5cm}J\+Button project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+btn\+Get\+Result2\hspace{0.3cm}{\ttfamily [static]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a33dfbab7a9978d733763335fa81a54cf}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!btn\+Hyp\+File@{btn\+Hyp\+File}}
 \index{btn\+Hyp\+File@{btn\+Hyp\+File}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{btn\+Hyp\+File}]{\setlength{\rightskip}{0pt plus 5cm}J\+Button project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+btn\+Hyp\+File\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a619ca946b5f6c2fd8e2a44c27190c68b}
@@ -99,21 +120,33 @@ static J\+Label {\bf lbl\+Hypothesis\+File}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!btn\+Ref\+File@{btn\+Ref\+File}}
 \index{btn\+Ref\+File@{btn\+Ref\+File}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{btn\+Ref\+File}]{\setlength{\rightskip}{0pt plus 5cm}J\+Button project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+btn\+Ref\+File\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_addd42f344a7e95cecd6ee7197e05c10a}
-\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+A\+C\+C@{chk\+A\+C\+C}}
-\index{chk\+A\+C\+C@{chk\+A\+C\+C}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
-\subsubsection[{chk\+A\+C\+C}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+A\+C\+C\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_ad3a1f7dd6de5bd03255a3999fce09965}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!btn\+Save\+Result2@{btn\+Save\+Result2}}
+\index{btn\+Save\+Result2@{btn\+Save\+Result2}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{btn\+Save\+Result2}]{\setlength{\rightskip}{0pt plus 5cm}J\+Button project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+btn\+Save\+Result2\hspace{0.3cm}{\ttfamily [static]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a86cdae563a01613399144c0abb0d8a40}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+A\+L\+L@{chk\+A\+L\+L}}
 \index{chk\+A\+L\+L@{chk\+A\+L\+L}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{chk\+A\+L\+L}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+A\+L\+L\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_aa0ec6fbac69e323485d27a4da1c58548}
-\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+M\+U\+C@{chk\+M\+U\+C}}
-\index{chk\+M\+U\+C@{chk\+M\+U\+C}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
-\subsubsection[{chk\+M\+U\+C}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+M\+U\+C\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a8a0e9654a6703b57f4e1e633e316d252}
-\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+S\+E\+R@{chk\+S\+E\+R}}
-\index{chk\+S\+E\+R@{chk\+S\+E\+R}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
-\subsubsection[{chk\+S\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+S\+E\+R\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a89d69a5e49005b52b713473438b600ba}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+M\+E\+R@{chk\+M\+E\+R}}
+\index{chk\+M\+E\+R@{chk\+M\+E\+R}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{chk\+M\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+M\+E\+R\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a355c0aae8d44d8651b85a4ff0cb7249e}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+Percent\+Del@{chk\+Percent\+Del}}
+\index{chk\+Percent\+Del@{chk\+Percent\+Del}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{chk\+Percent\+Del}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+Percent\+Del\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a4d6a0944152a70f72c4c469c2829bb2b}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+Percent\+Hits@{chk\+Percent\+Hits}}
+\index{chk\+Percent\+Hits@{chk\+Percent\+Hits}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{chk\+Percent\+Hits}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+Percent\+Hits\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_af3e49db7819c5c11373432d2a68b615b}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+Percent\+Ins@{chk\+Percent\+Ins}}
+\index{chk\+Percent\+Ins@{chk\+Percent\+Ins}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{chk\+Percent\+Ins}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+Percent\+Ins\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a2b9d0639838a51729cc7882ca356140b}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+Percent\+Subs@{chk\+Percent\+Subs}}
+\index{chk\+Percent\+Subs@{chk\+Percent\+Subs}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{chk\+Percent\+Subs}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+Percent\+Subs\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_ac9b5e9f729db17ad5c43adcf65576b43}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+W\+E\+R@{chk\+W\+E\+R}}
 \index{chk\+W\+E\+R@{chk\+W\+E\+R}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{chk\+W\+E\+R}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+W\+E\+R\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_ad32014a882b0a9ac15c83877d4916c08}
+\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!chk\+W\+I\+L@{chk\+W\+I\+L}}
+\index{chk\+W\+I\+L@{chk\+W\+I\+L}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
+\subsubsection[{chk\+W\+I\+L}]{\setlength{\rightskip}{0pt plus 5cm}J\+Check\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+chk\+W\+I\+L\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a993dfe7de4e0b8824ec2fb37df34e76c}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!combo\+Algorithm@{combo\+Algorithm}}
 \index{combo\+Algorithm@{combo\+Algorithm}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{combo\+Algorithm}]{\setlength{\rightskip}{0pt plus 5cm}J\+Combo\+Box project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+combo\+Algorithm\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_ae250bd7aaa7b16eb9e9d18ed22e2a4d1}
@@ -144,9 +177,6 @@ static J\+Label {\bf lbl\+Hypothesis\+File}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!lbl\+Reference\+File@{lbl\+Reference\+File}}
 \index{lbl\+Reference\+File@{lbl\+Reference\+File}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{lbl\+Reference\+File}]{\setlength{\rightskip}{0pt plus 5cm}J\+Label project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+lbl\+Reference\+File\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a3390dceff7b02e3b8d2f1f6ea753c6c7}
-\index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!output\+File\+Path@{output\+File\+Path}}
-\index{output\+File\+Path@{output\+File\+Path}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
-\subsubsection[{output\+File\+Path}]{\setlength{\rightskip}{0pt plus 5cm}String project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+output\+File\+Path = \char`\"{}/comparison\+Output/comparison-\/result.\+txt\char`\"{}\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_a4a25cf4ccfcfe3dc57ff03b2b4d5f4ea}
 \index{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}!panel\+Criteria@{panel\+Criteria}}
 \index{panel\+Criteria@{panel\+Criteria}!project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame@{project\+::speech\+::user\+Interface\+::\+Ui\+Method2\+Frame}}
 \subsubsection[{panel\+Criteria}]{\setlength{\rightskip}{0pt plus 5cm}J\+Panel project.\+speech.\+user\+Interface.\+Ui\+Method2\+Frame.\+panel\+Criteria\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}\label{classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame_afd7351cd0822ba72beaf599f72a58dce}

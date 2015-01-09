@@ -18,8 +18,8 @@ public class UiMainFrame extends JFrame {
 	private static JPanel contentPane;
 	private static JButton btnModel1;
 	private static JButton btnModel2;
-	private static JButton btnInstructions;
 	private static JLabel lblAsrTool;
+	private static JButton btnAbout;
 	
 	public static void main(String[] args) {
 		try{
@@ -27,8 +27,8 @@ public class UiMainFrame extends JFrame {
 		FileUtils.deleteDirectory(Globals.recognitionOutputDirectory);}
 		if (Globals.RecogniseAndEvaluateResultDirectory.exists()){
 		FileUtils.deleteDirectory(Globals.RecogniseAndEvaluateResultDirectory);}
-		if (Globals.textEvaluationResultDirectory.exists()){
-		FileUtils.deleteDirectory(Globals.textEvaluationResultDirectory);}
+		if (Globals.performanceCalculationResultDirectory.exists()){
+		FileUtils.deleteDirectory(Globals.performanceCalculationResultDirectory);}
 		}
 		catch(Exception e){
 		}
@@ -49,7 +49,7 @@ public class UiMainFrame extends JFrame {
 
 	public UiMainFrame() {
 	
-		setIconImage(Toolkit.getDefaultToolkit().getImage(UiMainFrame.class.getResource("/project/speech/userInterface/logo.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UiMainFrame.class.getResource("/project/speech/userInterface/logo.png")));
 		setTitle("ASR evaluation tool");
 		setResizable(false);
 		frameMain = new JFrame();
@@ -57,7 +57,6 @@ public class UiMainFrame extends JFrame {
 		frameMain.getContentPane().setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
 		    public void windowClosing(WindowEvent we) {
@@ -81,84 +80,101 @@ public class UiMainFrame extends JFrame {
 		}
 		
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 587, 366);
+		setBounds(100, 100, 954, 597);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		//*************************** Buttons ***************************//
-		
-		// Model1 button
-		btnModel1 = new JButton("Recognise & Evaluate");
-		btnModel1.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnModel1.setBounds(70, 224, 180, 50);
-		contentPane.add(btnModel1);
-		
-		// Model2 button
-		btnModel2 = new JButton("Performance calculator");
-		btnModel2.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnModel2.setBounds(323, 224, 180, 50);
-		contentPane.add(btnModel2);
-		
-		// Instruction button
-		btnInstructions = new JButton("Instructions");
-		btnInstructions.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		btnInstructions.setBounds(191, 143, 180, 50);
-		contentPane.add(btnInstructions);
-
 		//*************************** Labels ***************************//
 		
 		// Asr label
-		lblAsrTool = new JLabel("ASR evaluation tool");
+		lblAsrTool = new JLabel("ASR Evaluation toolkit v1.0");
 		lblAsrTool.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAsrTool.setFont(new Font("Century Gothic", Font.PLAIN, 30));
-		lblAsrTool.setBounds(119, 48, 384, 39);
+		lblAsrTool.setBounds(322, 50, 405, 39);
 		contentPane.add(lblAsrTool);
 		
 		
 		JLabel lblLogo = new JLabel();
-		lblLogo.setIcon(new ImageIcon(UiMainFrame.class.getResource("/project/speech/userInterface/logo_reduced.jpg")));
-		lblLogo.setBounds(52, 48, 95, 50);
+		lblLogo.setIcon(new ImageIcon(UiMainFrame.class.getResource("/project/speech/userInterface/logoreduced.png")));
+		lblLogo.setBounds(209, 22, 120, 111);
 		contentPane.add(lblLogo);
-
 		
-		//********************** Action listeners **********************//
+		JPanel panel = new JPanel();
+		panel.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel.setBounds(50, 222, 400, 233);
+		contentPane.add(panel);
+		panel.setLayout(null);
 		
-		// Model1 action
-		btnModel1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				UiMethod1Frame.initialize();
-				UiMethod1Frame.frame1.setVisible(true);
-			}
-
-
-		});
-		
-		// Model2 action
-		btnModel2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				UiMethod2Frame.initialize();
-				UiMethod2Frame.frame2.setVisible(true);
-			}
-		});
-
-		// Instruction action
-		btnInstructions.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				UiInstructionMainFrame frameInstructionMain = new UiInstructionMainFrame();
-				frameInstructionMain.setTitle("Instructions...");
-				frameInstructionMain.setVisible(true);
-				frameInstructionMain.setResizable(false);
-			}
-		});
+		JLabel lblNewLabel = new JLabel("<html> <b>Recognise & Evaluate :</b> <br>\r\nChoose this model, if you have to recognise speeches and evaluate them using the CmuSphinx and iSpeech<br>\r\nOther speech recognition SDK using java implementation could also be added <br>\r\n<b>Requirements</b>\r\n<ul>\r\n<li> Speech database (speech files and respective transcription) </li>\r\n<li> Speech recognition SDK in java </li>\r\n<li> Dictionary, languae and acoustic models </li>\r\n</ul>\r\n</html>");
+		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		lblNewLabel.setBounds(10, 11, 380, 210);
+		panel.add(lblNewLabel);
+				
+				JPanel panel_1 = new JPanel();
+				panel_1.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+				panel_1.setBounds(500, 222, 400, 233);
+				contentPane.add(panel_1);
+				panel_1.setLayout(null);
+				
+				JLabel lblNewLabel_1 = new JLabel("<html>\r\n<b>Performance calculator :</b><br>\r\nChoose this model, if you have to evaluate the following two files<br>\r\n<ul>\r\n<li> Reference file (transcription) </li>\r\n<li> Hypothesis file (recognition output) </li>\r\n</ul>\r\nThe evaluation is carried out with respect to the corresponding lines in the files. ie, the first line of the reference file is compared with the first line of the hypothesis file.\r\n</html>");
+				lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+				lblNewLabel_1.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+				lblNewLabel_1.setBounds(10, 11, 380, 211);
+				panel_1.add(lblNewLabel_1);
+				
+						//*************************** Buttons ***************************//
+						
+						// Model1 button
+						btnModel1 = new JButton("Recognise & Evaluate");
+						btnModel1.setBounds(160, 160, 180, 35);
+						contentPane.add(btnModel1);
+						btnModel1.setFont(new Font("SansSerif", Font.PLAIN, 14));
+						
+						// Model2 button
+						btnModel2 = new JButton("Performance calculator");
+						btnModel2.setBounds(610, 160, 180, 35);
+						contentPane.add(btnModel2);
+						btnModel2.setFont(new Font("SansSerif", Font.PLAIN, 14));
+						
+						btnAbout = new JButton("About");
+						btnAbout.setFont(new Font("SansSerif", Font.PLAIN, 14));
+						btnAbout.setBounds(428, 496, 100, 30);
+						contentPane.add(btnAbout);
+						
+						btnAbout.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								UiAboutMainFrame frameInstructionMain = new UiAboutMainFrame();
+								frameInstructionMain.setTitle("Instructions...");
+								frameInstructionMain.setVisible(true);
+								frameInstructionMain.setResizable(false);
+							}
+						});
+						
+						// Model2 action
+						btnModel2.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								setVisible(false);
+								UiMethod2Frame.initialize();
+								UiMethod2Frame.frame2.setVisible(true);
+							}
+						});
+						
+								
+								//********************** Action listeners **********************//
+								
+								// Model1 action
+								btnModel1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										setVisible(false);
+										UiMethod1Frame.initialize();
+										UiMethod1Frame.frame1.setVisible(true);
+									}
+						
+						
+								});
 		
 	}
-
-/*
-	public void CloseFrame() {
-		super.setVisible(false);
-	}*/
 }

@@ -23,6 +23,10 @@ public class Globals {
 	
 	public static String hsdiWeightsAlgorithm = "HSDI weights";
 	
+	public static int defaultSubstitutionPenalty = 100;
+	public static int defaultDeletionPenalty = 75;
+	public static int defaultInsertionPenalty = 75;
+	
 	public static String hitsPercentUI = "%Hits";
 	public static String subsPercentUI = "%Subs";
 	public static String delPercentUI = "%Del";
@@ -44,25 +48,25 @@ public class Globals {
 	
 	public static File recognitionOutputDirectory = new File("asrOutput");
 	public static File RecogniseAndEvaluateResultDirectory = new File("evaluationOutput");
-	public static File textEvaluationResultDirectory = new File ("comparisonOutput");
+	public static File performanceCalculationResultDirectory = new File ("comparisonOutput");
 	
 	public static String recogniseAndEvaluateResultFileName = "evaluation-result";
-	public static String textEvaluationResultFileName = "comparison-result";
+	public static String performanceCalculationResultFileName = "comparison-result";
 	
 	public static String recogniseAndEvaluateAlignmentFileName = "evaluation-alignment";
-	public static String textEvaluationAlignmentFileName = "comparison-alignment";
+	public static String performanceCalculationAlignmentFileName = "comparison-alignment";
 	
 	public static String recogniseAndEvaluateCompleteOutputFileName = "evaluation-complete-output";
 	public static String textEvaluationCompleteOutputFileName = "comparison-complete-output";
 	
 	public static String model1ResultFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateResultFileName;
-	public static String model2ResultFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationResultFileName;
+	public static String model2ResultFilePath = "/"+performanceCalculationResultDirectory+"/"+performanceCalculationResultFileName;
 	
 	public static String model1AlignmentFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateAlignmentFileName;
-	public static String model2AlignmentFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationAlignmentFileName;
+	public static String model2AlignmentFilePath = "/"+performanceCalculationResultDirectory+"/"+performanceCalculationAlignmentFileName;
 	
 	public static String model1CompleteOutputFilePath = "/"+RecogniseAndEvaluateResultDirectory+"/"+recogniseAndEvaluateCompleteOutputFileName;
-	public static String model2CompleteOutputFilePath = "/"+textEvaluationResultDirectory+"/"+textEvaluationCompleteOutputFileName;
+	public static String model2CompleteOutputFilePath = "/"+performanceCalculationResultDirectory+"/"+textEvaluationCompleteOutputFileName;
 	
 	public static File currentFile = new File("");
 	public static String currentPath = currentFile.getAbsolutePath() + "/";

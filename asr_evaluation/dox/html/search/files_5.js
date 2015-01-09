@@ -8,8 +8,6 @@ var searchData=
   ['uimethod1frame_2ejava',['UiMethod1Frame.java',['../_ui_method1_frame_8java.html',1,'']]],
   ['uimethod2frame_2ejava',['UiMethod2Frame.java',['../_ui_method2_frame_8java.html',1,'']]],
   ['uiresultframe1_2ejava',['UiResultFrame1.java',['../_ui_result_frame1_8java.html',1,'']]],
-  ['uiresultframe2_2ejava',['UiResultFrame2.java',['../_ui_result_frame2_8java.html',1,'']]],
   ['uisplashscreenevaluationframe_2ejava',['UiSplashScreenEvaluationFrame.java',['../_ui_splash_screen_evaluation_frame_8java.html',1,'']]],
-  ['uisplashscreenloadingframe_2ejava',['UiSplashScreenLoadingFrame.java',['../_ui_splash_screen_loading_frame_8java.html',1,'']]],
-  ['uitest_2ejava',['UiTest.java',['../_ui_test_8java.html',1,'']]]
+  ['uisplashscreenloadingframe_2ejava',['UiSplashScreenLoadingFrame.java',['../_ui_splash_screen_loading_frame_8java.html',1,'']]]
 ];

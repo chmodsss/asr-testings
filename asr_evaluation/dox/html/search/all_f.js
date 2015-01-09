@@ -1,8 +1,9 @@
 var searchData=
 [
+  ['s',['S',['../classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#acd23e570e3851f632593e187a85c289d',1,'project::speech::evaluationsystem::EvaluationSystem']]],
   ['select',['select',['../classproject_1_1speech_1_1global_access_1_1_globals.html#ad9a0511e4080ef8a6a2b355957dd8c34',1,'project::speech::globalAccess::Globals']]],
   ['serialversionuid',['serialVersionUID',['../classproject_1_1speech_1_1user_interface_1_1_ui_main_frame.html#a2ba293118fadf5f21e124e52fe5f1de0',1,'project::speech::userInterface::UiMainFrame']]],
-  ['serui',['serUI',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a6f70ceaa9025accc398213714621e697',1,'project::speech::globalAccess::Globals']]],
+  ['setchkallfalse',['setChkAllFalse',['../classproject_1_1speech_1_1user_interface_1_1_ui_method1_frame.html#af9162ce02571cda6d56895961cfe589f',1,'project.speech.userInterface.UiMethod1Frame.setChkAllFalse()'],['../classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame.html#a2525a727a4f3f87a2e7a36c81d5806a6',1,'project.speech.userInterface.UiMethod2Frame.setChkAllFalse()']]],
   ['setdefaultcolor',['setDefaultColor',['../classproject_1_1speech_1_1user_interface_1_1_ui_method1_frame.html#aeeebf6c05a90aeff887cd1f13a1b026f',1,'project::speech::userInterface::UiMethod1Frame']]],
   ['setselectedasr',['setSelectedAsr',['../classproject_1_1speech_1_1user_interface_1_1_ui_method1_frame.html#ae03378a39e12031c14ac99e338dc5c04',1,'project::speech::userInterface::UiMethod1Frame']]],
   ['setuiacoustic',['setUiAcoustic',['../classproject_1_1speech_1_1user_interface_1_1_ui_asr_properties.html#ab2bb11978f492dd86eacc5689887cc08',1,'project::speech::userInterface::UiAsrProperties']]],
@@ -21,5 +22,7 @@ var searchData=
   ['statechanged',['stateChanged',['../classproject_1_1speech_1_1asrengines_1_1_ispeech_engine.html#ad998ce02c0960c2f8a87483e8a4ecf6f',1,'project::speech::asrengines::IspeechEngine']]],
   ['stoptimemscmu',['stopTimeMsCmu',['../classproject_1_1speech_1_1asrengines_1_1_cmu_sphinx_engine.html#aabf9829bf6dc76e5b03ad6036f6d8f2a',1,'project::speech::asrengines::CmuSphinxEngine']]],
   ['stoptimemsispeech',['stopTimeMsIspeech',['../classproject_1_1speech_1_1asrengines_1_1_ispeech_engine.html#a273e73123f75fdb60e6e8a96448aa686',1,'project::speech::asrengines::IspeechEngine']]],
+  ['subspeechfolder',['subSpeechFolder',['../classproject_1_1speech_1_1evaluator_1_1_evaluation_aligner.html#acf0f88f7641719735ac04b8aa711e446',1,'project::speech::evaluator::EvaluationAligner']]],
+  ['subspercentui',['subsPercentUI',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a4141fd0971d8db1479122fce63d7e242',1,'project::speech::globalAccess::Globals']]],
   ['substitutions',['substitutions',['../classproject_1_1speech_1_1evaluator_1_1_evaluator_result.html#a641b78e9746bdb5b5b4f9fb86fb7685e',1,'project::speech::evaluator::EvaluatorResult']]]
 ];

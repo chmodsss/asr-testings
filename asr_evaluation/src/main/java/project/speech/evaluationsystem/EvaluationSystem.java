@@ -53,6 +53,11 @@ public class EvaluationSystem {
 	private static boolean asr1Status = false;
 	private static boolean asr2Status = false;
 
+/**
+ * This functions receives a path and returns the files or folders in the path
+ * @param currentPath Path of current folder
+ * @return list of files or folders present inside the currentPath
+ */
 	public static ArrayList<File> readDirectory(File currentPath) {
 		ArrayList<File> folders = new ArrayList<File>();
 		for (File eachPath : currentPath.listFiles()) {
@@ -61,11 +66,77 @@ public class EvaluationSystem {
 		return folders;
 	}
 	
-	public static void textEvaluation (File tempReferenceFile, File tempHypothesisFile , ArrayList<String> performanceList , String algorithmSelected) throws IOException {
+	/**
+	 * This function writes the results generated in a file
+	 * @param fileToWriteResult File where the result should be written
+	 * @param tempSelectedPerformanceList List of performance metrics needed as the result
+	 * @param eresult evaluation result containing hits, substitutions, deletions, insertions and number of words
+	 * @param tempHypothesisFileName Name of the hypothesis text file written by the speech recognition engine(contains name of the speech recognition system)
+	 * @param subSpeechFolder Name of the folder, where the reference and hypothesis text are stored
+	 * @throws IOException when the file cannot be written
+	 */
+		public static void writeResultFile (File fileToWriteResult , ArrayList<String> tempSelectedPerformanceList , EvaluatorResult eresult , String tempHypothesisFileName, File subSpeechFolder) throws IOException{
+			
+			PrintWriter evaluationResultFileWriter = new PrintWriter(new FileWriter((fileToWriteResult),true));
+			if (!evaluationResultFileOpened){
+				evaluationResultFileWriter.print("\n [[[---------------------  Performance measures  ---------------------]]]  ");
+				evaluationResultFileOpened = true;
+			}
+			H = eresult.getHits();
+			S = eresult.getSubstitutions();
+			D = eresult.getDeletions();
+			I = eresult.getInsertions();
+			N = eresult.getNumberOfWords();
+			
+			percentHits = ( H/(float)N ) * 100;
+			percentSubstitutions = ( S/(float)N ) * 100;
+			percentDeletions = ( D/(float)N ) * 100;
+			percentInsertions = ( I/(float)N ) * 100;
+			wer = (S+D+I) / (float)(H+S+D);
+			mer = (S+D+I) / (float)(H+S+D+I);
+			wil = 1- ( (H/(float)(H+S+D)) * (H/(float)(H+S+I)) );
+			
+			evaluationResultFileWriter.print("\n\n <<---------------------- "+FilenameUtils.removeExtension(tempHypothesisFileName)+"  ---------------------->> \n ");
+			evaluationResultFileWriter.print("\n ==================== "+ subSpeechFolder.getName() +" ==================== \n\n ");
 
-		if (Globals.textEvaluationResultDirectory.exists()){
-			FileUtils.deleteDirectory(Globals.textEvaluationResultDirectory);
-			Globals.textEvaluationResultDirectory.mkdirs();
+			if (tempSelectedPerformanceList.contains(Globals.hitsPercentUI))
+				evaluationResultFileWriter.println("\t"+" Percent of correct words (% Hits) [0-100] : " + percentHits);
+			
+			if (tempSelectedPerformanceList.contains(Globals.subsPercentUI))
+				evaluationResultFileWriter.println("\t"+" Percent of substituted words (% Subs) [0-100] : " + percentSubstitutions);
+			
+			if (tempSelectedPerformanceList.contains(Globals.delPercentUI))
+				evaluationResultFileWriter.println("\t"+" Percent of deleted words (% Del) [0-100] : " + percentDeletions);
+			
+			if (tempSelectedPerformanceList.contains(Globals.insPercentUI))
+				evaluationResultFileWriter.println("\t"+" Percent of inserted words (% Ins) [0-100] : " + percentInsertions);
+			
+			if (tempSelectedPerformanceList.contains(Globals.werUI))
+				evaluationResultFileWriter.println("\t"+" Word error rate (WER) : " + wer);
+			
+			if (tempSelectedPerformanceList.contains(Globals.merUI))
+				evaluationResultFileWriter.println("\t"+" Match error rate (MER) [0-1] : " + mer);
+			
+			if (tempSelectedPerformanceList.contains(Globals.wilUI))
+				evaluationResultFileWriter.println("\t"+" Word Information Lost (WIL) [0-1] : " + wil);
+			
+			evaluationResultFileWriter.close();
+		}
+	
+/**
+ * This function is called when the second model is chosen, which only needs reference text file and hypothesis text file to make the alignment process 
+ * and determine the performance measures
+ * @param tempReferenceFile Reference text file for evaluation
+ * @param tempHypothesisFile Hypothesis text file to be evaluated
+ * @param performanceList List of performance metrics needed as the result
+ * @param algorithmSelected alignment algorithm selected
+ * @throws IOException if the result directory could not be deleted
+ */
+	public static void performanceCalculation (File tempReferenceFile, File tempHypothesisFile , ArrayList<String> performanceList , String algorithmSelected) throws IOException {
+
+		if (Globals.performanceCalculationResultDirectory.exists()){
+			FileUtils.deleteDirectory(Globals.performanceCalculationResultDirectory);
+			Globals.performanceCalculationResultDirectory.mkdirs();
 		}
 		
 		if (algorithmSelected.equals(Globals.hsdiWeightsAlgorithm)){
@@ -74,8 +145,8 @@ public class EvaluationSystem {
 		
 		File currentFile = new File("");
 		String currentPath = currentFile.getAbsolutePath();
-		String newPath = currentPath +"/"+ Globals.textEvaluationResultDirectory;
-		File textEvaluationResultFile = new File(newPath, Globals.textEvaluationResultFileName);
+		String newPath = currentPath +"/"+ Globals.performanceCalculationResultDirectory;
+		File textEvaluationResultFile = new File(newPath, Globals.performanceCalculationResultFileName);
 			hypothesisFileName = tempHypothesisFile.getName();
 			File noNameFolder = new File("Results");
 			writeResultFile(textEvaluationResultFile, performanceList, eResult, hypothesisFileName, noNameFolder);
@@ -83,54 +154,15 @@ public class EvaluationSystem {
 		}
 	}
 	
-	public static void writeResultFile (File fileToWriteResult , ArrayList<String> tempSelectedPerformanceList , EvaluatorResult eresult , String tempHypothesisFileName, File subSpeechFolder) throws IOException{
-		
-		PrintWriter evaluationResultFileWriter = new PrintWriter(new FileWriter((fileToWriteResult),true));
-		if (!evaluationResultFileOpened){
-			evaluationResultFileWriter.print("\n [[[---------------------  Performance measures  ---------------------]]]  ");
-			evaluationResultFileOpened = true;
-		}
-		H = eresult.getHits();
-		S = eresult.getSubstitutions();
-		D = eresult.getDeletions();
-		I = eresult.getInsertions();
-		N = eresult.getNumberOfWords();
-		
-		percentHits = ( H/(float)N ) * 100;
-		percentSubstitutions = ( S/(float)N ) * 100;
-		percentDeletions = ( D/(float)N ) * 100;
-		percentInsertions = ( I/(float)N ) * 100;
-		wer = (S+D+I) / (float)(H+S+D);
-		mer = (S+D+I) / (float)(H+S+D+I);
-		wil = 1- ( (H/(float)(H+S+D)) * (H/(float)(H+S+I)) );
-		
-		evaluationResultFileWriter.print("\n\n <<---------------------- "+FilenameUtils.removeExtension(tempHypothesisFileName)+"  ---------------------->> \n ");
-		evaluationResultFileWriter.print("\n ==================== "+ subSpeechFolder.getName() +" ==================== \n\n ");
-
-		if (tempSelectedPerformanceList.contains(Globals.hitsPercentUI))
-			evaluationResultFileWriter.println("\t"+" Percent of correct words (% Hits) [0-100] : " + percentHits);
-		
-		if (tempSelectedPerformanceList.contains(Globals.subsPercentUI))
-			evaluationResultFileWriter.println("\t"+" Percent of substituted words (% Subs) [0-100] : " + percentSubstitutions);
-		
-		if (tempSelectedPerformanceList.contains(Globals.delPercentUI))
-			evaluationResultFileWriter.println("\t"+" Percent of deleted words (% Del) [0-100] : " + percentDeletions);
-		
-		if (tempSelectedPerformanceList.contains(Globals.insPercentUI))
-			evaluationResultFileWriter.println("\t"+" Percent of inserted words (% Ins) [0-100] : " + percentInsertions);
-		
-		if (tempSelectedPerformanceList.contains(Globals.werUI))
-			evaluationResultFileWriter.println("\t"+" Word error rate (WER) : " + wer);
-		
-		if (tempSelectedPerformanceList.contains(Globals.merUI))
-			evaluationResultFileWriter.println("\t"+" Match error rate (MER) [0-1] : " + mer);
-		
-		if (tempSelectedPerformanceList.contains(Globals.wilUI))
-			evaluationResultFileWriter.println("\t"+" Word Information Lost (WIL) [0-1] : " + wil);
-		
-		evaluationResultFileWriter.close();
-	}
-
+/**
+ * 
+ * @param speechDatabaseDirectory Directory where the speech folders are stored
+ * @param asrPropertiesObj List containing the paths of dictionary, language and acoustic files
+ * @param selectedPerformanceList List of performance metrics needed as the result
+ * @param selectedAsrList list containing the speech recognition engines selected for evaluation
+ * @param algorithmSelected Alignment algorithm selected
+ * @throws Exception when the result directory could not be deleted
+ */
 	public static void recogniseAndEvaluate(File speechDatabaseDirectory, ArrayList<UiAsrProperties> asrPropertiesObj, ArrayList<String> selectedPerformanceList , ArrayList<String> selectedAsrList, String algorithmSelected) throws Exception {
 		
 		if (! isEvalutionDirectoryOccured){

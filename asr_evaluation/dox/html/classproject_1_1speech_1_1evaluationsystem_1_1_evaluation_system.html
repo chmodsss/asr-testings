@@ -103,8 +103,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:aaae715bc2fca5fa37798f0a677e64ba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a172dd41dd0f7e3074fcc2fbdabeeb8fa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a172dd41dd0f7e3074fcc2fbdabeeb8fa">textEvaluation</a> (File tempReferenceFile, File tempHypothesisFile, ArrayList&lt; String &gt; performanceList, String algorithmSelected)  throws IOException </td></tr>
 <tr class="separator:a172dd41dd0f7e3074fcc2fbdabeeb8fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8c4907331d3c6b93fc2974cd8e1e2da"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#ad8c4907331d3c6b93fc2974cd8e1e2da">writeResultFile</a> (File fileToWriteResult, ArrayList&lt; String &gt; tempSelectedPerformanceList, <a class="el" href="classproject_1_1speech_1_1evaluator_1_1_evaluator_result.html">EvaluatorResult</a> eresult, String tempHypothesisFileName)  throws IOException</td></tr>
-<tr class="separator:ad8c4907331d3c6b93fc2974cd8e1e2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67e234cf7ded6396321404adf332fa68"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a67e234cf7ded6396321404adf332fa68">writeResultFile</a> (File fileToWriteResult, ArrayList&lt; String &gt; tempSelectedPerformanceList, <a class="el" href="classproject_1_1speech_1_1evaluator_1_1_evaluator_result.html">EvaluatorResult</a> eresult, String tempHypothesisFileName, File subSpeechFolder)  throws IOException</td></tr>
+<tr class="separator:a67e234cf7ded6396321404adf332fa68"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a5dfddc5e18caf53a3499fd612b742f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a2a5dfddc5e18caf53a3499fd612b742f">recogniseAndEvaluate</a> (File speechDatabaseDirectory, ArrayList&lt; <a class="el" href="classproject_1_1speech_1_1user_interface_1_1_ui_asr_properties.html">UiAsrProperties</a> &gt; asrPropertiesObj, ArrayList&lt; String &gt; selectedPerformanceList, ArrayList&lt; String &gt; selectedAsrList, String algorithmSelected)  throws Exception </td></tr>
 <tr class="separator:a2a5dfddc5e18caf53a3499fd612b742f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -134,18 +134,36 @@ Static Private Attributes</h2></td></tr>
 <tr class="separator:a552182596e97833a25bb5ccaacde1798"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a758a0ea7cdae028f4014095cf9b81043"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a758a0ea7cdae028f4014095cf9b81043">timeTakenCount</a></td></tr>
 <tr class="separator:a758a0ea7cdae028f4014095cf9b81043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26caac13eb994f620f63a74dc586c4df"><td class="memItemLeft" align="right" valign="top">static String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a26caac13eb994f620f63a74dc586c4df">asrUsed</a></td></tr>
+<tr class="separator:a26caac13eb994f620f63a74dc586c4df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb77e10f87a0874bcb7ae4961b58bc20"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#acb77e10f87a0874bcb7ae4961b58bc20">H</a></td></tr>
+<tr class="separator:acb77e10f87a0874bcb7ae4961b58bc20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd23e570e3851f632593e187a85c289d"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#acd23e570e3851f632593e187a85c289d">S</a></td></tr>
+<tr class="separator:acd23e570e3851f632593e187a85c289d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a319882b5c20b02604ad8e2b67401b5fc"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a319882b5c20b02604ad8e2b67401b5fc">D</a></td></tr>
+<tr class="separator:a319882b5c20b02604ad8e2b67401b5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf7f77a61b2b40cbc730f75cee13de48"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#adf7f77a61b2b40cbc730f75cee13de48">I</a></td></tr>
+<tr class="separator:adf7f77a61b2b40cbc730f75cee13de48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4993160be4b5107cf915579ac0b17891"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a4993160be4b5107cf915579ac0b17891">N</a></td></tr>
+<tr class="separator:a4993160be4b5107cf915579ac0b17891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35ed5dfdfa74334ef52a49112766dc18"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a35ed5dfdfa74334ef52a49112766dc18">percentHits</a></td></tr>
+<tr class="separator:a35ed5dfdfa74334ef52a49112766dc18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ac08b306bc851ec21e5dab85a440418"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a9ac08b306bc851ec21e5dab85a440418">percentSubstitutions</a></td></tr>
+<tr class="separator:a9ac08b306bc851ec21e5dab85a440418"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bf558aad63763241b0be092648d68df"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a4bf558aad63763241b0be092648d68df">percentDeletions</a></td></tr>
+<tr class="separator:a4bf558aad63763241b0be092648d68df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7410a726b46774a49749c708a92e66f"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#ac7410a726b46774a49749c708a92e66f">percentInsertions</a></td></tr>
+<tr class="separator:ac7410a726b46774a49749c708a92e66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b99fea095474bfb0ba8e39eb14da1b"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a90b99fea095474bfb0ba8e39eb14da1b">wer</a></td></tr>
 <tr class="separator:a90b99fea095474bfb0ba8e39eb14da1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19d032d88976d8ef0c7247d7aada07e7"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a19d032d88976d8ef0c7247d7aada07e7">mar</a></td></tr>
-<tr class="separator:a19d032d88976d8ef0c7247d7aada07e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa426bcb1fd2281aaa5b8b8aa1a207e09"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#aa426bcb1fd2281aaa5b8b8aa1a207e09">recall</a></td></tr>
-<tr class="separator:aa426bcb1fd2281aaa5b8b8aa1a207e09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81d79c34714b54dadfbfdb4749b1a8dd"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a81d79c34714b54dadfbfdb4749b1a8dd">mer</a></td></tr>
+<tr class="separator:a81d79c34714b54dadfbfdb4749b1a8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac98b7bfe554c1c57b7a0abca5bbbd2ee"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#ac98b7bfe554c1c57b7a0abca5bbbd2ee">wil</a></td></tr>
+<tr class="separator:ac98b7bfe554c1c57b7a0abca5bbbd2ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5675aa2deffb523f7e29d83ceb9479d5"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a5675aa2deffb523f7e29d83ceb9479d5">evaluationResultFileOpened</a> = false</td></tr>
 <tr class="separator:a5675aa2deffb523f7e29d83ceb9479d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42f7b13f8455e1666206a4f5c0d5bbd9"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a42f7b13f8455e1666206a4f5c0d5bbd9">isEvalutionDirectoryOccured</a> = false</td></tr>
 <tr class="separator:a42f7b13f8455e1666206a4f5c0d5bbd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac927ae855111d4f827001cc53f9fa63e"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#ac927ae855111d4f827001cc53f9fa63e">isTextEvaluationResultDirectoryOccured</a> = false</td></tr>
-<tr class="separator:ac927ae855111d4f827001cc53f9fa63e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d453984ce988f95b4f86b0ea22bfbad"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a4d453984ce988f95b4f86b0ea22bfbad">asr1Status</a> = false</td></tr>
 <tr class="separator:a4d453984ce988f95b4f86b0ea22bfbad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adef9e24a7166f2b890112ae65533f075"><td class="memItemLeft" align="right" valign="top">static boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#adef9e24a7166f2b890112ae65533f075">asr2Status</a> = false</td></tr>
@@ -173,6 +191,13 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This functions receives a path and returns the files or folders in the path </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">currentPath</td><td>Path of current folder </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>list of files or folders present inside the currentPath </dd></dl>
 
 </div>
 </div>
@@ -225,6 +250,22 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">speechDatabaseDirectory</td><td>Directory where the speech folders are stored </td></tr>
+    <tr><td class="paramname">asrPropertiesObj</td><td>List containing the paths of dictionary, language and acoustic files </td></tr>
+    <tr><td class="paramname">selectedPerformanceList</td><td>List of performance metrics needed as the result </td></tr>
+    <tr><td class="paramname">selectedAsrList</td><td>list containing the speech recognition engines selected for evaluation </td></tr>
+    <tr><td class="paramname">algorithmSelected</td><td>Alignment algorithm selected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td>when the result directory could not be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -271,10 +312,25 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function is called when the second model is chosen, which only needs reference text file and hypothesis text file to make the alignment process and determine the performance measures </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tempReferenceFile</td><td>Reference text file for evaluation </td></tr>
+    <tr><td class="paramname">tempHypothesisFile</td><td>Hypothesis text file to be evaluated </td></tr>
+    <tr><td class="paramname">performanceList</td><td>List of performance metrics needed as the result </td></tr>
+    <tr><td class="paramname">algorithmSelected</td><td>alignment algorithm selected </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td>if the result directory could not be deleted </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a class="anchor" id="ad8c4907331d3c6b93fc2974cd8e1e2da"></a>
+<a class="anchor" id="a67e234cf7ded6396321404adf332fa68"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -303,7 +359,13 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>tempHypothesisFileName</em>&#160;</td>
+          <td class="paramname"><em>tempHypothesisFileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">File&#160;</td>
+          <td class="paramname"><em>subSpeechFolder</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -317,6 +379,22 @@ Static Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function writes the results generated in a file </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fileToWriteResult</td><td>File where the result should be written </td></tr>
+    <tr><td class="paramname">tempSelectedPerformanceList</td><td>List of performance metrics needed as the result </td></tr>
+    <tr><td class="paramname">eresult</td><td>evaluation result containing hits, substitutions, deletions, insertions and number of words </td></tr>
+    <tr><td class="paramname">tempHypothesisFileName</td><td>Name of the hypothesis text file written by the speech recognition engine(contains name of the speech recognition system) </td></tr>
+    <tr><td class="paramname">subSpeechFolder</td><td>Name of the folder, where the reference and hypothesis text are stored </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">IOException</td><td>when the file cannot be written </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -350,6 +428,26 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">boolean project.speech.evaluationsystem.EvaluationSystem.asr2Status = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a26caac13eb994f620f63a74dc586c4df"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">String project.speech.evaluationsystem.EvaluationSystem.asrUsed</td>
         </tr>
       </table>
   </td>
@@ -441,6 +539,26 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a319882b5c20b02604ad8e2b67401b5fc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int project.speech.evaluationsystem.EvaluationSystem.D</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a5675aa2deffb523f7e29d83ceb9479d5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -450,6 +568,26 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">boolean project.speech.evaluationsystem.EvaluationSystem.evaluationResultFileOpened = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acb77e10f87a0874bcb7ae4961b58bc20"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int project.speech.evaluationsystem.EvaluationSystem.H</td>
         </tr>
       </table>
   </td>
@@ -501,6 +639,26 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="adf7f77a61b2b40cbc730f75cee13de48"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int project.speech.evaluationsystem.EvaluationSystem.I</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a42f7b13f8455e1666206a4f5c0d5bbd9"></a>
 <div class="memitem">
 <div class="memproto">
@@ -521,7 +679,7 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac927ae855111d4f827001cc53f9fa63e"></a>
+<a class="anchor" id="a81d79c34714b54dadfbfdb4749b1a8dd"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -529,7 +687,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">boolean project.speech.evaluationsystem.EvaluationSystem.isTextEvaluationResultDirectoryOccured = false</td>
+          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.mer</td>
         </tr>
       </table>
   </td>
@@ -541,7 +699,7 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a19d032d88976d8ef0c7247d7aada07e7"></a>
+<a class="anchor" id="a4993160be4b5107cf915579ac0b17891"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -549,7 +707,7 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.mar</td>
+          <td class="memname">int project.speech.evaluationsystem.EvaluationSystem.N</td>
         </tr>
       </table>
   </td>
@@ -561,7 +719,7 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa426bcb1fd2281aaa5b8b8aa1a207e09"></a>
+<a class="anchor" id="a4bf558aad63763241b0be092648d68df"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -569,7 +727,67 @@ Static Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.recall</td>
+          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.percentDeletions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a35ed5dfdfa74334ef52a49112766dc18"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.percentHits</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac7410a726b46774a49749c708a92e66f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.percentInsertions</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9ac08b306bc851ec21e5dab85a440418"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.percentSubstitutions</td>
         </tr>
       </table>
   </td>
@@ -630,6 +848,26 @@ Static Private Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">ArrayList&lt;File&gt; project.speech.evaluationsystem.EvaluationSystem.referenceFilesList = new ArrayList&lt;File&gt;()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acd23e570e3851f632593e187a85c289d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int project.speech.evaluationsystem.EvaluationSystem.S</td>
         </tr>
       </table>
   </td>
@@ -721,13 +959,33 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac98b7bfe554c1c57b7a0abca5bbbd2ee"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double project.speech.evaluationsystem.EvaluationSystem.wil</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>project/speech/evaluationsystem/<a class="el" href="_evaluation_system_8java.html">EvaluationSystem.java</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Dec 30 2014 17:50:53 for ASRevaluationtoolkit by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 5 2015 23:41:47 for ASRevaluationtoolkit by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9
 </small></address>

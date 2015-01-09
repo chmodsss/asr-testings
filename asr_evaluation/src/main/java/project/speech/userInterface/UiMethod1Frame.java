@@ -95,7 +95,7 @@ public class UiMethod1Frame {
 	static void initialize() {
 
 		frame1 = new JFrame();
-		frame1.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod1Frame.class.getResource("/project/speech/userInterface/logo.jpg")));
+		frame1.setIconImage(Toolkit.getDefaultToolkit().getImage(UiMethod1Frame.class.getResource("/project/speech/userInterface/logo.png")));
 		frame1.setBounds(100, 100, 801, 419);
 		frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame1.getContentPane().setLayout(null);
@@ -738,7 +738,10 @@ public class UiMethod1Frame {
 		});			
 	}
 	
-	//=========== Resets check button and evaluate button ===========//
+/**
+ * Resets check button and evaluate button
+ * @param e when the event retuns 2, the item is selected
+ */
 	public static void setChkAllFalse(ItemEvent e){
 		btnEvaluate.setEnabled(false);
 		if (e.getStateChange() == 2) {
@@ -746,7 +749,11 @@ public class UiMethod1Frame {
 		}
 	}
 
-	//=========== Returns a relative path ===========//
+/**
+ * Function returns a relative path of the file with respect to the current directory
+ * @param file File for which the path is needed
+ * @return Returns a relative path
+ */
 	public static File getRelativePath(File file) {
 		String filePath = file.getAbsolutePath();
 		File currentFolder = new java.io.File("");
@@ -758,14 +765,19 @@ public class UiMethod1Frame {
 			return null;
 	}
 
-	//=========== Set colors to buttons ===========//
+/**
+ * Set colour to buttons
+ */
 	public static void setDefaultColor() {
 		btnDictionaryModel.setBackground(null);
 		btnAcousticModel.setBackground(null);
 		btnLanguageModel.setBackground(null);
 	}
 
-	//=========== Returns selected asr system ===========//
+/**
+ * Returns selected asr system
+ * @param received Sets the string to the selected asr system
+ */
 	public static void setSelectedAsr(String received) {
 		currentAsrSelected = received;
 	}

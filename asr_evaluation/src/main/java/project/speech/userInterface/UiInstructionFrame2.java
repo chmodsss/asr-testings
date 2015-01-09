@@ -18,9 +18,8 @@ public class UiInstructionFrame2 extends JFrame {
 	private JLabel label;
 	private JLabel lblwerWord;
 
-
 	public UiInstructionFrame2() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionFrame2.class.getResource("/project/speech/userInterface/logo.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UiInstructionFrame2.class.getResource("/project/speech/userInterface/logo.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 802, 653);
 		contentPane = new JPanel();

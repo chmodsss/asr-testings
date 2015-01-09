@@ -9,9 +9,8 @@ import project.speech.globalAccess.Globals;
 @SuppressWarnings("serial")
 public class UiSplashScreenLoadingFrame extends JWindow {
 	
-	private int threadCount = 50;
-	static JProgressBar progressBar;
-	
+	private int threadCount = 2;
+
 	    public UiSplashScreenLoadingFrame() {
 			try {
 				UIManager.setLookAndFeel(Globals.theme1);
@@ -19,17 +18,16 @@ public class UiSplashScreenLoadingFrame extends JWindow {
 				e.printStackTrace();
 			}
 	    	showSplash();
-	    	System.out.println("Entered splash eval frame...");
 	    	}
-	    
-	    public void showSplash() {
+
+	    public void showSplash()  {
 
 	    	JPanel content = (JPanel) getContentPane();
 	        content.setBackground(Color.white);
 
 	        // Set the window's bounds, centering the window
-	        int width = 500;
-	        int height = 350;
+	        int width = 650;
+	        int height = 400;
 	        Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 	        int x = (screen.width - width) / 2;
 	        int y = (screen.height - height) / 2;
@@ -37,19 +35,10 @@ public class UiSplashScreenLoadingFrame extends JWindow {
 	        getContentPane().setLayout(null);
 
 	        // Build the splash screen
-	        JLabel label = new JLabel(new ImageIcon(getClass().getResource("/project/speech/userInterface/splashscreenimg.png")));
-	        label.setBounds(0, 0, 500, 350);
+	        JLabel label = new JLabel(new ImageIcon(UiSplashScreenLoadingFrame.class.getResource("/project/speech/userInterface/splashscreenimg.png")));
+	        label.setBounds(10, 37, 637, 328);
 
 	        content.add(label);
-	        
-	        progressBar = new JProgressBar();
-	        getContentPane().add(progressBar);
-	        progressBar.setBounds(75, 300, 345, 20);
-	        
-	        JLabel lblLoading = new JLabel("Loading . . .");
-	        lblLoading.setFont(new Font("Cambria", Font.PLAIN, 14));
-	        lblLoading.setBounds(200, 275, 80, 20);
-	       	label.add(lblLoading);
 
 	        
 	        content.setBorder(BorderFactory.createLineBorder(Globals.turquoise, 5));
@@ -59,17 +48,12 @@ public class UiSplashScreenLoadingFrame extends JWindow {
 	        toFront();
 	        setAlwaysOnTop(true);
 	        
-
-	        try{
-	        	for (int i=0 ; i < progressBar.getMaximum() ; i++){
-	        		UiSplashScreenLoadingFrame.progressBar.setStringPainted(true);
-	        		UiSplashScreenLoadingFrame.progressBar.setForeground(Globals.turquoise);
-	        		UiSplashScreenLoadingFrame.progressBar.setValue(i);
-					Thread.sleep(threadCount);
-	        	}
-	        	setVisible(false);
-				} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
+	        try {
+				Thread.sleep(threadCount);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        setVisible(false);
 	        }
 }

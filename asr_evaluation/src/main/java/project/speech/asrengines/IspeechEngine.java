@@ -29,6 +29,13 @@ public class IspeechEngine implements SpeechRecognizerEvent {
 		production = true; // Your API key server access, false is development and true is production
 	}
 
+/**
+ * This function initiates speech recognition in ispeech and calls FileScripter.writer to write the output in a file
+* @param currentSpeechFolder Directory containing the audio as well as reference text files
+ * @param currentSpeechFiles Lower directory containing only the list of audio files
+ * @param referenceFile The reference file respective to the speech files being recognized
+ * @throws Exception
+ */
 	public void runFile(File currentSpeechFolder,File currentSpeechFiles, File referenceFile) throws Exception {
 		FileReader frIspeech = new FileReader();
 		FileDetails fdIspeech = frIspeech.reader(currentSpeechFiles);
@@ -51,7 +58,7 @@ public class IspeechEngine implements SpeechRecognizerEvent {
 		timeDiffIspeech = (stopTimeMsIspeech - startTimeMsIspeech)/1000;
 		FileScripter.writer(Globals.asr2SelectionNameUI, currentSpeechFolder, referenceFile, outputFileNamesIspeechList, outputSentencesIspeechList , timeDiffIspeech);	
 	}
-	
+
 	// @Override
 	public void stateChanged(int event, int freeFormValue,	Exception lastException) {
 		  if(event == SpeechRecognizerEvent.RECORDING_ERROR);

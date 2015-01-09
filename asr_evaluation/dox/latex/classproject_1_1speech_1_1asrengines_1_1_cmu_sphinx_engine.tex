@@ -40,6 +40,15 @@ double {\bf time\+Difference\+Cmu}
 \item[{File}]{language}
 \end{DoxyParamCaption}
 )}\label{classproject_1_1speech_1_1asrengines_1_1_cmu_sphinx_engine_ac04cdd3d9210ae02721ae4ba14613437}
+This constructor assigns the model files for configuration 
+\begin{DoxyParams}{Parameters}
+{\em dictionary} & Dictionary file \\
+\hline
+{\em acoustic} & Acoustic file \\
+\hline
+{\em language} & Language file \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Member Function Documentation}
@@ -50,6 +59,9 @@ double {\bf time\+Difference\+Cmu}
 {}
 \end{DoxyParamCaption}
 )}\label{classproject_1_1speech_1_1asrengines_1_1_cmu_sphinx_engine_acb47e9ad30dd074fc7af81ac8d960d4c}
+\begin{DoxyReturn}{Returns}
+object of Configuration containing the dictionary, language and acoustic models 
+\end{DoxyReturn}
 \index{project\+::speech\+::asrengines\+::\+Cmu\+Sphinx\+Engine@{project\+::speech\+::asrengines\+::\+Cmu\+Sphinx\+Engine}!recognize\+Speech@{recognize\+Speech}}
 \index{recognize\+Speech@{recognize\+Speech}!project\+::speech\+::asrengines\+::\+Cmu\+Sphinx\+Engine@{project\+::speech\+::asrengines\+::\+Cmu\+Sphinx\+Engine}}
 \subsubsection[{recognize\+Speech}]{\setlength{\rightskip}{0pt plus 5cm}void project.\+speech.\+asrengines.\+Cmu\+Sphinx\+Engine.\+recognize\+Speech (
@@ -60,6 +72,22 @@ double {\bf time\+Difference\+Cmu}
 \item[{File}]{reference\+File}
 \end{DoxyParamCaption}
 ) throws I\+O\+Exception}\label{classproject_1_1speech_1_1asrengines_1_1_cmu_sphinx_engine_a3854f5db6fba1cfac9334fcded812bcb}
+This function initiates speech recognition in cmusphinx and calls \doxyref{File\+Scripter.\+writer}{p.}{classproject_1_1speech_1_1reader_and_writer_1_1_file_scripter_a41e17c95c8990c0259cc1b1fb9eaf902} to write the generated output in a file 
+\begin{DoxyParams}{Parameters}
+{\em config} & configuration object containing all the model files \\
+\hline
+{\em current\+Speech\+Folder} & Directory containing the audio as well as reference text files \\
+\hline
+{\em current\+Speech\+Files} & Lower directory containing only the list of audio files \\
+\hline
+{\em reference\+File} & The reference file respective to the speech files being recognized \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em I\+O\+Exception} & \\
+\hline
+\end{DoxyExceptions}
 
 
 \subsection{Member Data Documentation}

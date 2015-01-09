@@ -8,8 +8,6 @@ var searchData=
   ['uimethod1frame',['UiMethod1Frame',['../classproject_1_1speech_1_1user_interface_1_1_ui_method1_frame.html',1,'project::speech::userInterface']]],
   ['uimethod2frame',['UiMethod2Frame',['../classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame.html',1,'project::speech::userInterface']]],
   ['uiresultframe1',['UiResultFrame1',['../classproject_1_1speech_1_1user_interface_1_1_ui_result_frame1.html',1,'project::speech::userInterface']]],
-  ['uiresultframe2',['UiResultFrame2',['../classproject_1_1speech_1_1user_interface_1_1_ui_result_frame2.html',1,'project::speech::userInterface']]],
   ['uisplashscreenevaluationframe',['UiSplashScreenEvaluationFrame',['../classproject_1_1speech_1_1user_interface_1_1_ui_splash_screen_evaluation_frame.html',1,'project::speech::userInterface']]],
-  ['uisplashscreenloadingframe',['UiSplashScreenLoadingFrame',['../classproject_1_1speech_1_1user_interface_1_1_ui_splash_screen_loading_frame.html',1,'project::speech::userInterface']]],
-  ['uitest',['UiTest',['../classproject_1_1speech_1_1user_interface_1_1_ui_test.html',1,'project::speech::userInterface']]]
+  ['uisplashscreenloadingframe',['UiSplashScreenLoadingFrame',['../classproject_1_1speech_1_1user_interface_1_1_ui_splash_screen_loading_frame.html',1,'project::speech::userInterface']]]
 ];

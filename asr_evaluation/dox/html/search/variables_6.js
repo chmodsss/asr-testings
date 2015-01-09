@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['hits',['hits',['../classproject_1_1speech_1_1evaluator_1_1_evaluation_aligner.html#a1fbe7bc0dc88b2525876f00e6f3dbfe5',1,'project.speech.evaluator.EvaluationAligner.hits()'],['../classproject_1_1speech_1_1evaluator_1_1_evaluator_result.html#a78b20dcb2f8b01b66cb5cc4805ae52b5',1,'project.speech.evaluator.EvaluatorResult.hits()']]],
+  ['h',['H',['../classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#acb77e10f87a0874bcb7ae4961b58bc20',1,'project::speech::evaluationsystem::EvaluationSystem']]],
+  ['hits',['hits',['../classproject_1_1speech_1_1evaluator_1_1_evaluator_result.html#a78b20dcb2f8b01b66cb5cc4805ae52b5',1,'project::speech::evaluator::EvaluatorResult']]],
+  ['hitspercentui',['hitsPercentUI',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a7afdc4966ff4fce9d3be8fb8ecfcc737',1,'project::speech::globalAccess::Globals']]],
+  ['hsdiweightsalgorithm',['hsdiWeightsAlgorithm',['../classproject_1_1speech_1_1global_access_1_1_globals.html#a7af033661694298fe51cff0cb3096ab4',1,'project::speech::globalAccess::Globals']]],
   ['hypothesischoosertitle',['hypothesisChooserTitle',['../classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame.html#a3cae87c069abf63968ea3f032de23445',1,'project::speech::userInterface::UiMethod2Frame']]],
   ['hypothesisfile',['hypothesisFile',['../classproject_1_1speech_1_1evaluationsystem_1_1_evaluation_system.html#a0018e6d5657144f108f0b442016410cd',1,'project::speech::evaluationsystem::EvaluationSystem']]],
   ['hypothesisfilechooser',['hypothesisFileChooser',['../classproject_1_1speech_1_1user_interface_1_1_ui_method2_frame.html#ae93579cfd991d9eb132d31b89369b537',1,'project::speech::userInterface::UiMethod2Frame']]],
