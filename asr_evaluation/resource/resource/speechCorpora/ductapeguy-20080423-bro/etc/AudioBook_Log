@@ -1,0 +1,28 @@
+VoxForge speech segmentation script log
+
+Changes made to Text file
+-------------------------
+changed URL LIBRIVOX.ORG to:LIBRIVOX DOT ORG;
+
+Words with period (".") removed from body of word - please review:
+------------------------------------------------------------------
+
+Words with single quotes (no change made to word, unless otherwise stated) - please review:
+-------------------------------------------------------------------------------------------
+
+Missing Words that need to be added to Pronunciation Dictionary, with suggested pronunciations:
+-----------------------------------------------------------------------------------------------
+UNWEARIED       [UNWEARIED]     ax n w ih r iy d
+VIOL            [VIOL]          v ay ax l
+
+Audio Segmenting summary:
+-------------------------
+Settings:average_sentence_length: 15
+         max_sentence_length: 20
+         pause length: 3000000 (0.3 seconds)
+
+Sentence Length: min:bro0004: 8
+                 max:bro0003: 18
+
+Prompt lines with more than max_sentence_length of 20 words:
+	none
